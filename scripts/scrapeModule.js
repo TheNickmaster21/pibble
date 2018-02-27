@@ -3,9 +3,11 @@ function doStuffWithDocument(innerHTML) {
 }
 
 setInterval(function () {
-    chrome.tabs.query({active: true}, function (tabs) {
-        if (tabs[0]) {
-            chrome.tabs.sendMessage(tabs[0].id, 'get_current_document_inner_HTML', doStuffWithDocument);
+    let activeTabFilter = {active: true};
+    chrome.tabs.query(activeTabFilter, function (tabs) {
+        let activeTab = tabs[o];
+        if (activeTab) {
+            chrome.tabs.sendMessage(activeTab.id, 'get_current_document_inner_HTML', doStuffWithDocument);
         }
     });
 }, 5000);
