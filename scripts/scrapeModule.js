@@ -3,7 +3,7 @@ function doStuffWithDocument(innerHTML) {
 }
 
 setInterval(function () {
-    let activeTabFilter = {active: true};
+    let activeTabFilter = {active: true, currentWindow: true};
     chrome.tabs.query(activeTabFilter, function (tabs) {
         let activeTab = tabs[o];
         if (activeTab) {
