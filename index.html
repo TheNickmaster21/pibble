@@ -2,18 +2,22 @@
 <head>
     <link href="/global.css" rel="stylesheet">
     <script src="/index.js"></script>
+
+    <!-- Bootstrap 4 stuff -->
+    <script src="/resources/jquery-3.3.1.js"></script>
+    <link rel="stylesheet" href="/resources/bootstrap-4.0.0-dist/css/bootstrap.min.css"/>
+    <script src="/resources/popper.min.js"></script>
+    <script src="/resources/bootstrap-4.0.0-dist/js/bootstrap.min.js"></script>
 </head>
 <body>
 <div class="popupBody">
-    <h1>Pibble</h1>
-
-    <a href="/dataSets/view.html">Data Sets</a> <br/>
-    <hr color="black"/>
-    <a href="/ruleSets/view.html">Rule Sets</a> <br/>
-    <hr color="black"/>
-    <a href="/export/index.html">Export Data</a> <br/>
-    <hr color="black"/>
-    <a href="/scrape/index.html">Scrape Data</a>
+    <h1>pibble</h1>
+    <div class="list-group">
+        <a href="/dataSets/view.html" class="list-group-item">Data Sets</a>
+        <a href="/ruleSets/view.html" class="list-group-item">Rule Sets</a>
+        <a href="/export/index.html" class="list-group-item">Export Data</a>
+        <a href="/scrape/index.html" class="list-group-item">Scrape Data</a>
+    </div>
 </div>
 </body>
 </html>

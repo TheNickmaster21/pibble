@@ -1,12 +1,35 @@
 <html>
 <head>
     <link href="/global.css" rel="stylesheet">
+
+    <!-- Bootstrap 4 stuff -->
+    <script src="/resources/jquery-3.3.1.js"></script>
+    <link rel="stylesheet" href="/resources/bootstrap-4.0.0-dist/css/bootstrap.min.css"/>
+    <script src="/resources/popper.min.js"></script>
+    <link href="/resources/open-iconic/font/css/open-iconic-bootstrap.css" rel="stylesheet">
+    <script src="/resources/bootstrap-4.0.0-dist/js/bootstrap.min.js"></script>
 </head>
 <body>
 <div class="popupBody">
-    <h2>Data Sets</h2>
+    <h3>
+        <a href="/index.html">
+            <span class="oi oi-chevron-left"></span>
+        </a>
+        Data Sets
+    </h3>
 
-    <a href="/index.html">Home</a>
+    <div class="dropdown show">
+        <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Dropdown link
+        </a>
+
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+            <a class="dropdown-item" href="#">Action</a>
+            <a class="dropdown-item" href="#">Another action</a>
+            <a class="dropdown-item" href="#">Something else here</a>
+        </div>
+    </div>
+    <br/><br/><br/><br/><br/><br/>
 </div>
 </body>
 </html>
