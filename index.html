@@ -1,23 +1,29 @@
 <html>
 <head>
-    <link href="/global.css" rel="stylesheet">
-    <script src="/index.js"></script>
-
     <!-- Bootstrap 4 stuff -->
     <script src="/resources/jquery-3.3.1.js"></script>
     <link rel="stylesheet" href="/resources/bootstrap-4.0.0-dist/css/bootstrap.min.css"/>
     <script src="/resources/popper.min.js"></script>
+    <link href="/resources/open-iconic/font/css/open-iconic-bootstrap.css" rel="stylesheet">
     <script src="/resources/bootstrap-4.0.0-dist/js/bootstrap.min.js"></script>
+
+    <link href="/global.css" rel="stylesheet">
+    <script src="/index.js"></script>
 </head>
 <body>
 <div class="popupBody">
-    <h1>pibble</h1>
-    <div class="list-group">
-        <a href="/dataSets/view.html" class="list-group-item">Data Sets</a>
-        <a href="/ruleSets/view.html" class="list-group-item">Rule Sets</a>
-        <a href="/export/index.html" class="list-group-item">Export Data</a>
-        <a href="/scrape/index.html" class="list-group-item">Scrape Data</a>
+    <header>
+        <h1><img class="logo" src="images/icon360.png"/>pibble</h1>
+    </header>
+
+    <div class="btn-group-vertical main-menu">
+        <a href="/scrape/index.html" class="btn">Collect Data</a>
+        <a href="/dataSets/view.html" class="btn">Edit Data Sets</a>
+        <a href="/ruleSets/view.html" class="btn">Edit Rule Sets</a>
+        <a href="/export/index.html" class="btn main-menu-last">View/Export Data</a>
     </div>
+
+    <br/><br/><br/><br/>
 </div>
 </body>
 </html>

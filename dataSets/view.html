@@ -1,34 +1,66 @@
 <html>
 <head>
-    <link href="/global.css" rel="stylesheet">
-
     <!-- Bootstrap 4 stuff -->
     <script src="/resources/jquery-3.3.1.js"></script>
-    <link rel="stylesheet" href="/resources/bootstrap-4.0.0-dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="/resources/bootstrap-4.0.0-dist/css/bootstrap.css"/>
     <script src="/resources/popper.min.js"></script>
     <link href="/resources/open-iconic/font/css/open-iconic-bootstrap.css" rel="stylesheet">
     <script src="/resources/bootstrap-4.0.0-dist/js/bootstrap.min.js"></script>
+
+    <link href="/global.css" rel="stylesheet">
+    <script src="dataSetController.js"></script>
 </head>
 <body>
 <div class="popupBody">
-    <h3>
-        <a href="/index.html">
-            <span class="oi oi-chevron-left"></span>
+    <!-- Title of view -->
+    <header>
+    <nav class="navbar navbar-dark bg-dark">
+        <a class="navbar-brand" href="/index.html">
+            <span class="oi oi-home"></span>
         </a>
-        Data Sets
-    </h3>
+        <span class="navbar-brand">Data Sets</span>
+    </nav>
+    </header>
 
+    <!-- Dropdown menu -->
+    <div class="row">
+        <div class="col-4">
+            <label for="mySelect"></label><select id="mySelect">
+                <option>Apple</option>
+                <option>Orange</option>
+                <option>Pineapple</option>
+                <option>Banana</option>
+            </select>
+        </div>
+        <div class="col-8">
+            <button type="button" class="btn btn-primary btn-block">New Data Set</button>
+        </div>
+    </div>
+    <!--
     <div class="dropdown show">
         <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             Dropdown link
         </a>
 
         <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-            <a class="dropdown-item" href="#">Action</a>
-            <a class="dropdown-item" href="#">Another action</a>
-            <a class="dropdown-item" href="#">Something else here</a>
+            <a class="dropdown-item" href="#">Data Set 1</a>
+            <a class="dropdown-item" href="#">Data Set 2</a>
+            <a class="dropdown-item" href="#">Data Set 3</a>
         </div>
     </div>
+    -->
+
+    <br/> <!-- Break -->
+
+    <!-- View toggle -->
+    <div class="btn-group d-flex" role="group" aria-label="First group">
+        <button type="button" class="btn btn-secondary w-100">Modify Data Set</button>
+        <button type="button" class="btn btn-secondary w-100">Edit Data</button>
+    </div>
+
+
+
+    <!-- Random breaks -->
     <br/><br/><br/><br/><br/><br/>
 </div>
 </body>
