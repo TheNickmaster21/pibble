@@ -12,23 +12,27 @@ a {
     -webkit-text-decoration-skip: objects;
 }
 
-a :hover {
+a:hover {
     color: black;
 }
 
 header {
     background: rgba(225,225,225,.8) url("images/binding-light.png") repeat;
     text-align: center;
+    padding-right: 5px;
+}
+
+header a {
+    margin-top: 5px;
+    margin-left: 5px;
+    float: left;
+    font-size: larger;
+    position: relative;
+
 }
 
 .logo {
     height: .8em;
-}
-
-.navbar{
-    text-align: center;
-    display:inline-block;
-    float:none;
 }
 
 .main-menu {
@@ -41,10 +45,10 @@ header {
     border-bottom: 1px solid black;
 }
 
-.main-menu a :hover {
-    background-color: rgba(225,225,225,.4);
+.main-menu a:hover {
+    background-color: rgba(0,0,0,.12);
 }
 
-.btn .main-menu-last {
+.btn.main-menu-last {
     border-bottom: transparent;
 }
