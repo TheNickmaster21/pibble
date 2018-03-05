@@ -8,22 +8,32 @@ function sendQueryMessageToActiveTabWithCallback(message, callback) {
     });
 }
 
+function getDataFromNodesWithRule(nodes, rule) {
+
+}
+
 function useRuleSetToScrapeFromJQueryNodes(ruleSet, nodes) {
-    console.log('Nodes: ' + nodes);
+    let results = [];
+    for (let i = 0; i < ruleSet.rules.length; i++) {
+        let rule = ruleSet.rules[i];
+        results.push(getDataFromNodesWithRule(nodes, rule))
+    }
+    return results;
 }
 
 function scrapeDataFromCurrentPage(ruleSet) {
+    //todo validate ruleSet
+
     sendQueryMessageToActiveTabWithCallback(
         'get_current_document_inner_HTML',
         function (innerHTML) {
-            console.log('Me got: ' + innerHTML);
             let nodes = $.parseHTML(innerHTML);
-            useRuleSetToScrapeFromJQueryNodes(ruleSet, nodes);
+            let results = useRuleSetToScrapeFromJQueryNodes(ruleSet, nodes);
+            //todo do something with the results
         }
     );
 }
 
 setInterval(function () {
-    console.log("wat");
     scrapeDataFromCurrentPage({});
 }, 1000);
