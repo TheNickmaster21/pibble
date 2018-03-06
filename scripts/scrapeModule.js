@@ -8,34 +8,39 @@ function sendQueryMessageToActiveTabWithCallback(message, callback) {
     });
 }
 
-function getDataFromNodesWithRule(nodes, rule) {
+function getDataFromNodesWithRule($htmlData, rule) {
 
 }
 
-function useRuleSetToScrapeFromJQueryNodes(ruleSet, nodes) {
+function useRuleSetToScrapeFromJQueryNodes(ruleSet, $htmlData) {
     let results = [];
+    debugger;//$htmlData.find("td[data-reactid|='Profit']")
     for (let i = 0; i < ruleSet.rules.length; i++) {
         let rule = ruleSet.rules[i];
-        results.push(getDataFromNodesWithRule(nodes, rule))
+        results.push(getDataFromNodesWithRule($htmlData, rule))
     }
     return results;
 }
 
-function scrapeDataFromCurrentPage(ruleSet) {
-    //todo validate ruleSet
+function scrapeDataFromCurrentPage(ruleSet, callback) {
+    if (!ruleSet || !ruleSet.rules) {
+        return false;
+    }
 
     sendQueryMessageToActiveTabWithCallback(
         'get_current_document_inner_HTML',
         function (innerHTML) {
-            let nodes = $.parseHTML(innerHTML);
-            let results = useRuleSetToScrapeFromJQueryNodes(ruleSet, nodes);
-            //todo do something with the results
+            let $htmlData = $(innerHTML);
+            let results = useRuleSetToScrapeFromJQueryNodes(ruleSet, $htmlData);
+            callback(results);
         }
     );
+
+    return true;
 }
 
-chrome.runtime.onMessage.addListener(function (message) {
-    if (message === 'scrape_web_page') {
-        scrapeDataFromCurrentPage({rules: []});
+chrome.runtime.onMessage.addListener(function (message, src, callback) {
+    if (message.action === 'scrape_web_page') {
+        scrapeDataFromCurrentPage(message.data, callback);
     }
 });
