@@ -8,6 +8,7 @@
   },
   "browser_action": {
     "default_icon": {
+      "180": "images/icon180.png",
       "19": "images/icon360.png",
       "38": "images/icon360.png"
     },
@@ -36,5 +37,6 @@
   },
   "permissions": [
     "activeTab"
-  ]
+  ],
+  "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'"
 }

@@ -1,6 +1,6 @@
-body{
+body {
     width: 250px;
-    background: rgba(255,255,255,.8) url("images/cream-pixels.png") repeat;
+    background: rgba(255, 255, 255, .8) url("images/cream-pixels.png") repeat;
     border-radius: 5px;
     margin: 0;
 }
@@ -17,7 +17,7 @@ a:hover {
 }
 
 header {
-    background: rgba(225,225,225,.8) url("images/binding-light.png") repeat;
+    background: rgba(225, 225, 225, .8) url("images/binding-light.png") repeat;
     text-align: center;
     padding-right: 5px;
 }
@@ -46,9 +46,29 @@ header a {
 }
 
 .main-menu a:hover {
-    background-color: rgba(0,0,0,.12);
+    background-color: rgba(0, 0, 0, .12);
 }
 
 .btn.main-menu-last {
     border-bottom: transparent;
+}
+
+.margin-xs {
+    margin: 2px;
+}
+
+.margin-sm {
+    margin: 4px;
+}
+
+.margin-med {
+    margin: 10px;
+}
+
+.margin-lg {
+    margin: 14px;
+}
+
+.margin-xl {
+    margin: 16px;
 }

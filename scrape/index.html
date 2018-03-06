@@ -10,10 +10,9 @@
 
 
     <link href="/global.css" rel="stylesheet">
-    <script src="scrapeController.js"></script>
 </head>
 <body>
-<div class="popupBody">
+<div class="popupBody" id="scrapeApp">
     <!-- Title of view -->
     <header>
         <a href="/index.html">
@@ -24,7 +23,12 @@
         </h3>
     </header>
 
+    <div class="margin-med">
+        <button class="btn btn-info align-content-center" v-bind:title="message" v-on:click="scrape()">Scrape</button>
+    </div>
+
     <br/><br/><br/><br/><br/><br/>
 </div>
+<script src="scrapeController.js"></script>
 </body>
 </html>
