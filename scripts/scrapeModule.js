@@ -34,6 +34,8 @@ function scrapeDataFromCurrentPage(ruleSet) {
     );
 }
 
-setInterval(function () {
-    scrapeDataFromCurrentPage({});
-}, 1000);
+chrome.runtime.onMessage.addListener(function (message) {
+    if (message === 'scrape_web_page') {
+        scrapeDataFromCurrentPage({rules: []});
+    }
+});
