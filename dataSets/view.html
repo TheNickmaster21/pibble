@@ -1,12 +1,68 @@
 <html>
 <head>
+    <!-- Bootstrap 4, Popper, Vue, jQuery, Open Iconic -->
+    <script src="/resources/jquery-3.3.1.js"></script>
+    <link rel="stylesheet" href="/resources/bootstrap-4.0.0-dist/css/bootstrap.min.css"/>
+    <script src="/resources/popper.min.js"></script>
+    <script src="/resources/vue.js"></script>
+    <link href="/resources/open-iconic/font/css/open-iconic-bootstrap.css" rel="stylesheet">
+    <script src="/resources/bootstrap-4.0.0-dist/js/bootstrap.min.js"></script>
+
     <link href="/global.css" rel="stylesheet">
+    <script src="dataSetController.js"></script>
 </head>
 <body>
 <div class="popupBody">
-    <h1>Data Sets</h1>
+    <!-- Title of view -->
+    <header>
+        <a href="/index.html">
+            <span class="oi oi-home"></span>
+        </a>
+        <h3>
+            <span>Data Sets</span>
+        </h3>
+    </header>
 
-    <a href="/index.html">Home</a>
+    <!-- Dropdown menu -->
+    <div class="row">
+        <div class="col-4">
+            <label for="mySelect"></label><select id="mySelect">
+                <option>Apple</option>
+                <option>Orange</option>
+                <option>Pineapple</option>
+                <option>Banana</option>
+            </select>
+        </div>
+        <div class="col-8">
+            <button type="button" class="btn btn-primary btn-block">New Data Set</button>
+        </div>
+    </div>
+    <!--
+    <div class="dropdown show">
+        <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Dropdown link
+        </a>
+
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+            <a class="dropdown-item" href="#">Data Set 1</a>
+            <a class="dropdown-item" href="#">Data Set 2</a>
+            <a class="dropdown-item" href="#">Data Set 3</a>
+        </div>
+    </div>
+    -->
+
+    <br/> <!-- Break -->
+
+    <!-- View toggle -->
+    <div class="btn-group d-flex" role="group" aria-label="First group">
+        <button type="button" class="btn btn-secondary w-100">Modify Data Set</button>
+        <button type="button" class="btn btn-secondary w-100">Edit Data</button>
+    </div>
+
+
+
+    <!-- Random breaks -->
+    <br/><br/><br/><br/><br/><br/>
 </div>
 </body>
 </html>
