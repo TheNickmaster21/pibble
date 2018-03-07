@@ -28,11 +28,16 @@ header a {
     float: left;
     font-size: larger;
     position: relative;
+}
 
+footer .btn.btn-secondary{
+    width: 96%;
+    margin-left: 2%;
 }
 
 .logo {
     height: .8em;
+    margin-bottom: .2em;
 }
 
 .main-menu {
@@ -43,6 +48,7 @@ header a {
 
 .main-menu a {
     border-bottom: 1px solid black;
+    border-radius: 0;
 }
 
 .main-menu a:hover {
