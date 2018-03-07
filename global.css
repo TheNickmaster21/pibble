@@ -35,6 +35,9 @@ footer .btn.btn-secondary{
     margin-left: 2%;
 }
 
+
+
+
 .logo {
     height: .8em;
     margin-bottom: .2em;
@@ -58,6 +61,21 @@ footer .btn.btn-secondary{
 .btn.main-menu-last {
     border-bottom: transparent;
 }
+
+
+
+#scrape-dropdown-data {
+    width: 47%;
+    margin-left: 2%;
+    float: left;
+}
+
+#scrape-dropdown-rule {
+    width: 47%;
+    margin-right: 2%;
+    float: right;
+}
+
 
 .margin-xs {
     margin: 2px;
