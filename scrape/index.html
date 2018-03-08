@@ -22,7 +22,8 @@
 
 
     <div class="dropdown">
-        <button class="btn btn-secondary dropdown-toggle" type="button" id="scrape-dropdown-data" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="scrape-dropdown-data" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false">
             Data Set
         </button>
         <div class="dropdown-menu" aria-labelledby="dropdownMenu1">
@@ -31,7 +32,8 @@
         </div>
     </div>
     <div class="dropdown">
-        <button class="btn btn-secondary dropdown-toggle" type="button" id="scrape-dropdown-rule" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="scrape-dropdown-rule" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false">
             Rule Set
         </button>
         <div class="dropdown-menu" aria-labelledby="dropdownMenu1">
@@ -40,11 +42,9 @@
         </div>
     </div>
 
-
-    <br/><br/>
-    Table goes here
-    <br/><br/><br/>
-
+    <br/>
+    <p v-for="result in scrapeResults">{{result}}</p>
+    <br/>
 
     <footer>
         <button class="btn btn-secondary" v-on:click="scrape()">Scrape</button>
