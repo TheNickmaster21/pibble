@@ -42,12 +42,13 @@
         </div>
     </div>
 
-    <br/>
-    <p v-for="result in scrapeResults">{{result}}</p>
-    <br/>
+    <br/><br/>
+    <ul>
+        <li v-for="result in scrapeResults">{{result}}</li>
+    </ul>
 
     <footer>
-        <button class="btn btn-secondary" v-on:click="scrape()">Scrape</button>
+        <button class="btn btn-secondary margin-xs" v-on:click="scrape()">Scrape</button>
     </footer>
 </div>
 <script src="scrapeController.js"></script>
