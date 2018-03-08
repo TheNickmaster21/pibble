@@ -1,11 +1,16 @@
-function sendQueryMessageToActiveTabWithCallback(message, callback) {
+var lastActiveTab = null;
+
+setInterval(function () {
     let activeTabFilter = {active: true, currentWindow: true};
     chrome.tabs.query(activeTabFilter, function (tabs) {
-        let activeTab = tabs[0];
-        if (activeTab) {
-            chrome.tabs.sendMessage(activeTab.id, message, callback);
-        }
+        lastActiveTab = tabs[0];
     });
+}, 500);
+
+function sendQueryMessageToActiveTabWithCallback(message, callback) {
+    if (lastActiveTab) {
+        chrome.tabs.sendMessage(lastActiveTab.id, message, callback);
+    }
 }
 
 function getDataFromNodesWithRule($htmlData, rule) {
