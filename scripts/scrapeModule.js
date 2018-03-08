@@ -9,21 +9,28 @@ function sendQueryMessageToActiveTabWithCallback(message, callback) {
 }
 
 function getDataFromNodesWithRule($htmlData, rule) {
-
+    let elements = $htmlData.find(rule.selector);
+    let rawValue = elements[rule.index].textContent;
+    if (rule.regex) {
+        return rawValue.match(new RegExp(rule.regex)).group(1); //This magic might now work
+    } else {
+        return rawValue;
+    }
 }
 
 function useRuleSetToScrapeFromJQueryNodes(ruleSet, $htmlData) {
     let results = [];
-    debugger;//$htmlData.find("td[data-reactid|='Profit']")
     for (let i = 0; i < ruleSet.rules.length; i++) {
         let rule = ruleSet.rules[i];
         results.push(getDataFromNodesWithRule($htmlData, rule))
     }
+    console.log(results);
     return results;
 }
 
 function scrapeDataFromCurrentPage(ruleSet, callback) {
     if (!ruleSet || !ruleSet.rules) {
+        console.warn("Bad rule set: ", ruleSet);
         return false;
     }
 
@@ -41,6 +48,6 @@ function scrapeDataFromCurrentPage(ruleSet, callback) {
 
 chrome.runtime.onMessage.addListener(function (message, src, callback) {
     if (message.action === 'scrape_web_page') {
-        scrapeDataFromCurrentPage(message.data, callback);
+        return scrapeDataFromCurrentPage(message.data, callback);
     }
 });

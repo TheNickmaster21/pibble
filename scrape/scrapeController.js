@@ -2,9 +2,23 @@ new Vue({
     el: '#scrapeApp',
     methods: {
         scrape: function () {
-            chrome.runtime.sendMessage({action: 'scrape_web_page', data: {rules: []}}, function (response) {
-                //TODO do something with scraped data
+            this.scrapeResults.splice(0, this.scrapeResults.length);
+            chrome.runtime.sendMessage({action: 'scrape_web_page', data: this.ruleSet}, (response) => {
+                Array.prototype.push.apply(this.scrapeResults, response);
+                this.$forceUpdate();
             });
         }
     },
+    data: {
+        scrapeResults: [],
+        ruleSet: {
+            rules: [
+                {
+                    selector: ".data[data-reactid*='Revenues ($M)']",
+                    index: 0,
+                    regex: ""
+                }
+            ]
+        }
+    }
 });
