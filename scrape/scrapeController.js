@@ -97,8 +97,33 @@ new Vue({
                 }
             ]
         },
-        edgarRuleSet: {
-            rules: []
+        edgarRuleSet: { // Beta website
+            rules: [
+                { // Name
+                    selector: "h1",
+                    selectorIndex: 1
+                },
+                { // CIK
+                    selector: "span",
+                    selectorIndex: 4,
+                    regex: "([^\\s]+)",
+                    regexIndex: 1
+                },
+                { // Business Address
+                    selector: "span",
+                    selectorIndex: 4,
+                    regex: "([^\\s]+)",
+                    regexIndex: 1
+                },
+                { // Mailing Address
+                    selector: "div#mailing-address",
+                    selectorIndex: 0
+                },
+                { // Business Address
+                    selector: "div#business-address",
+                    selectorIndex: 0
+                },
+            ]
         }
     }
 });
