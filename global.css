@@ -30,8 +30,9 @@ header a {
     position: relative;
 }
 
-footer .btn.btn-secondary{
+footer .btn.btn-secondary, #view-full-data{
     width: 96%;
+    margin-top: 1%;
     margin-left: 2%;
 }
 
@@ -75,6 +76,7 @@ footer .btn.btn-secondary{
     margin-right: 2%;
     float: right;
 }
+
 
 
 .margin-xs {
