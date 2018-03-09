@@ -15,11 +15,21 @@ function sendQueryMessageToActiveTabWithCallback(message, callback) {
 
 function getDataFromNodesWithRule($htmlData, rule) {
     let elements = $htmlData.find(rule.selector);
-    let rawValue = elements[rule.index].textContent;
+    if (!elements || elements.length === 0) {
+        return "";
+    }
+    let rawValue = elements[rule.selectorIndex];
+    if (!rawValue) {
+        return "";
+    }
     if (rule.regex) {
-        return rawValue.match(new RegExp(rule.regex)).group(1); //This magic might now work
+        let groups = rawValue.textContent.match(new RegExp(rule.regex, "g")); //This magic might now work
+        if (!groups || !groups[rule.regexIndex]) {
+            return "";
+        }
+        return groups[rule.regexIndex];
     } else {
-        return rawValue;
+        return rawValue.textContent;
     }
 }
 

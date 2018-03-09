@@ -29,25 +29,28 @@
         <div class="dropdown-menu" aria-labelledby="scrape-dropdown-data">
             <a class="dropdown-item" href="#!">Sample 0</a>
             <a class="dropdown-item" href="#!">Sample 1</a>
+
         </div>
     </div>
     <div class="dropdown">
         <button class="btn btn-secondary dropdown-toggle" type="button" id="scrape-dropdown-rule" data-toggle="dropdown"
                 aria-haspopup="true" aria-expanded="false">
-            Rule Set
+            {{selectedRuleSetOption || 'Rule Set'}}
         </button>
+
         <div class="dropdown-menu" aria-labelledby="scrape-dropdown-rule">
-            <a class="dropdown-item" href="#!">Sample 0</a>
-            <a class="dropdown-item" href="#!">Sample 1</a>
+            <a v-for="option in ruleSetOptions" class="dropdown-item"
+               href="#!" v-on:click="selectedRuleSetOption = option;">{{option}}</a>
         </div>
     </div>
 
-    <br/>
-    <p v-for="result in scrapeResults">{{result}}</p>
-    <br/>
+    <br/><br/>
+    <ul>
+        <li v-for="result in scrapeResults">{{result}}</li>
+    </ul>
 
     <footer>
-        <button class="btn btn-secondary" v-on:click="scrape()">Scrape</button>
+        <button class="btn btn-secondary margin-xs" v-on:click="scrape()">Scrape</button>
     </footer>
 </div>
 <script src="scrapeController.js"></script>
