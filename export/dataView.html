@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="/resources/jquery-3.3.1.js"></script>
+    <link rel="stylesheet" href="/resources/bootstrap-4.0.0-dist/css/bootstrap.min.css"/>
+    <script src="/resources/popper.min.js"></script>
+    <script src="/resources/vue.js"></script>
+    <link href="/resources/open-iconic/font/css/open-iconic-bootstrap.css" rel="stylesheet">
+    <script src="/resources/bootstrap-4.0.0-dist/js/bootstrap.min.js"></script>
+
+    <link href="/global.css" rel="stylesheet">
+</head>
+<body>
+
+<!-- component template -->
+<script type="text/x-template" id="grid-template">
+    <table class="table table-sm table-striped">
+        <thead>
+        <tr>
+            <th v-for="key in columns"
+                @click="sortBy(key)"
+                :class="{ active: sortKey == key }">
+                {{ key | capitalize }}
+                <span class="arrow" :class="sortOrders[key] > 0 ? 'asc' : 'dsc'">
+          </span>
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr v-for="entry in filteredData">
+            <td v-for="key in columns">
+                {{entry[key]}}
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</script>
+<!-- demo root element -->
+<div id="demo">
+    <form id="search">
+        Search <input name="query" v-model="searchQuery">
+    </form>
+    <demo-grid
+            :data="gridData"
+            :columns="gridColumns"
+            :filter-key="searchQuery">
+    </demo-grid>
+</div>
+
+
+
+
+<script src="exportController.js"></script>
+</body>
+</html>
