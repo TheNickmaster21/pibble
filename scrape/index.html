@@ -27,18 +27,16 @@
             Data Set
         </button>
         <div class="dropdown-menu" aria-labelledby="dropdownMenu1">
-            <a class="dropdown-item" href="#!">Sample 0</a>
-            <a class="dropdown-item" href="#!">Sample 1</a>
         </div>
     </div>
     <div class="dropdown">
         <button class="btn btn-secondary dropdown-toggle" type="button" id="scrape-dropdown-rule" data-toggle="dropdown"
                 aria-haspopup="true" aria-expanded="false">
-            Rule Set
+            {{selectedRuleSetOption || 'Rule Set'}}
         </button>
         <div class="dropdown-menu" aria-labelledby="dropdownMenu1">
-            <a class="dropdown-item" href="#!">Sample 0</a>
-            <a class="dropdown-item" href="#!">Sample 1</a>
+            <a v-for="option in ruleSetOptions" class="dropdown-item"
+               href="#!" v-on:click="selectedRuleSetOption = option;">{{option}}</a>
         </div>
     </div>
 

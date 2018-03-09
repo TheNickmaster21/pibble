@@ -2,16 +2,24 @@ new Vue({
     el: '#scrapeApp',
     methods: {
         scrape: function () {
-            this.scrapeResults.splice(0, this.scrapeResults.length);
-            chrome.runtime.sendMessage({action: 'scrape_web_page', data: this.ruleSet}, (response) => {
-                Array.prototype.push.apply(this.scrapeResults, response);
-                this.$forceUpdate();
-            });
+            if (this.selectedRuleSetOption) {
+                this.scrapeResults.splice(0, this.scrapeResults.length);
+                let data = {action: 'scrape_web_page', data: this[this.selectedRuleSetOption + 'RuleSet']};
+                chrome.runtime.sendMessage(data, (response) => {
+                    Array.prototype.push.apply(this.scrapeResults, response);
+                    this.$forceUpdate();
+                });
+            }
         }
     },
     data: {
         scrapeResults: [],
-        ruleSet: {
+        ruleSetOptions: [
+            "fortune",
+            "edgar"
+        ],
+        selectedRuleSetOption: null,
+        fortuneRuleSet: {
             rules: [
                 { // Ticker
                     selector: ".branding-tile-ticker",
@@ -23,12 +31,6 @@ new Vue({
                     selector: "p.branding-tile-rank",
                     selectorIndex: 0
                 },
-                // { // Share Price
-                //     selector: ".branding-tile-ticker",
-                //     selectorIndex: 0,
-                //     regex: "([^\\s]+)",
-                //     regexIndex: 1
-                // },
                 { // Revenue
                     selector: ".data[data-reactid*='Revenues ($M)']",
                     selectorIndex: 0
@@ -94,6 +96,9 @@ new Vue({
                     selectorIndex: 1
                 }
             ]
+        },
+        edgarRuleSet: {
+            rules: []
         }
     }
 });
