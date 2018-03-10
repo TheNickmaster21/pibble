@@ -13,24 +13,35 @@ function sendQueryMessageToActiveTabWithCallback(message, callback) {
     }
 }
 
+function getTextFromSelector($htmlData, selector, index) {
+    let elements = $htmlData.find(selector);
+    if (!elements || !elements[index]) {
+        return "";
+    }
+    return elements[index].textContent;
+}
+
+function getSubstringFromRawValue(value, substringArray) {
+    return value.substring(substringArray[0], substringArray[1])
+}
+
+function getTextFromRegex(value, expression, index) {
+    let groups = value.match(new RegExp(expression, "g"));
+    if (!groups || !groups[index]) {
+        return "";
+    }
+    return groups[index];
+}
+
 function getDataFromNodesWithRule($htmlData, rule) {
-    let elements = $htmlData.find(rule.selector);
-    if (!elements || elements.length === 0) {
-        return "";
+    let result = getTextFromSelector($htmlData, rule.selector, rule.selectorIndex);
+    if (result && rule.substring) {
+        result = getSubstringFromRawValue(result, rule.substring);
     }
-    let rawValue = elements[rule.selectorIndex];
-    if (!rawValue) {
-        return "";
+    if (result && rule.regex) {
+        result = getTextFromRegex(result, rule.regex, rule.regexIndex);
     }
-    if (rule.regex) {
-        let groups = rawValue.textContent.match(new RegExp(rule.regex, "g")); //This magic might now work
-        if (!groups || !groups[rule.regexIndex]) {
-            return "";
-        }
-        return groups[rule.regexIndex];
-    } else {
-        return rawValue.textContent;
-    }
+    return result;
 }
 
 function useRuleSetToScrapeFromJQueryNodes(ruleSet, $htmlData) {
