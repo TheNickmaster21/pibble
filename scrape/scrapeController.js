@@ -15,8 +15,8 @@ new Vue({
     data: {
         scrapeResults: [],
         ruleSetOptions: [
-            "Fortune",
-            "Edgar"
+            {display: "Fortune", value: "fortune"},
+            {display: "Edgar", value: "edgar"}
         ],
         selectedRuleSetOption: null,
         fortuneRuleSet: {

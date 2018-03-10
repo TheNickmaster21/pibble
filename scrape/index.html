@@ -40,7 +40,7 @@
 
         <div class="dropdown-menu" aria-labelledby="scrape-dropdown-rule">
             <a v-for="option in ruleSetOptions" class="dropdown-item"
-               href="#!" v-on:click="selectedRuleSetOption = option;">{{option}}</a>
+               href="#!" v-on:click="selectedRuleSetOption = option.value;">{{option.display}}</a>
         </div>
     </div>
 
