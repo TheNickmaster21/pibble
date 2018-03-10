@@ -18,7 +18,7 @@ new Vue({
             "fortune",
             "edgar"
         ],
-        selectedRuleSetOption: null,
+        selectedRuleSetOption: "edgar",
         fortuneRuleSet: {
             rules: [
                 { // Ticker
@@ -117,12 +117,26 @@ new Vue({
                 },
                 { // Mailing Address
                     selector: "div#mailing-address",
-                    selectorIndex: 0
+                    selectorIndex: 0,
+                    substring: [16]
                 },
                 { // Business Address
                     selector: "div#business-address",
-                    selectorIndex: 0
+                    selectorIndex: 0,
+                    substring: [17]
                 },
+                { // SIC
+                    selector: "span",
+                    selectorIndex: 6,
+                    regex: "([^\\s]+)",
+                    regexIndex: 1
+                },
+                { // Industry
+                    selector: "span.indent",
+                    selectorIndex: 0,
+                    substring: [16]
+                },
+
             ]
         }
     }
