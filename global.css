@@ -30,7 +30,7 @@ header a {
     position: relative;
 }
 
-footer .btn.btn-secondary, #view-full-data{
+footer .btn.btn-secondary{
     width: 96%;
     margin-top: 1%;
     margin-left: 2%;
@@ -76,6 +76,11 @@ footer .btn.btn-secondary, #view-full-data{
     margin-right: 2%;
     float: right;
 }
+
+.export-dropdown-container {
+    text-align: center;
+}
+
 
 
 

@@ -21,9 +21,18 @@
     </header>
 
 
+    <div class="dropdown export-dropdown-container">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="export-dropdown-data" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false">
+            Data Set
+        </button>
+        <div class="dropdown-menu" aria-labelledby="scrape-dropdown-data">
+            <a class="dropdown-item" href="#!">Sample 0</a>
+            <a class="dropdown-item" href="#!">Sample 1</a>
+        </div>
+    </div>
 
-
-
+    <br/><br/><br/><br/>
 
     <footer>
         <button class="btn btn-secondary" id="view-full-data" v-on:click="dataTab()">View data sample</button>
