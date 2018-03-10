@@ -22,32 +22,35 @@
 
 
     <div class="dropdown">
-        <button class="btn btn-secondary dropdown-toggle" type="button" id="scrape-dropdown-data" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="scrape-dropdown-data" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false">
             Data Set
         </button>
-        <div class="dropdown-menu" aria-labelledby="dropdownMenu1">
+        <div class="dropdown-menu" aria-labelledby="scrape-dropdown-data">
             <a class="dropdown-item" href="#!">Sample 0</a>
             <a class="dropdown-item" href="#!">Sample 1</a>
+
         </div>
     </div>
     <div class="dropdown">
-        <button class="btn btn-secondary dropdown-toggle" type="button" id="scrape-dropdown-rule" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Rule Set
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="scrape-dropdown-rule" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false">
+            {{selectedRuleSetOption || 'Rule Set'}}
         </button>
-        <div class="dropdown-menu" aria-labelledby="dropdownMenu1">
-            <a class="dropdown-item" href="#!">Sample 0</a>
-            <a class="dropdown-item" href="#!">Sample 1</a>
+
+        <div class="dropdown-menu" aria-labelledby="scrape-dropdown-rule">
+            <a v-for="option in ruleSetOptions" class="dropdown-item"
+               href="#!" v-on:click="selectedRuleSetOption = option.value;">{{option.display}}</a>
         </div>
     </div>
 
-
     <br/><br/>
-    Table goes here
-    <br/><br/><br/>
-
+    <ul>
+        <li v-for="result in scrapeResults">{{result}}</li>
+    </ul>
 
     <footer>
-        <button class="btn btn-secondary" v-on:click="scrape()">Scrape</button>
+        <button class="btn btn-secondary margin-xs" v-on:click="scrape()" :disabled="!selectedRuleSetOption">Scrape</button>
     </footer>
 </div>
 <script src="scrapeController.js"></script>

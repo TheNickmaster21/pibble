@@ -3,13 +3,13 @@ body {
     background: rgba(255, 255, 255, .8) url("images/cream-pixels.png") repeat;
     border-radius: 5px;
     margin: 0;
+    user-select: none;
 }
 
 a {
     color: black;
     text-decoration: none;
     background-color: transparent;
-    -webkit-text-decoration-skip: objects;
 }
 
 a:hover {
@@ -32,9 +32,14 @@ header a {
 
 footer .btn.btn-secondary{
     width: 96%;
+    margin-top: 1%;
     margin-left: 2%;
 }
 
+th {
+    background-color: rgba(169, 169, 169, .8);
+    align-content: left;
+}
 
 
 
@@ -75,6 +80,12 @@ footer .btn.btn-secondary{
     margin-right: 2%;
     float: right;
 }
+
+.export-dropdown-container {
+    text-align: center;
+}
+
+
 
 
 .margin-xs {
