@@ -1,4 +1,4 @@
-<html>
+<html xmlns:v-on="http://www.w3.org/1999/xhtml">
 <head>
     <script src="/resources/jquery-3.3.1.js"></script>
     <link rel="stylesheet" href="/resources/bootstrap-4.0.0-dist/css/bootstrap.min.css"/>
@@ -21,14 +21,21 @@
     </header>
 
 
+    <div class="dropdown export-dropdown-container">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="export-dropdown-data" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false">
+            Data Set
+        </button>
+        <div class="dropdown-menu" aria-labelledby="scrape-dropdown-data">
+            <a class="dropdown-item" href="#!">Sample 0</a>
+            <a class="dropdown-item" href="#!">Sample 1</a>
+        </div>
+    </div>
 
-
-
-
-
-
+    <br/><br/><br/><br/>
 
     <footer>
+        <button class="btn btn-secondary" id="view-full-data" v-on:click="dataTab()">View data sample</button>
         <button class="btn btn-secondary">Export to .csv</button>
     </footer>
 </div>
