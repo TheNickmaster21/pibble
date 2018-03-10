@@ -12,7 +12,7 @@ let csv = items.map(row => header.map(fieldName => JSON.stringify(row[fieldName]
 csv.unshift(header.join(','))
 csv = csv.join('\r\n')
 
-console.log(csv)
+console.log(csv)./
  */
 
 
