@@ -36,6 +36,10 @@ footer .btn.btn-secondary{
     margin-left: 2%;
 }
 
+th {
+    background-color: rgba(169, 169, 169, .8);
+    align-content: left;
+}
 
 
 
