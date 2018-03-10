@@ -16,9 +16,9 @@ new Vue({
         scrapeResults: [],
         ruleSetOptions: [
             "fortune",
-            "edgar"
+            "betaEdgar"
         ],
-        selectedRuleSetOption: "edgar",
+        selectedRuleSetOption: null,
         fortuneRuleSet: {
             rules: [
                 { // Ticker
@@ -97,19 +97,13 @@ new Vue({
                 }
             ]
         },
-        edgarRuleSet: { // Beta website
+        betaEdgarRuleSet: { // Beta website
             rules: [
                 { // Name
                     selector: "h1",
                     selectorIndex: 1
                 },
                 { // CIK
-                    selector: "span",
-                    selectorIndex: 4,
-                    regex: "([^\\s]+)",
-                    regexIndex: 1
-                },
-                { // Business Address
                     selector: "span",
                     selectorIndex: 4,
                     regex: "([^\\s]+)",
@@ -132,11 +126,15 @@ new Vue({
                     regexIndex: 1
                 },
                 { // Industry
+                    selector: "span",
+                    selectorIndex: 6,
+                    substring: [12]
+                },
+                { // State Location
                     selector: "span.indent",
                     selectorIndex: 0,
                     substring: [16]
-                },
-
+                }
             ]
         }
     }
