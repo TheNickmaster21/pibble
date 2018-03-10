@@ -8,6 +8,7 @@ new Vue({
                 chrome.runtime.sendMessage(data, (response) => {
                     Array.prototype.push.apply(this.scrapeResults, response);
                     this.$forceUpdate();
+
                 });
             }
         }

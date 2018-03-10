@@ -2,14 +2,12 @@ new Vue({
     el: '#view-full-data',
     methods: {
         dataTab: function () {
-            chrome.tabs.create({'url': chrome.extension.getURL('export/dataView.html')}, function(tab) {
+            chrome.tabs.create({'url': chrome.extension.getURL('export/dataView.html')}, function (tab) {
                 // Tab opened.
             });
         }
     }
 });
-
-
 
 
 //pre-condition: json is given or passed as a text/string/object
@@ -30,12 +28,44 @@ console.log(csv)./
  */
 
 
+function testCSVexport() {
+    saveJSONasCSV({
+        "gridColumns": [
+            "name",
+            "power",
+            "dead"
+        ],
+        "gridData": [
+            {
+                "name": "Chuck Norris",
+                "power": "Infinity",
+                "dead": "Alive"
+            },
+            {
+                "name": "Bruce Lee",
+                "power": 9000,
+                "dead": "Dead"
+            },
+            {
+                "name": "Jackie Chan",
+                "power": 7000,
+                "dead": "Alive"
+            },
+            {
+                "name": "Jet Li",
+                "power": 8000,
+                "dead": "Alive"
+            }
+        ]
+    })
+}
+
 
 //save new csv
 
 function saveJSONasCSV(jsonObject) {
-        var csvString = convertToCSV(jsonObject)
-        exportCSVFile(csvString)
+    var csvString = convertToCSV(jsonObject);
+    exportCSVFile(csvString);
 }
 
 
