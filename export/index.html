@@ -1,14 +1,44 @@
-<html>
+<html xmlns:v-on="http://www.w3.org/1999/xhtml">
 <head>
-    <link href="/global.css" rel="stylesheet">
+    <script src="/resources/jquery-3.3.1.js"></script>
+    <link rel="stylesheet" href="/resources/bootstrap-4.0.0-dist/css/bootstrap.min.css"/>
+    <script src="/resources/popper.min.js"></script>
+    <script src="/resources/vue.js"></script>
+    <link href="/resources/open-iconic/font/css/open-iconic-bootstrap.css" rel="stylesheet">
+    <script src="/resources/bootstrap-4.0.0-dist/js/bootstrap.min.js"></script>
 
-    <script src="exportController.js"></script>
+    <link href="/global.css" rel="stylesheet">
 </head>
 <body>
 <div class="popupBody">
-    <h1>Export</h1>
+    <header>
+        <a href="/index.html">
+            <span class="oi oi-home"></span>
+        </a>
+        <h3>
+            <span>Export Data</span>
+        </h3>
+    </header>
 
-    <a href="/index.html">Home</a>
+
+    <div class="dropdown export-dropdown-container">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="export-dropdown-data" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false">
+            Data Set
+        </button>
+        <div class="dropdown-menu" aria-labelledby="scrape-dropdown-data">
+            <a class="dropdown-item" href="#!">Sample 0</a>
+            <a class="dropdown-item" href="#!">Sample 1</a>
+        </div>
+    </div>
+
+    <br/><br/><br/><br/>
+
+    <footer>
+        <button class="btn btn-secondary" id="view-full-data" v-on:click="dataTab()">View data sample</button>
+        <button class="btn btn-secondary">Export to .csv</button>
+    </footer>
 </div>
+<script src="exportController.js"></script>
 </body>
 </html>

@@ -1,4 +1,109 @@
-.popupBody {
-    width: 450px;
-    padding: 10px;
+body {
+    width: 250px;
+    background: rgba(255, 255, 255, .8) url("images/cream-pixels.png") repeat;
+    border-radius: 5px;
+    margin: 0;
+    user-select: none;
+}
+
+a {
+    color: black;
+    text-decoration: none;
+    background-color: transparent;
+}
+
+a:hover {
+    color: black;
+}
+
+header {
+    background: rgba(225, 225, 225, .8) url("images/binding-light.png") repeat;
+    text-align: center;
+    padding-right: 5px;
+}
+
+header a {
+    margin-top: 5px;
+    margin-left: 5px;
+    float: left;
+    font-size: larger;
+    position: relative;
+}
+
+footer .btn.btn-secondary{
+    width: 96%;
+    margin-top: 1%;
+    margin-left: 2%;
+}
+
+th {
+    background-color: rgba(169, 169, 169, .8);
+    align-content: left;
+}
+
+
+
+.logo {
+    height: .8em;
+    margin-bottom: .2em;
+}
+
+.main-menu {
+    background-color: transparent;
+    width: 84%;
+    margin-left: 8%;
+}
+
+.main-menu a {
+    border-bottom: 1px solid black;
+    border-radius: 0;
+}
+
+.main-menu a:hover {
+    background-color: rgba(0, 0, 0, .12);
+}
+
+.btn.main-menu-last {
+    border-bottom: transparent;
+}
+
+
+
+#scrape-dropdown-data {
+    width: 47%;
+    margin-left: 2%;
+    float: left;
+}
+
+#scrape-dropdown-rule {
+    width: 47%;
+    margin-right: 2%;
+    float: right;
+}
+
+.export-dropdown-container {
+    text-align: center;
+}
+
+
+
+
+.margin-xs {
+    margin: 2px;
+}
+
+.margin-sm {
+    margin: 4px;
+}
+
+.margin-med {
+    margin: 10px;
+}
+
+.margin-lg {
+    margin: 14px;
+}
+
+.margin-xl {
+    margin: 16px;
 }

@@ -8,6 +8,7 @@
   },
   "browser_action": {
     "default_icon": {
+      "180": "images/icon180.png",
       "19": "images/icon360.png",
       "38": "images/icon360.png"
     },
@@ -19,7 +20,6 @@
         "<all_urls>"
       ],
       "js": [
-        "resources/jquery-3.3.1.js",
         "scripts/contentProxy.js"
       ],
       "run_at": "document_end"
@@ -37,6 +37,6 @@
   "permissions": [
     "activeTab",
     "storage"
-
-  ]
+  ],
+  "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'"
 }

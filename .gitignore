@@ -1,0 +1,4 @@
+# Ingore .idea directory
+.idea
+# Ignore .iml files
+*.iml
