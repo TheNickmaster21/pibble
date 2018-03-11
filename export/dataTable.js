@@ -4,9 +4,9 @@ new Vue({
         load: function () {
             chrome.runtime.sendMessage({action: 'get_data_sets'}, (response) => {
                 if(this.selectedDataSetOption.value === 'fortune')
-                    this.savedData = response[0].rows;
+                    this.savedData = response[0];
                 else
-                    this.savedData = response[1].rows;
+                    this.savedData = response[1];
                 this.$forceUpdate();
             });
         }

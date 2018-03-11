@@ -28,13 +28,13 @@
     <table class="table table-sm table-striped">
         <thead>
         <tr>
-            <th v-for="(item, key) in savedData[0]">
-                {{key}}
+            <th v-for="column in savedData.columns">
+                {{column.name}}
             </th>
         </tr>
         </thead>
         <tbody>
-        <tr v-for="dataRow in savedData">
+        <tr v-for="dataRow in savedData.rows">
             <td v-for="value in dataRow">
                 {{value}}
             </td>
