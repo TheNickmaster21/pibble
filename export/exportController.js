@@ -12,10 +12,10 @@ new Vue({
                     this.exportJSON.gridData = response[0].rows;
                 else
                     this.exportJSON.gridData = response[1].rows;
-                this.$forceUpdate();
+
+                this.exportJSON.gridColumns = Object.keys(this.exportJSON.gridData[0]);
+                console.log(JSON.stringify(this.exportJSON));
             });
-            this.exportJSON.gridColumns = Object.keys(this.exportJSON.gridData[0]);
-            console.log(JSON.stringify(this.exportJSON));
             return this.exportJSON;
         },
         exportCSV: function () {
@@ -26,6 +26,11 @@ new Vue({
     },
     data: {
         message: "Did it work?",
+        dataSetOptions: [
+            {display: "Fortune", value: "fortune"},
+            {display: "Edgar Beta", value: "betaEdgar"}
+        ],
+        selectedDataSetOption: null,
         exportJSON: {
             gridColumns: [],
             gridData: []

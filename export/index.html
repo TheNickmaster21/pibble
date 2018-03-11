@@ -21,14 +21,15 @@
     </header>
 
 
-    <div class="dropdown export-dropdown-container">
-        <button class="btn btn-secondary dropdown-toggle" type="button" id="export-dropdown-data" data-toggle="dropdown"
+    <div class="dropdown">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="export-table-dropdown-data"
+                data-toggle="dropdown"
                 aria-haspopup="true" aria-expanded="false">
-            Data Set
+            {{selectedDataSetOption && selectedDataSetOption.display || 'Data Set'}}
         </button>
-        <div class="dropdown-menu" aria-labelledby="scrape-dropdown-data">
-            <a class="dropdown-item" href="#!">Sample 0</a>
-            <a class="dropdown-item" href="#!">Sample 1</a>
+        <div class="dropdown-menu" aria-labelledby="export-table-dropdown-data">
+            <a v-for="option in dataSetOptions" class="dropdown-item"
+               href="#!" v-on:click="selectedDataSetOption = option; load();">{{option.display}}</a>
         </div>
     </div>
 
