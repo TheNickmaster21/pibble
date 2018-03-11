@@ -1,5 +1,4 @@
 chrome.runtime.onMessage.addListener(function (message, src, callback) {
-    console.log(message);
     if (message.action === 'get_data_sets') {
         returnDataSets(message, callback);
     } else if (message.action === 'add_row_to_data_set') {
@@ -21,7 +20,7 @@ function addDataRow(message) {
             let unique = true;
             _.each(rows, function (oldRow) {
                 for (let i = 0; i < oldRow.length; i++) {
-                    if (dataSets[message.id - 1].columns[i].unique && oldRow[i] === row[i]) {
+                    if (dataSets[message.id].columns[i].unique && oldRow[i] === row[i]) {
                         unique = false;
                     }
                 }
@@ -37,7 +36,7 @@ function addDataRow(message) {
 
 let dataSets = [
     {
-        id: 1,
+        id: 0,
         name: "Fortune Data",
         columns: [
             {name: "Ticker", unique: true},
@@ -62,7 +61,7 @@ let dataSets = [
         rows: []
     },
     {
-        id: 2,
+        id: 1,
         name: "Edgar Data",
         columns: [
             {name: "Name", unique: false},

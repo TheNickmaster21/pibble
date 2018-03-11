@@ -50,7 +50,6 @@ function useRuleSetToScrapeFromJQueryNodes(ruleSet, $htmlData) {
         let rule = ruleSet.rules[i];
         results.push(getDataFromNodesWithRule($htmlData, rule))
     }
-    console.log(results);
     return results;
 }
 

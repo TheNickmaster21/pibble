@@ -10,7 +10,7 @@ new Vue({
                     this.$forceUpdate();
                     let newRowData = {
                         action: 'add_row_to_data_set',
-                        id: this.selectedRuleSetOption === "fortune" && 1 || 2,
+                        id: this.selectedRuleSetOption && this.selectedRuleSetOption.id,
                         row: response
                     };
                     chrome.runtime.sendMessage(newRowData);
@@ -21,8 +21,8 @@ new Vue({
     data: {
         scrapeResults: [],
         ruleSetOptions: [
-            {display: "Fortune", value: "fortune"},
-            {display: "Edgar Beta", value: "betaEdgar"}
+            {display: "Fortune", value: "fortune", id: 0},
+            {display: "Edgar Beta", value: "betaEdgar", id: 1}
         ],
         selectedRuleSetOption: null,
         fortuneRuleSet: {
