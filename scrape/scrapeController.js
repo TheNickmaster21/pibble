@@ -4,10 +4,16 @@ new Vue({
         scrape: function () {
             if (this.selectedRuleSetOption) {
                 this.scrapeResults.splice(0, this.scrapeResults.length);
-                let data = {action: 'scrape_web_page', data: this[this.selectedRuleSetOption + 'RuleSet']};
-                chrome.runtime.sendMessage(data, (response) => {
+                let scrapeData = {action: 'scrape_web_page', data: this[this.selectedRuleSetOption + 'RuleSet']};
+                chrome.runtime.sendMessage(scrapeData, (response) => {
                     Array.prototype.push.apply(this.scrapeResults, response);
                     this.$forceUpdate();
+                    let newRowData = {
+                        action: 'add_row_to_data_set',
+                        id: this.selectedRuleSetOption === "fortune" && 1 || 2,
+                        row: response
+                    };
+                    chrome.runtime.sendMessage(newRowData);
                 });
             }
         }
@@ -15,8 +21,8 @@ new Vue({
     data: {
         scrapeResults: [],
         ruleSetOptions: [
-            "fortune",
-            "betaEdgar"
+            {display: "Fortune", value: "fortune"},
+            {display: "Edgar Beta", value: "betaEdgar"}
         ],
         selectedRuleSetOption: null,
         fortuneRuleSet: {
