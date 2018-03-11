@@ -6,42 +6,78 @@ new Vue({
                 // Tab opened.
             });
         },
+        convertToUsableJSON: function () {
+            //return this.dummy;
+
+            this.gridColumns = ["name","power","dead"];
+            this.gridData = this.dummy2;
+
+            return this.exportJSON;
+        },
         exportCSV: function () {
             this.message = "hopefully";
             this.$forceUpdate();
-            exportToCSV('selectedDataName'+'.csv', {
-                "gridColumns": [
-                    "name",
-                    "power",
-                    "dead"
-                ],
-                "gridData": [
-                    {
-                        "name": "Chuck Norris",
-                        "power": "Infinity",
-                        "dead": "Alive"
-                    },
-                    {
-                        "name": "Bruce Lee",
-                        "power": 9000,
-                        "dead": "Dead"
-                    },
-                    {
-                        "name": "Jackie Chan",
-                        "power": 7000,
-                        "dead": "Alive"
-                    },
-                    {
-                        "name": "Jet Li",
-                        "power": 8000,
-                        "dead": "Alive"
-                    }
-                ]
-            });
+            exportToCSV('selectedDataName' + '.csv', this.convertToUsableJSON());
         }
     },
     data: {
-        message: "Did it work?"
+        message: "Did it work?",
+        exportJSON: {
+            gridColumns: [],
+            gridData: []
+        },
+        dummy: {
+            gridColumns: [
+                "name",
+                "power",
+                "dead"
+            ],
+            gridData: [
+                {
+                    name: "Chuck Norris",
+                    power: "Infinity",
+                    dead: "Alive"
+                },
+                {
+                    name: "Bruce Lee",
+                    power: 9000,
+                    dead: "Dead"
+                },
+                {
+                    name: "Jackie Chan",
+                    power: 7000,
+                    dead: "Alive"
+                },
+                {
+                    name: "Jet Li",
+                    power: 8000,
+                    dead: "Alive"
+                }
+            ]
+        },
+        dummy2: [
+            {
+                name: "Chuck Norris",
+                power: "Infinity",
+                dead: "Alive"
+            },
+            {
+                name: "Bruce Lee",
+                power: 9000,
+                dead: "Dead"
+            },
+            {
+                name: "Jackie Chan",
+                power: 7000,
+                dead: "Alive"
+            },
+            {
+                name: "Jet Li",
+                power: 8000,
+                dead: "Alive"
+            }
+        ]
+
     }
 });
 
@@ -86,7 +122,7 @@ function saveJSONasCSV(jsonObject) {
 // filename - this can be anything but it is supposed to be a .csv file
 // incomingdata - This MUST match the following format:
 //  {
-//      "gridColumns": [
+//     "gridColumns": [
 //          "columnTitle1",
 //          "columnTitle2",
 //          "columnTitle3"
@@ -110,17 +146,17 @@ function exportToCSV(filename, incomingData) {
     let rows = [];
     rows.push(incomingData.gridColumns);
     for (let k = 0; k < incomingData.gridData.length; k++) {
-        var item = incomingData.gridData[k];
-        var temp = [];
+        const item = incomingData.gridData[k];
+        let temp = [];
         for (let l = 0; l < rows[0].length; l++) {
-            var columnTitle = rows[0][l];
+            const columnTitle = rows[0][l];
             temp.push(item[columnTitle]);
         }
         rows.push(temp);
     }
 
 
-    var processRow = function (row) {
+    const processRow = function (row) {
         let finalVal = '';
         for (let j = 0; j < row.length; j++) {
             let innerValue = row[j] === null ? '' : row[j].toString();
@@ -209,14 +245,14 @@ function demoExportToCSV() {
 
     console.log("populated rows");
 
-    var processRow = function (row) {
+    const processRow = function (row) {
         let finalVal = '';
         for (let j = 0; j < row.length; j++) {
             let innerValue = row[j] === null ? '' : row[j].toString();
             if (row[j] instanceof Date) {
                 innerValue = row[j].toLocaleString();
             }
-            var result = innerValue.replace(/"/g, '""');
+            let result = innerValue.replace(/"/g, '""');
             if (result.search(/("|,|\n)/g) >= 0)
                 result = '"' + result + '"';
             if (j > 0)
