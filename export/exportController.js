@@ -9,8 +9,8 @@ new Vue({
         convertToUsableJSON: function () {
             //return this.dummy;
 
-            this.gridColumns = ["name","power","dead"];
-            this.gridData = this.dummy2;
+            this.exportJSON.gridColumns = ["name","power","dead"];
+            this.exportJSON.gridData = this.dummy2;
 
             return this.exportJSON;
         },
