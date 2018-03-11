@@ -77,10 +77,10 @@ function saveJSONasCSV(jsonObject) {
 
 //alternate : this is another convert/export code snippet, but it requires csv header formatting
 
-document.getElementById("export-btn").onclick = function () {
-    console.log("Export Button has been selected");
-};
-document.getElementById("export-btn").onclick = demoExportToCSV();
+// document.getElementById("export-btn").onclick = function () {
+//     console.log("Export Button has been selected");
+// };
+// document.getElementById("export-btn").onclick = demoExportToCSV;
 
 
 // filename - this can be anything but it is supposed to be a .csv file
