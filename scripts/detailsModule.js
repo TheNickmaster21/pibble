@@ -1,30 +1,37 @@
+function returnDataSets(message, callback) {
+    _.each(dataSets, function (dataSet) {
+        dataSet.rows = loadData(dataSet.id + 'rows') || [];
+    });
+    callback(dataSets);
+}
+
+function addDataRow(message) {
+    if (message.id) {
+        let rows = loadData(message.id + 'rows') || [];
+        let nonUniqueRows = _.filter(rows, function (row) {
+            let unique = true;
+            _.each(rows, function (oldRow) {
+                for (let i = 0; i < oldRow.length; i++) {
+                    if (dataSets[message.id - 1].columns[i].unique && oldRow[i] === row[i]) {
+                        unique = false;
+                    }
+                }
+            });
+            return !unique;
+        });
+        if (nonUniqueRows.length === 0) {
+            rows.push(message.row);
+            saveData(message.id + 'rows', rows);
+        }
+    }
+}
+
 chrome.runtime.onMessage.addListener(function (message, src, callback) {
     console.log(message);
     if (message.action === 'get_data_sets') {
-        for (let i = 0; i < dataSets.length; i++) {
-            let dataSet = dataSets[i];
-            dataSet.rows = loadData(dataSet.id + 'rows') || [];
-        }
-        callback(dataSets);
+        returnDataSets(message, callback);
     } else if (message.action === 'add_row_to_data_set') {
-        if (message.id) {
-            let rows = loadData(message.id + 'rows') || [];
-            let nonUniqueRows = _.filter(rows, function (row) {
-                let unique = true;
-                _.each(rows, function (oldRow) {
-                    for (let i = 0; i < oldRow.length; i++) {
-                        if (dataSets[message.id - 1].columns[i].unique && oldRow[i] === row[i]) {
-                            unique = false;
-                        }
-                    }
-                });
-                return !unique;
-            });
-            if (nonUniqueRows.length === 0) {
-                rows.push(message.row);
-                saveData(message.id + 'rows', rows);
-            }
-        }
+        addDataRow(message);
     }
 });
 
