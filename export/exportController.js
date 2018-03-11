@@ -6,25 +6,21 @@ new Vue({
                 // Tab opened.
             });
         },
-        getUsableJSON: function () {
-            chrome.runtime.sendMessage({action: 'get_data_sets'}, (response) => {
-                console.log(JSON.stringify(response));
-                this.filename = response.name;
-                console.log(JSON.stringify(this.exportJSON.gridData));
-                if (this.selectedDataSetOption.value === 'fortune')
-                    this.exportJSON.gridData = response[0].rows;
-                else
-                    this.exportJSON.gridData = response[1].rows;
-                console.log(JSON.stringify(this.exportJSON.gridData));
-                this.exportJSON.gridColumns = Object.keys(this.exportJSON.gridData[0]);
-                console.log(JSON.stringify(this.exportJSON));
-            });
-            return this.exportJSON;
-        },
         exportCSV: function () {
-            this.message = "hopefully";
-            this.$forceUpdate();
-            exportToCSV(this.filename + '.csv', this.getUsableJSON());
+            chrome.runtime.sendMessage({action: 'get_data_sets'}, (response) => {
+                if (this.selectedDataSetOption.value === 'fortune') {
+                    this.filename = response[0].name;
+                    this.exportJSON.gridData = response[0].rows;
+                } else {
+                    this.filename = response[1].name;
+                    this.exportJSON.gridData = response[1].rows;
+                }
+                console.log(_.pluck(response.columns, 'name'));
+                this.exportJSON.gridColumns = _.pluck(response.columns, 'name');
+                exportToCSV(this.filename + '.csv', this.exportJSON);
+
+            });
+
         }
     },
     data: {
