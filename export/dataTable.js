@@ -1,3 +1,58 @@
+new Vue({
+    el: '#data-table-page',
+    methods: {
+        load: function () {
+            Object.assign(this.savedData, this.sample);
+            Object.assign(this.savedData, loadData('test'));
+            this.$forceUpdate();
+        },
+        save: function () {
+            saveData('test', [
+                {
+                    name: "Chuck Norris",
+                    power: "Infinity",
+                    dead: "Alive"
+                },
+                {
+                    name: "Bruce Lee",
+                    power: 9000,
+                    dead: "Dead"
+                },
+                {
+                    name: "Jackie Chan",
+                    power: 7000,
+                    dead: "Alive"
+                },
+                {
+                    name: "Jet Li",
+                    power: 8000,
+                    dead: "Alive"
+                }
+            ]);
+        }
+    },
+    data: {
+        savedData: [
+            {v0: 1, v1: 2},
+            {v0: 3, v1: 4},
+            {v0: 5, v1: 6},
+            {v0: 7, v1: 8},
+            {v0: 9, v1: 10},
+            {v0: 11, v1: 12}
+        ],
+        sample: [
+            {v0: 11, v1: 12},
+            {v0: 13, v1: 14},
+            {v0: 15, v1: 16},
+            {v0: 17, v1: 18},
+            {v0: 19, v1: 20},
+            {v0: 21, v1: 22}
+        ]
+    }
+});
+
+
+/*
 // register the grid component
 Vue.component('data-grid', {
     template: '#data-table',
@@ -36,7 +91,7 @@ Vue.component('data-grid', {
                     return (a === b ? 0 : a > b ? 1 : -1) * order
                 })
             }
-            return data
+            return data;
         }
     },
     filters: {
@@ -59,11 +114,8 @@ const demo = new Vue({
     data: {
         searchQuery: '',
         gridColumns: ['name', 'power', 'dead', '4'],
-        gridData: [
-            { name: 'Chuck Norris', power: Infinity, dead: 'Alive' },
-            { name: 'Bruce Lee', power: 9000, dead: 'Dead' },
-            { name: 'Jackie Chan', power: 7000, dead: 'Alive' },
-            { name: 'Jet Li', power: 8000, dead: 'Alive' }
-        ]
+        gridData: [ loadData('test')]
     }
 });
+
+*/

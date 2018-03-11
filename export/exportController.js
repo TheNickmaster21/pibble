@@ -1,15 +1,38 @@
 new Vue({
-    el: '#view-full-data',
+    el: '#export-page',
     methods: {
         dataTab: function () {
-            chrome.tabs.create({'url': chrome.extension.getURL('export/dataView.html')}, function(tab) {
+            chrome.tabs.create({'url': chrome.extension.getURL('export/dataView.html')}, function (tab) {
+                // Tab opened.
+            });
+        },
+        idkfam: function () {
+            Vue.set(this.message, "hopefully");
+            this.$forceUpdate();
+            chrome.tabs.create({'url': chrome.extension.getURL('export/dataView.html')}, function (tab) {
                 // Tab opened.
             });
         }
+    },
+    data: {
+        message: "Did it work?"
     }
 });
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+//*********Haley's code**********//
 
 
 //pre-condition: json is given or passed as a text/string/object
@@ -30,8 +53,13 @@ console.log(csv)./
  */
 
 
-
 //save new csv
+
+
+function saveJSONasCSV(jsonObject) {
+    var csvString = convertToCSV(jsonObject);
+    exportCSVFile(csvString);
+}
 
 //alternate : this is another convert/export code snippet, but it requires csv header formatting
 
