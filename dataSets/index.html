@@ -10,7 +10,7 @@
     <link href="/global.css" rel="stylesheet">
 </head>
 <body>
-<div class="popupBody">
+<div class="popupBody" id="dataSet-page">
     <header>
         <a href="/index.html">
             <span class="oi oi-home"></span>
@@ -19,6 +19,16 @@
             <span>Data Sets</span>
         </h3>
     </header>
+
+    <button>create</button>
+    <label>
+        <input/>
+    </label>
+    Data Sets that exist:
+    <ul>
+        <li v-for="names in dataSetNames">{{names}}</li>
+    </ul>
+
 </div>
 <script src="dataSetController.js"></script>
 </body>
