@@ -6,12 +6,9 @@ new Vue({
                 // Tab opened.
             });
         },
-        idkfam: function () {
-            Vue.set(this.message, "hopefully");
+        exportCSV: function () {
+            this.message = "hopefully";
             this.$forceUpdate();
-            chrome.tabs.create({'url': chrome.extension.getURL('export/dataView.html')}, function (tab) {
-                // Tab opened.
-            });
         }
     },
     data: {
