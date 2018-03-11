@@ -9,7 +9,7 @@ new Vue({
         exportCSV: function () {
             this.message = "hopefully";
             this.$forceUpdate();
-            exportToCSV('idkwhatever.csv', {
+            exportToCSV('selectedDataName'+'.csv', {
                 "gridColumns": [
                     "name",
                     "power",
@@ -71,7 +71,7 @@ console.log(csv)./
 
 
 function saveJSONasCSV(jsonObject) {
-    var csvString = convertToCSV(jsonObject);
+    const csvString = convertToCSV(jsonObject);
     exportCSVFile(csvString);
 }
 
@@ -107,28 +107,27 @@ function saveJSONasCSV(jsonObject) {
 //
 
 function exportToCSV(filename, incomingData) {
-    var rows = new Array();
+    let rows = [];
     rows.push(incomingData.gridColumns);
-    for (var k = 0; k < incomingData.gridData.length; k++) {
+    for (let k = 0; k < incomingData.gridData.length; k++) {
         var item = incomingData.gridData[k];
-        var temp = new Array()
-        for (var l = 0; l < rows[0].length; l++) {
+        var temp = [];
+        for (let l = 0; l < rows[0].length; l++) {
             var columnTitle = rows[0][l];
-            temp.push(item[columnTitle])
+            temp.push(item[columnTitle]);
         }
-        rows.push(temp)
+        rows.push(temp);
     }
 
 
     var processRow = function (row) {
-        var finalVal = '';
-        for (var j = 0; j < row.length; j++) {
-            var innerValue = row[j] === null ? '' : row[j].toString();
+        let finalVal = '';
+        for (let j = 0; j < row.length; j++) {
+            let innerValue = row[j] === null ? '' : row[j].toString();
             if (row[j] instanceof Date) {
                 innerValue = row[j].toLocaleString();
             }
-            ;
-            var result = innerValue.replace(/"/g, '""');
+            let result = innerValue.replace(/"/g, '""');
             if (result.search(/("|,|\n)/g) >= 0)
                 result = '"' + result + '"';
             if (j > 0)
@@ -138,19 +137,19 @@ function exportToCSV(filename, incomingData) {
         return finalVal + "\r\n";
     };
 
-    var csvFile = '';
-    for (var i = 0; i < rows.length; i++) {
+    let csvFile = '';
+    for (let i = 0; i < rows.length; i++) {
         csvFile += processRow(rows[i]);
     }
 
-    var blob = new Blob([csvFile], {type: 'text/csv;charset=utf-8;'});
+    const blob = new Blob([csvFile], {type: 'text/csv;charset=utf-8;'});
     if (navigator.msSaveBlob) { // IE 10+
         navigator.msSaveBlob(blob, filename);
     } else {
-        var link = document.createElement("a");
+        let link = document.createElement("a");
         if (link.download !== undefined) { // feature detection
             // Browsers that support HTML5 download attribute
-            var url = URL.createObjectURL(blob);
+            const url = URL.createObjectURL(blob);
             link.setAttribute("href", url);
             link.setAttribute("download", filename);
             link.style = "visibility:hidden";
@@ -162,9 +161,9 @@ function exportToCSV(filename, incomingData) {
 }
 
 function demoExportToCSV() {
-    console.log("ExportData Clicked!")
-    var filename = "WOOOO.txt"
-    var incomingData = {
+    console.log("ExportData Clicked!");
+    const filename = "WOOOO.txt";
+    const incomingData = {
         "gridColumns": [
             "name",
             "power",
@@ -192,17 +191,17 @@ function demoExportToCSV() {
                 "dead": "Alive"
             }
         ]
-    }
+    };
 
-    var rows = new Array();
+    let rows = [];
     console.log("created rows");
 
     rows.push(incomingData.gridColumns);
-    for (var k = 0; k < incomingData.gridData.length; k++) {
-        var item = incomingData.gridData[k];
-        var temp = new Array()
-        for (var l = 0; l < rows[0].length; l++) {
-            var columnTitle = rows[0][l];
+    for (let k = 0; k < incomingData.gridData.length; k++) {
+        const item = incomingData.gridData[k];
+        let temp = [];
+        for (let l = 0; l < rows[0].length; l++) {
+            const columnTitle = rows[0][l];
             temp.push(item[columnTitle])
         }
         rows.push(temp)
@@ -211,13 +210,12 @@ function demoExportToCSV() {
     console.log("populated rows");
 
     var processRow = function (row) {
-        var finalVal = '';
-        for (var j = 0; j < row.length; j++) {
-            var innerValue = row[j] === null ? '' : row[j].toString();
+        let finalVal = '';
+        for (let j = 0; j < row.length; j++) {
+            let innerValue = row[j] === null ? '' : row[j].toString();
             if (row[j] instanceof Date) {
                 innerValue = row[j].toLocaleString();
             }
-            ;
             var result = innerValue.replace(/"/g, '""');
             if (result.search(/("|,|\n)/g) >= 0)
                 result = '"' + result + '"';
@@ -228,16 +226,16 @@ function demoExportToCSV() {
         return finalVal + "\r\n";
     };
 
-    var csvFile = '';
-    for (var i = 0; i < rows.length; i++) {
-        console.log("adding row to csv string")
+    let csvFile = '';
+    for (let i = 0; i < rows.length; i++) {
+        console.log("adding row to csv string");
         csvFile += processRow(rows[i]);
     }
 
-    console.log("csv compiled = " + csvFile)
+    console.log("csv compiled = " + csvFile);
 
 
-    var blob = new Blob([csvFile], {type: 'text/csv;charset=utf-8;'});
+    const blob = new Blob([csvFile], {type: 'text/csv;charset=utf-8;'});
     if (navigator.msSaveBlob) { // IE 10+
         navigator.msSaveBlob(blob, filename);
     } else {

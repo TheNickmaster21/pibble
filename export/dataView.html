@@ -8,7 +8,6 @@
     <link href="/resources/open-iconic/font/css/open-iconic-bootstrap.css" rel="stylesheet">
     <script src="/resources/bootstrap-4.0.0-dist/js/bootstrap.min.js"></script>
 
-    <script src="/scripts/localDataManager.js"></script>
     <link href="/global.css" rel="stylesheet">
 </head>
 <body class="w-100">
@@ -18,11 +17,11 @@
         <button class="btn btn-secondary dropdown-toggle" type="button" id="export-table-dropdown-data"
                 data-toggle="dropdown"
                 aria-haspopup="true" aria-expanded="false">
-            Data Set
+            {{selectedDataSetOption && selectedDataSetOption.display || 'Data Set'}}
         </button>
         <div class="dropdown-menu" aria-labelledby="export-table-dropdown-data">
-            <a class="dropdown-item" href="#!">Sample 0</a>
-            <a class="dropdown-item" href="#!">Sample 1</a>
+            <a v-for="option in dataSetOptions" class="dropdown-item"
+               href="#!" v-on:click="selectedDataSetOption = option;">{{option.display}}</a>
 
         </div>
     </div>
@@ -45,7 +44,6 @@
         </tbody>
     </table>
 
-    <button v-on:click="save()">save</button>
     <button v-on:click="load()">load</button>
     <p>{{savedData}}</p>
 
