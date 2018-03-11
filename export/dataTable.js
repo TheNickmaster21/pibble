@@ -1,10 +1,34 @@
 new Vue({
     el: '#data-table-page',
     methods: {
-        populate: function () {
-
+        load: function () {
+            Object.assign(this.savedData, this.sample);
             Object.assign(this.savedData, loadData('test'));
             this.$forceUpdate();
+        },
+        save: function () {
+            saveData('test', [
+                {
+                    name: "Chuck Norris",
+                    power: "Infinity",
+                    dead: "Alive"
+                },
+                {
+                    name: "Bruce Lee",
+                    power: 9000,
+                    dead: "Dead"
+                },
+                {
+                    name: "Jackie Chan",
+                    power: 7000,
+                    dead: "Alive"
+                },
+                {
+                    name: "Jet Li",
+                    power: 8000,
+                    dead: "Alive"
+                }
+            ]);
         }
     },
     data: {

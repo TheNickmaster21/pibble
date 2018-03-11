@@ -11,35 +11,6 @@ new Vue({
 new Vue({
     el: '#export-button',
     methods: {
-        testCSVexport() {
-            this.saveData('test', [
-                {
-                    name: "Chuck Norris",
-                    power: "Infinity",
-                    dead: "Alive"
-                },
-                {
-                    name: "Bruce Lee",
-                    power: 9000,
-                    dead: "Dead"
-                },
-                {
-                    name: "Jackie Chan",
-                    power: 7000,
-                    dead: "Alive"
-                },
-                {
-                    name: "Jet Li",
-                    power: 8000,
-                    dead: "Alive"
-                }
-            ]);
-        },
-
-        saveData(key, data) {
-            chrome.storage.local.set({key: JSON.stringify(data)});
-        }
-
     }
 });
 
