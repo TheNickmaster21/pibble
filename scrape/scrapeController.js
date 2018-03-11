@@ -8,11 +8,13 @@ new Vue({
                 chrome.runtime.sendMessage(data, (response) => {
                     Array.prototype.push.apply(this.scrapeResults, response);
                     this.$forceUpdate();
+                    //input local save code here
                 });
             }
         }
     },
     data: {
+        //this is where the code is actively saved temporarily
         scrapeResults: [],
         ruleSetOptions: [
             {display: "Fortune", value: "fortune"},
