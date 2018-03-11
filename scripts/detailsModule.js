@@ -14,22 +14,26 @@ function returnDataSets(message, callback) {
 }
 
 function addDataRow(message) {
-    if (typeof message.id !== 'undefined') {
-        let rows = loadData(message.id + 'rows') || [];
-        let nonUniqueRows = _.filter(rows, function (row) {
-            let unique = true;
-            _.each(rows, function (oldRow) {
-                for (let i = 0; i < oldRow.length; i++) {
-                    if (dataSets[message.id].columns[i].unique && oldRow[i] === row[i]) {
-                        unique = false;
-                    }
+    let id = message.id;
+    if (typeof id !== 'undefined') {
+        let newRow = message.row;
+        let rows = loadData(id + 'rows') || [];
+        let valid = true;
+        for (let i = 0; i < dataSets[id].columns.length; i++) {
+            if (!newRow[i]) {
+                valid = false;
+            }
+        }
+        _.each(rows, function (exitingRow) {
+            for (let i = 0; i < dataSets[id].columns.length; i++) {
+                if (dataSets[id].columns[i].unique && exitingRow[i] === newRow[i]) {
+                    valid = false;
                 }
-            });
-            return !unique;
+            }
         });
-        if (nonUniqueRows.length === 0) {
-            rows.push(message.row);
-            saveData(message.id + 'rows', rows);
+        if (valid) {
+            rows.push(newRow);
+            saveData(id + 'rows', rows);
         }
     }
 }
