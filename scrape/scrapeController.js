@@ -8,17 +8,15 @@ new Vue({
                 chrome.runtime.sendMessage(data, (response) => {
                     Array.prototype.push.apply(this.scrapeResults, response);
                     this.$forceUpdate();
-                    //input local save code here
                 });
             }
         }
     },
     data: {
-        //this is where the code is actively saved temporarily
         scrapeResults: [],
         ruleSetOptions: [
-            {display: "Fortune", value: "fortune"},
-            {display: "Edgar", value: "edgar"}
+            "fortune",
+            "betaEdgar"
         ],
         selectedRuleSetOption: null,
         fortuneRuleSet: {
@@ -99,7 +97,7 @@ new Vue({
                 }
             ]
         },
-        edgarRuleSet: { // Beta website
+        betaEdgarRuleSet: { // Beta website
             rules: [
                 { // Name
                     selector: "h1",
@@ -111,20 +109,32 @@ new Vue({
                     regex: "([^\\s]+)",
                     regexIndex: 1
                 },
-                { // Business Address
-                    selector: "span",
-                    selectorIndex: 4,
-                    regex: "([^\\s]+)",
-                    regexIndex: 1
-                },
                 { // Mailing Address
                     selector: "div#mailing-address",
-                    selectorIndex: 0
+                    selectorIndex: 0,
+                    substring: [16]
                 },
                 { // Business Address
                     selector: "div#business-address",
-                    selectorIndex: 0
+                    selectorIndex: 0,
+                    substring: [17]
                 },
+                { // SIC
+                    selector: "span",
+                    selectorIndex: 6,
+                    regex: "([^\\s]+)",
+                    regexIndex: 1
+                },
+                { // Industry
+                    selector: "span",
+                    selectorIndex: 6,
+                    substring: [12]
+                },
+                { // State Location
+                    selector: "span.indent",
+                    selectorIndex: 0,
+                    substring: [16]
+                }
             ]
         }
     }
