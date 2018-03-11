@@ -17,18 +17,6 @@ new Vue({
 });
 
 
-
-
-
-
-
-
-
-
-
-
-
-
 //*********Haley's code**********//
 
 
@@ -60,7 +48,9 @@ function saveJSONasCSV(jsonObject) {
 
 //alternate : this is another convert/export code snippet, but it requires csv header formatting
 
-document.getElementById("export-btn").onclick = function () { console.log("Export Button has been selected"); };
+document.getElementById("export-btn").onclick = function () {
+    console.log("Export Button has been selected");
+};
 document.getElementById("export-btn").onclick = demoExportToCSV();
 
 
@@ -87,13 +77,13 @@ document.getElementById("export-btn").onclick = demoExportToCSV();
 //  }
 //
 
-function exportToCSV(filename, incomingData){
+function exportToCSV(filename, incomingData) {
     var rows = new Array();
     rows.push(incomingData.gridColumns);
-    for(var k =0 ; k < incomingData.gridData.length ; k++) {
+    for (var k = 0; k < incomingData.gridData.length; k++) {
         var item = incomingData.gridData[k];
         var temp = new Array()
-        for(var l = 0; l < rows[0].length ; l++){
+        for (var l = 0; l < rows[0].length; l++) {
             var columnTitle = rows[0][l];
             temp.push(item[columnTitle])
         }
@@ -107,7 +97,8 @@ function exportToCSV(filename, incomingData){
             var innerValue = row[j] === null ? '' : row[j].toString();
             if (row[j] instanceof Date) {
                 innerValue = row[j].toLocaleString();
-            };
+            }
+            ;
             var result = innerValue.replace(/"/g, '""');
             if (result.search(/("|,|\n)/g) >= 0)
                 result = '"' + result + '"';
@@ -123,7 +114,7 @@ function exportToCSV(filename, incomingData){
         csvFile += processRow(rows[i]);
     }
 
-    var blob = new Blob([csvFile], { type: 'text/csv;charset=utf-8;' });
+    var blob = new Blob([csvFile], {type: 'text/csv;charset=utf-8;'});
     if (navigator.msSaveBlob) { // IE 10+
         navigator.msSaveBlob(blob, filename);
     } else {
@@ -141,7 +132,7 @@ function exportToCSV(filename, incomingData){
     }
 }
 
-function demoExportToCSV(){
+function demoExportToCSV() {
     console.log("ExportData Clicked!")
     var filename = "WOOOO.txt"
     var incomingData = {
@@ -178,10 +169,10 @@ function demoExportToCSV(){
     console.log("created rows");
 
     rows.push(incomingData.gridColumns);
-    for(var k =0 ; k < incomingData.gridData.length ; k++) {
+    for (var k = 0; k < incomingData.gridData.length; k++) {
         var item = incomingData.gridData[k];
         var temp = new Array()
-        for(var l = 0; l < rows[0].length ; l++){
+        for (var l = 0; l < rows[0].length; l++) {
             var columnTitle = rows[0][l];
             temp.push(item[columnTitle])
         }
@@ -196,7 +187,8 @@ function demoExportToCSV(){
             var innerValue = row[j] === null ? '' : row[j].toString();
             if (row[j] instanceof Date) {
                 innerValue = row[j].toLocaleString();
-            };
+            }
+            ;
             var result = innerValue.replace(/"/g, '""');
             if (result.search(/("|,|\n)/g) >= 0)
                 result = '"' + result + '"';
@@ -216,11 +208,11 @@ function demoExportToCSV(){
     console.log("csv compiled = " + csvFile)
 
 
-    var blob = new Blob([csvFile], { type: 'text/csv;charset=utf-8;' });
+    var blob = new Blob([csvFile], {type: 'text/csv;charset=utf-8;'});
     if (navigator.msSaveBlob) { // IE 10+
         navigator.msSaveBlob(blob, filename);
     } else {
-        document.body.innerHTML+="<a id='test' href='data:text;charset=utf-8,"+encodeURIComponent("hi")+"' download=myFile.csv>CSV Download Link</a>";
+        document.body.innerHTML += "<a id='test' href='data:text;charset=utf-8," + encodeURIComponent("hi") + "' download=myFile.csv>CSV Download Link</a>";
         document.getElementById('test').click();
 
         // var link = document.createElement("a");
