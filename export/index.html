@@ -10,7 +10,7 @@
     <link href="/global.css" rel="stylesheet">
 </head>
 <body>
-<div class="popupBody">
+<div class="popupBody" id="export-page">
     <header>
         <a href="/index.html">
             <span class="oi oi-home"></span>
@@ -32,11 +32,13 @@
         </div>
     </div>
 
-    <br/><br/><br/><br/>
+    <br/><br/>
+    <p>{{message}}</p>
+    <br/><br/>
 
     <footer>
-        <button class="btn btn-secondary" id="view-full-data" v-on:click="dataTab()">View data sample</button>
-        <button class="btn btn-secondary" id="export-button" v-on:click="testCSVexport()">Export to .csv</button>
+        <button class="btn btn-secondary" v-on:click="dataTab()">View data sample</button>
+        <button class="btn btn-secondary" v-on:click="exportCSV()">Export to .csv</button>
     </footer>
 </div>
 <script src="exportController.js"></script>

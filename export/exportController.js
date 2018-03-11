@@ -1,18 +1,36 @@
 new Vue({
-    el: '#view-full-data',
+    el: '#export-page',
     methods: {
         dataTab: function () {
             chrome.tabs.create({'url': chrome.extension.getURL('export/dataView.html')}, function (tab) {
                 // Tab opened.
             });
+        },
+        exportCSV: function () {
+            Vue.set(this.message, "hopefully");
+            this.$forceUpdate();
         }
+    },
+    data: {
+        message: "Did it work?"
     }
 });
-new Vue({
-    el: '#export-button',
-    methods: {
-    }
-});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//*********Haley's old code**********//
+
 
 //pre-condition: json is given or passed as a text/string/object
 
