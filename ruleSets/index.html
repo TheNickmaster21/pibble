@@ -10,7 +10,7 @@
     <link href="/global.css" rel="stylesheet">
 </head>
 <body>
-<div class="popupBody"  id="ruleset-page">
+<div class="popupBody" id="ruleset-page">
     <header>
         <a href="/index.html">
             <span class="oi oi-home"></span>
@@ -22,7 +22,8 @@
 
 
     <div class="dropdown">
-        <button class="btn btn-secondary dropdown-toggle" type="button" id="rulesets-dropdown-rule" data-toggle="dropdown"
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="rulesets-dropdown-rule"
+                data-toggle="dropdown"
                 aria-haspopup="true" aria-expanded="false">
             {{selectedRuleSetOption || 'Rule Set'}}
         </button>
@@ -32,8 +33,6 @@
                href="#!" v-on:click="selectedRuleSetOption = option;">{{option}}</a>
         </div>
     </div>
-
-
 
 
     <br/><br/><br/><br/>
