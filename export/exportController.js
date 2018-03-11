@@ -8,7 +8,40 @@ new Vue({
         }
     }
 });
+new Vue({
+    el: '#export-button',
+    methods: {
+        testCSVexport() {
+            this.saveData('test', [
+                {
+                    name: "Chuck Norris",
+                    power: "Infinity",
+                    dead: "Alive"
+                },
+                {
+                    name: "Bruce Lee",
+                    power: 9000,
+                    dead: "Dead"
+                },
+                {
+                    name: "Jackie Chan",
+                    power: 7000,
+                    dead: "Alive"
+                },
+                {
+                    name: "Jet Li",
+                    power: 8000,
+                    dead: "Alive"
+                }
+            ]);
+        },
 
+        saveData(key, data) {
+            chrome.storage.local.set({key: JSON.stringify(data)});
+        }
+
+    }
+});
 
 //pre-condition: json is given or passed as a text/string/object
 
@@ -26,39 +59,6 @@ csv = csv.join('\r\n')
 
 console.log(csv)./
  */
-
-
-function testCSVexport() {
-    saveJSONasCSV({
-        "gridColumns": [
-            "name",
-            "power",
-            "dead"
-        ],
-        "gridData": [
-            {
-                "name": "Chuck Norris",
-                "power": "Infinity",
-                "dead": "Alive"
-            },
-            {
-                "name": "Bruce Lee",
-                "power": 9000,
-                "dead": "Dead"
-            },
-            {
-                "name": "Jackie Chan",
-                "power": 7000,
-                "dead": "Alive"
-            },
-            {
-                "name": "Jet Li",
-                "power": 8000,
-                "dead": "Alive"
-            }
-        ]
-    })
-}
 
 
 //save new csv
