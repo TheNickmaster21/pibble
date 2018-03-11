@@ -19,13 +19,11 @@ new Vue({
             return this.exportJSON;
         },
         exportCSV: function () {
-            this.message = "hopefully";
             this.$forceUpdate();
             exportToCSV('selectedDataName' + '.csv', this.getUsableJSON());
         }
     },
     data: {
-        message: "Did it work?",
         dataSetOptions: [
             {display: "Fortune", value: "fortune"},
             {display: "Edgar Beta", value: "betaEdgar"}
