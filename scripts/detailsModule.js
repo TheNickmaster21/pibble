@@ -1,3 +1,12 @@
+chrome.runtime.onMessage.addListener(function (message, src, callback) {
+    console.log(message);
+    if (message.action === 'get_data_sets') {
+        returnDataSets(message, callback);
+    } else if (message.action === 'add_row_to_data_set') {
+        addDataRow(message);
+    }
+});
+
 function returnDataSets(message, callback) {
     _.each(dataSets, function (dataSet) {
         dataSet.rows = loadData(dataSet.id + 'rows') || [];
@@ -25,15 +34,6 @@ function addDataRow(message) {
         }
     }
 }
-
-chrome.runtime.onMessage.addListener(function (message, src, callback) {
-    console.log(message);
-    if (message.action === 'get_data_sets') {
-        returnDataSets(message, callback);
-    } else if (message.action === 'add_row_to_data_set') {
-        addDataRow(message);
-    }
-});
 
 let dataSets = [
     {
