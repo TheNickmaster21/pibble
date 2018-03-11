@@ -11,12 +11,16 @@ new Vue({
                 if (this.selectedDataSetOption.value === 'fortune') {
                     this.filename = response[0].name;
                     this.exportJSON.gridData = response[0].rows;
+                    console.log(_.pluck(response[0].columns, 'name'));
+                    this.exportJSON.gridColumns = _.pluck(response[0].columns, 'name');
                 } else {
                     this.filename = response[1].name;
                     this.exportJSON.gridData = response[1].rows;
+                    console.log(_.pluck(response[1].columns, 'name'));
+                    this.exportJSON.gridColumns = _.pluck(response[1].columns, 'name');
                 }
-                console.log(_.pluck(response.columns, 'name'));
-                this.exportJSON.gridColumns = _.pluck(response.columns, 'name');
+
+
                 exportToCSV(this.filename + '.csv', this.exportJSON);
 
             });

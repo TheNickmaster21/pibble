@@ -78,6 +78,10 @@ th {
     float: right;
 }
 
+#export-dropdown-data {
+    margin-left: 2%;
+}
+
 .export-dropdown-container {
     text-align: center;
 }
