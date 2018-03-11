@@ -11,7 +11,7 @@ new Vue({
                 console.log(JSON.stringify(response));
                 this.filename = response.name;
                 console.log(JSON.stringify(this.exportJSON.gridData));
-                if(this.selectedDataSetOption.value === 'fortune')
+                if (this.selectedDataSetOption.value === 'fortune')
                     this.exportJSON.gridData = response[0].rows;
                 else
                     this.exportJSON.gridData = response[1].rows;
