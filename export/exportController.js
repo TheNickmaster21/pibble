@@ -9,6 +9,35 @@ new Vue({
         exportCSV: function () {
             this.message = "hopefully";
             this.$forceUpdate();
+            exportToCSV('idkwhatever.csv', {
+                "gridColumns": [
+                    "name",
+                    "power",
+                    "dead"
+                ],
+                "gridData": [
+                    {
+                        "name": "Chuck Norris",
+                        "power": "Infinity",
+                        "dead": "Alive"
+                    },
+                    {
+                        "name": "Bruce Lee",
+                        "power": 9000,
+                        "dead": "Dead"
+                    },
+                    {
+                        "name": "Jackie Chan",
+                        "power": 7000,
+                        "dead": "Alive"
+                    },
+                    {
+                        "name": "Jet Li",
+                        "power": 8000,
+                        "dead": "Alive"
+                    }
+                ]
+            });
         }
     },
     data: {
