@@ -8,11 +8,14 @@ new Vue({
         },
         getUsableJSON: function () {
             chrome.runtime.sendMessage({action: 'get_data_sets'}, (response) => {
+                console.log(JSON.stringify(response));
+                this.filename = response.name;
+                console.log(JSON.stringify(this.exportJSON.gridData));
                 if(this.selectedDataSetOption.value === 'fortune')
                     this.exportJSON.gridData = response[0].rows;
                 else
                     this.exportJSON.gridData = response[1].rows;
-
+                console.log(JSON.stringify(this.exportJSON.gridData));
                 this.exportJSON.gridColumns = Object.keys(this.exportJSON.gridData[0]);
                 console.log(JSON.stringify(this.exportJSON));
             });
@@ -21,11 +24,12 @@ new Vue({
         exportCSV: function () {
             this.message = "hopefully";
             this.$forceUpdate();
-            exportToCSV('selectedDataName' + '.csv', this.getUsableJSON());
+            exportToCSV(this.filename + '.csv', this.getUsableJSON());
         }
     },
     data: {
         message: "Did it work?",
+        filename: "export",
         dataSetOptions: [
             {display: "Fortune", value: "fortune"},
             {display: "Edgar Beta", value: "betaEdgar"}
