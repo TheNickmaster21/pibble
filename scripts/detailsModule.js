@@ -14,7 +14,7 @@ function returnDataSets(message, callback) {
 }
 
 function addDataRow(message) {
-    if (message.id) {
+    if (typeof message.id !== 'undefined') {
         let rows = loadData(message.id + 'rows') || [];
         let nonUniqueRows = _.filter(rows, function (row) {
             let unique = true;

@@ -21,11 +21,10 @@
         </button>
         <div class="dropdown-menu" aria-labelledby="export-table-dropdown-data">
             <a v-for="option in dataSetOptions" class="dropdown-item"
-               href="#!" v-on:click="selectedDataSetOption = option;">{{option.display}}</a>
+               href="#!" v-on:click="selectedDataSetOption = option; load();">{{option.display}}</a>
 
         </div>
     </div>
-
 
     <table class="table table-sm table-striped">
         <thead>
@@ -43,10 +42,6 @@
         </tr>
         </tbody>
     </table>
-
-    <button v-on:click="load()">load</button>
-    <p>{{savedData}}</p>
-
 
 </div>
 <script src="dataTable.js"></script>

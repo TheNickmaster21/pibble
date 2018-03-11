@@ -9,5 +9,4 @@ function loadData(key) {
 //save data: Save the given data to with the given key
 function saveData(key, data) {
     localStorage.setItem(key, JSON.stringify(data));
-    console.log(loadData(key));
 }
