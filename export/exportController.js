@@ -6,24 +6,22 @@ new Vue({
                 // Tab opened.
             });
         },
-        convertToUsableJSON: function () {
-            //return this.dummy;
-
-            //reset data
-            this.exportJSON.gridColumns = [];
-
-            console.log(Object.keys(this.dummy2[0]));
-
-            //this.exportJSON.gridColumns.push( Object.keys(this.dummy2[0]) );
-            this.exportJSON.gridColumns = ["name", "power", "dead"];
-            this.exportJSON.gridData = this.dummy2;
+        getUsableJSON: function () {
+            chrome.runtime.sendMessage({action: 'get_data_sets'}, (response) => {
+                if(this.selectedDataSetOption.value === 'fortune')
+                    this.exportJSON.gridData = response[0].rows;
+                else
+                    this.exportJSON.gridData = response[1].rows;
+                this.$forceUpdate();
+            });
+            this.exportJSON.gridColumns = Object.keys(this.exportJSON.gridData[0]);
             console.log(JSON.stringify(this.exportJSON));
             return this.exportJSON;
         },
         exportCSV: function () {
             this.message = "hopefully";
             this.$forceUpdate();
-            exportToCSV('selectedDataName' + '.csv', this.convertToUsableJSON());
+            exportToCSV('selectedDataName' + '.csv', this.getUsableJSON());
         }
     },
     data: {
@@ -32,36 +30,7 @@ new Vue({
             gridColumns: [],
             gridData: []
         },
-        dummy: {
-            gridColumns: [
-                "name",
-                "power",
-                "dead"
-            ],
-            gridData: [
-                {
-                    name: "Chuck Norris",
-                    power: "Infinity",
-                    dead: "Alive"
-                },
-                {
-                    name: "Bruce Lee",
-                    power: 9000,
-                    dead: "Dead"
-                },
-                {
-                    name: "Jackie Chan",
-                    power: 7000,
-                    dead: "Alive"
-                },
-                {
-                    name: "Jet Li",
-                    power: 8000,
-                    dead: "Alive"
-                }
-            ]
-        },
-        dummy2: [
+        dummy: [
             {
                 name: "Chuck Norris",
                 power: "Infinity",
