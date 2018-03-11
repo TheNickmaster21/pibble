@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:v-on="http://www.w3.org/1999/xhtml">
 <head>
     <script src="/resources/jquery-3.3.1.js"></script>
     <link rel="stylesheet" href="/resources/bootstrap-4.0.0-dist/css/bootstrap.min.css"/>
@@ -8,49 +8,72 @@
     <link href="/resources/open-iconic/font/css/open-iconic-bootstrap.css" rel="stylesheet">
     <script src="/resources/bootstrap-4.0.0-dist/js/bootstrap.min.js"></script>
 
+    <script src="/scripts/localDataManager.js"></script>
     <link href="/global.css" rel="stylesheet">
 </head>
 <body class="w-100">
+<div id="data-table-page">
+
+    <table class="table table-sm table-striped">
+        <thead>
+        <tr>
+            <th v-for="(item, key) in savedData[0]">
+                {{key}}
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr v-for="dataRow in savedData">
+            <td v-for="value in dataRow">
+                {{value}}
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <button v-on:click="populate()">reload</button>
+    <p>{{sample}}</p>
 
 
-<!-- component template -->
-<div class="d-flex">
-    <script type="text/x-template" id="data-table">
-        <table class="table table-sm table-striped">
-            <thead>
-            <tr>
-                <th v-for="key in columns"
-                    @click="sortBy(key)"
-                    :class="{ active: sortKey == key }">
-                    {{ key | capitalize }}
-                    <span class="arrow" :class="sortOrders[key] > 0 ? 'asc' : 'dsc'">
-          </span>
-                </th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr v-for="entry in filteredData">
-                <td v-for="key in columns">
-                    {{entry[key]}}
-                </td>
-            </tr>
-            </tbody>
-        </table>
-    </script>
-    <!-- demo root element -->
-    <div class="w-100" id="demo">
-        <form id="search">
-            Search <input name="query" v-model="searchQuery">
-        </form>
-        <data-grid
-                :data="gridData"
-                :columns="gridColumns"
-                :filter-key="searchQuery">
-        </data-grid>
-    </div>
+
+    <!-- component template
+    <div class="d-flex">
+        <script type="text/x-template" id="data-table">
+            <table class="table table-sm table-striped">
+                <thead>
+                <tr>
+                    <th v-for="key in columns"
+                        @click="sortBy(key)"
+                        :class="{ active: sortKey == key }">
+                        {{ key | capitalize }}
+                        <span class="arrow" :class="sortOrders[key] > 0 ? 'asc' : 'dsc'">
+              </span>
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr v-for="entry in filteredData">
+                    <td v-for="key in columns">
+                        {{entry[key]}}
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </script>
+
+        <div class="w-100" id="demo">
+            <form id="search">
+                Search <input name="query" v-model="searchQuery">
+            </form>
+            <data-grid
+                    :data="gridData"
+                    :columns="gridColumns"
+                    :filter-key="searchQuery">
+            </data-grid>
+        </div>
+    </div>-->
+
 </div>
-
-
 <script src="dataTable.js"></script>
 </body>
 </html>
