@@ -65,13 +65,14 @@ th {
     border-bottom: transparent;
 }
 
-#scrape-dropdown-data {
+#scrape-dropdown-rule {
+
     width: 47%;
     margin-left: 2%;
     float: left;
 }
 
-#scrape-dropdown-rule {
+#scrape-dropdown-data {
     width: 47%;
     margin-right: 2%;
     float: right;
