@@ -9,9 +9,15 @@ new Vue({
         convertToUsableJSON: function () {
             //return this.dummy;
 
-            this.exportJSON.gridColumns = ["name","power","dead"];
-            this.exportJSON.gridData = this.dummy2;
+            //reset data
+            this.exportJSON.gridColumns = [];
 
+            console.log(Object.keys(this.dummy2[0]));
+
+            //this.exportJSON.gridColumns.push( Object.keys(this.dummy2[0]) );
+            this.exportJSON.gridColumns = ["name", "power", "dead"];
+            this.exportJSON.gridData = this.dummy2;
+            console.log(JSON.stringify(this.exportJSON));
             return this.exportJSON;
         },
         exportCSV: function () {
