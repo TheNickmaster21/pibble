@@ -4,7 +4,7 @@ new Vue({
         scrape: function () {
             if (this.selectedRuleSetOption) {
                 this.scrapeResults.splice(0, this.scrapeResults.length);
-                let scrapeData = {action: 'scrape_web_page', data: this[this.selectedRuleSetOption + 'RuleSet']};
+                let scrapeData = {action: 'scrape_web_page', data: this[this.selectedRuleSetOption.value + 'RuleSet']};
                 chrome.runtime.sendMessage(scrapeData, (response) => {
                     Array.prototype.push.apply(this.scrapeResults, response);
                     this.$forceUpdate();

@@ -20,27 +20,27 @@
         </h3>
     </header>
 
+    <div class="dropdown">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="scrape-dropdown-rule" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false">
+            {{selectedRuleSetOption && selectedRuleSetOption.display || 'Rule Set'}}
+        </button>
+
+        <div class="dropdown-menu" aria-labelledby="scrape-dropdown-rule">
+            <a v-for="option in ruleSetOptions" class="dropdown-item"
+               href="#!" v-on:click="selectedRuleSetOption = option;">{{option.display}}</a>
+        </div>
+    </div>
 
     <div class="dropdown">
         <button class="btn btn-secondary dropdown-toggle" type="button" id="scrape-dropdown-data" data-toggle="dropdown"
                 aria-haspopup="true" aria-expanded="false" disabled>
-            Data Set
+            {{selectedRuleSetOption && selectedRuleSetOption.display || 'Data Set'}}
         </button>
         <div class="dropdown-menu" aria-labelledby="scrape-dropdown-data">
             <a class="dropdown-item" href="#!">Sample 0</a>
             <a class="dropdown-item" href="#!">Sample 1</a>
 
-        </div>
-    </div>
-    <div class="dropdown">
-        <button class="btn btn-secondary dropdown-toggle" type="button" id="scrape-dropdown-rule" data-toggle="dropdown"
-                aria-haspopup="true" aria-expanded="false">
-            {{selectedRuleSetOption || 'Rule Set'}}
-        </button>
-
-        <div class="dropdown-menu" aria-labelledby="scrape-dropdown-rule">
-            <a v-for="option in ruleSetOptions" class="dropdown-item"
-               href="#!" v-on:click="selectedRuleSetOption = option.value;">{{option.display}}</a>
         </div>
     </div>
 
@@ -50,7 +50,8 @@
     </ul>
 
     <footer>
-        <button class="btn btn-secondary margin-xs" v-on:click="scrape()" :disabled="!selectedRuleSetOption">Scrape</button>
+        <button class="btn btn-secondary margin-xs" v-on:click="scrape()" :disabled="!selectedRuleSetOption">Scrape
+        </button>
     </footer>
 </div>
 <script src="scrapeController.js"></script>
