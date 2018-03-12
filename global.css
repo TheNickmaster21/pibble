@@ -1,4 +1,5 @@
 body {
+    height: 400px; !important;
     width: 250px;
     background: rgba(255, 255, 255, .8) url("images/cream-pixels.png") repeat;
     border-radius: 5px;
@@ -76,6 +77,10 @@ th {
     width: 47%;
     margin-right: 2%;
     float: right;
+}
+
+#scrape-list {
+    overflow-y: auto;
 }
 
 #export-dropdown-data {

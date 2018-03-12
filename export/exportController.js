@@ -11,20 +11,19 @@ new Vue({
                 if (this.selectedDataSetOption.value === 'fortune') {
                     this.filename = response[0].name;
                     this.exportJSON.gridData = response[0].rows;
-                    console.log(_.pluck(response[0].columns, 'name'));
                     this.exportJSON.gridColumns = _.pluck(response[0].columns, 'name');
                 } else {
                     this.filename = response[1].name;
                     this.exportJSON.gridData = response[1].rows;
-                    console.log(_.pluck(response[1].columns, 'name'));
                     this.exportJSON.gridColumns = _.pluck(response[1].columns, 'name');
                 }
 
-
+                console.log(response);
                 exportToCSV(this.filename + '.csv', this.exportJSON);
 
             });
-
+            this.message = "uhiosferuhiofgwr";
+            this.$forceUpdate();
         }
     },
     data: {
@@ -133,8 +132,8 @@ function exportToCSV(filename, incomingData) {
         const item = incomingData.gridData[k];
         let temp = [];
         for (let l = 0; l < rows[0].length; l++) {
-            const columnTitle = rows[0][l];
-            temp.push(item[columnTitle]);
+            //const columnTitle = rows[0][l];
+            temp.push(item[l]);
         }
         rows.push(temp);
     }
@@ -142,6 +141,7 @@ function exportToCSV(filename, incomingData) {
 
     const processRow = function (row) {
         let finalVal = '';
+        console.log(row);
         for (let j = 0; j < row.length; j++) {
             let innerValue = row[j] === null ? '' : row[j].toString();
             if (row[j] instanceof Date) {

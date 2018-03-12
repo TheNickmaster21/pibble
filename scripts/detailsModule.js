@@ -3,6 +3,8 @@ chrome.runtime.onMessage.addListener(function (message, src, callback) {
         returnDataSets(message, callback);
     } else if (message.action === 'add_row_to_data_set') {
         addDataRow(message);
+    } else if (message.action === 'delete_rows') {
+
     }
 });
 
