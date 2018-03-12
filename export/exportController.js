@@ -1,6 +1,11 @@
 new Vue({
     el: '#export-page',
     methods: {
+        dataDropdownSelect: function (option) {
+            this.selectedDataSetOption = option;
+            console.log(option);
+            //chrome.runtime.sendMessage({action: 'pref_save_export_data_dropdown', data:option});
+        },
         dataTab: function () {
             chrome.tabs.create({'url': chrome.extension.getURL('export/dataView.html')}, function (tab) {
                 // Tab opened.
