@@ -5,6 +5,10 @@ chrome.runtime.onMessage.addListener(function (message, src, callback) {
         addDataRow(message);
     } else if (message.action === 'delete_rows') {
 
+    } else if (message.action.includes('pref_save_')) {
+        savePrefs(message);
+    } else if (message.action.includes('pref_load_')) {
+        loadPrefs(message, callback);
     }
 });
 
@@ -81,3 +85,13 @@ let dataSets = [
         rows: []
     },
 ];
+
+
+
+function savePrefs(message) {
+    saveData(message.action);
+}
+
+function loadPrefs(message, callback) {
+    callback( loadData(message.action) );
+}

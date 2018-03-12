@@ -1,5 +1,4 @@
 body {
-    height: 400px; !important;
     width: 250px;
     background: rgba(255, 255, 255, .8) url("images/cream-pixels.png") repeat;
     border-radius: 5px;
@@ -80,6 +79,8 @@ th {
 }
 
 #scrape-list {
+    min-height: 35px;
+    max-height: 350px;
     overflow-y: auto;
 }
 
