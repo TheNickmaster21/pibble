@@ -20,13 +20,9 @@
         </h3>
     </header>
 
-    <button v-on:click="getDataSetNames">create</button>
-    <label>
-        <input/>
-    </label>
-    Data Sets that exist:
     <ul>
-        <li v-for="names in dataSetNames">{{names}}</li>
+        <li v-for="dataSet in dataSets">{{dataSet.name}}
+            <a href="#!" v-on:click="clearRows(dataSet.name)">(Clear Rows)</a></li>
     </ul>
 
 </div>

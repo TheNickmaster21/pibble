@@ -9,8 +9,18 @@ chrome.runtime.onMessage.addListener(function (message, src, callback) {
         savePrefs(message);
     } else if (message.action.includes('pref_load_')) {
         loadPrefs(message, callback);
+    } else if (message.action === 'clear_data_set') {
+        clearDataSetRows(message.name);
     }
 });
+
+function clearDataSetRows(name) {
+    if (name === 'Fortune Data') {
+        saveData('0rows', [])
+    } else {
+        saveData('1rows', []);
+    }
+}
 
 function returnDataSets(message, callback) {
     _.each(dataSets, function (dataSet) {
@@ -87,11 +97,10 @@ let dataSets = [
 ];
 
 
-
 function savePrefs(message) {
     saveData(message.action);
 }
 
 function loadPrefs(message, callback) {
-    callback( loadData(message.action) );
+    callback(loadData(message.action));
 }

@@ -4,18 +4,26 @@ new Vue({
         newDataSetName: function (newName) {
 
         },
-        getDataSetNames: function () {
+        getDataSets: function () {
             let data = {action: 'get_data_sets'};
             chrome.runtime.sendMessage(data, (dataSets) => {
-                this.dataSetNames = dataSets;
+                debugger
+                this.dataSets = dataSets;
                 this.$forceUpdate();
             });
         },
         isDataSetNameTaken: function () {
             return false;
+        },
+        clearRows: function (dataSetName) {
+            let data = {action: 'clear_data_set', name: dataSetName};
+            chrome.runtime.sendMessage(data);
         }
     },
     data: {
-        dataSetNames: []
+        dataSets: []
+    },
+    beforeMount() {
+        this.getDataSets();
     }
 });
