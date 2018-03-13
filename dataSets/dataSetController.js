@@ -7,7 +7,6 @@ new Vue({
         getDataSets: function () {
             let data = {action: 'get_data_sets'};
             chrome.runtime.sendMessage(data, (dataSets) => {
-                debugger
                 this.dataSets = dataSets;
                 this.$forceUpdate();
             });
