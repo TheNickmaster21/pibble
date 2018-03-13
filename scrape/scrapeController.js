@@ -87,7 +87,7 @@ new Vue({
                 },
                 { // HQ Location
                     selector: "p[data-reactid*='company-info-card-HQ Location']",
-                    selectorIndex: 0
+                    selectorIndex: 1
                 },
                 { // Website
                     selector: "a[data-reactid*='company-info-card-Website']",
