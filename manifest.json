@@ -2,7 +2,7 @@
   "manifest_version": 2,
   "name": "Pibble",
   "description": "This extension allows the user to scrape data using machine learning.",
-  "version": "0.1",
+  "version": "0.2",
   "icons": {
     "360": "images/icon360.png"
   },
@@ -20,7 +20,6 @@
         "<all_urls>"
       ],
       "js": [
-        "resources/jquery-3.3.1.js",
         "scripts/contentProxy.js"
       ],
       "run_at": "document_end"
@@ -28,6 +27,7 @@
   ],
   "background": {
     "scripts": [
+      "resources/underscore.js",
       "resources/jquery-3.3.1.js",
       "scripts/localDataManager.js",
       "scripts/scrapeModule.js",
@@ -36,7 +36,8 @@
     ]
   },
   "permissions": [
-    "activeTab"
+    "activeTab",
+    "storage"
   ],
   "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'"
 }
