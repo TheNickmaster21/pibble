@@ -57,7 +57,6 @@ function useRuleSetToScrapeFromJQueryNodes(ruleSet, $htmlData) {
 
 function scrapeDataFromCurrentPage(ruleSet, callback) {
     if (!ruleSet || !ruleSet.rules) {
-        console.warn("Bad rule set: ", ruleSet);
         return false;
     }
 

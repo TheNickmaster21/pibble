@@ -3,10 +3,9 @@ new Vue({
     methods: {
         dataDropdownSelect: function (option) {
             this.selectedDataSetOption = option;
-            console.log(option);
         },
         dataTab: function () {
-            chrome.tabs.create({'url': chrome.extension.getURL('export/dataView.html')};
+            chrome.tabs.create({'url': chrome.extension.getURL('export/dataView.html')});
         },
         exportCSV: function () {
             chrome.runtime.sendMessage({action: 'get_data_sets'}, (response) => {
@@ -79,7 +78,6 @@ function exportToCSV(filename, incomingData) {
 
     const processRow = function (row) {
         let finalVal = '';
-        console.log(row);
         for (let j = 0; j < row.length; j++) {
             let innerValue = row[j] === null ? '' : row[j].toString();
             if (row[j] instanceof Date) {
@@ -119,7 +117,6 @@ function exportToCSV(filename, incomingData) {
 }
 
 function demoExportToCSV() {
-    console.log("ExportData Clicked!");
     const filename = "WOOOO.txt";
     const incomingData = {
         "gridColumns": [
@@ -152,7 +149,6 @@ function demoExportToCSV() {
     };
 
     let rows = [];
-    console.log("created rows");
 
     rows.push(incomingData.gridColumns);
     for (let k = 0; k < incomingData.gridData.length; k++) {
@@ -164,8 +160,6 @@ function demoExportToCSV() {
         }
         rows.push(temp)
     }
-
-    console.log("populated rows");
 
     const processRow = function (row) {
         let finalVal = '';
@@ -186,12 +180,8 @@ function demoExportToCSV() {
 
     let csvFile = '';
     for (let i = 0; i < rows.length; i++) {
-        console.log("adding row to csv string");
         csvFile += processRow(rows[i]);
     }
-
-    console.log("csv compiled = " + csvFile);
-
 
     const blob = new Blob([csvFile], {type: 'text/csv;charset=utf-8;'});
     if (navigator.msSaveBlob) { // IE 10+
