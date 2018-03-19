@@ -1,9 +1,11 @@
-var lastActiveTab = null;
+let lastActiveTab = null;
 
 setInterval(function () {
     let activeTabFilter = {active: true, currentWindow: true};
     chrome.tabs.query(activeTabFilter, function (tabs) {
-        lastActiveTab = tabs[0];
+        if (tabs && tabs[0]) {
+            lastActiveTab = tabs[0];
+        }
     });
 }, 500);
 
