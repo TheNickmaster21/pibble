@@ -30,6 +30,8 @@
       "resources/underscore.js",
       "resources/jquery-3.3.1.js",
       "scripts/localDataManager.js",
+      "scripts/labradorScrapeModule.js",
+      "scripts/labradorDetailsModule.js",
       "scripts/scrapeModule.js",
       "scripts/learningModule.js",
       "scripts/detailsModule.js"

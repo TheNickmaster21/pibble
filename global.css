@@ -65,8 +65,12 @@ th {
     border-bottom: transparent;
 }
 
-#scrape-dropdown-rule {
+#labrador-scrape-dropdown-rule {
+    width: 96%;
+    margin-left: 2%;
+}
 
+#scrape-dropdown-rule {
     width: 47%;
     margin-left: 2%;
     float: left;

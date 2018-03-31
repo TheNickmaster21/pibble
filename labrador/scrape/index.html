@@ -10,37 +10,38 @@
     <link href="/global.css" rel="stylesheet">
 </head>
 <body>
-<div class="popupBody" id="ruleset-page">
+<div class="popupBody" id="scrapeApp">
     <header>
         <a href="/index.html">
             <span class="oi oi-home"></span>
         </a>
         <h3>
-            <span>Rule Sets</span>
+            <span>Collect Data</span>
         </h3>
     </header>
 
     <div class="dropdown">
-        <button class="btn btn-secondary dropdown-toggle" type="button" id="rulesets-dropdown-rule"
-                data-toggle="dropdown"
-                aria-haspopup="true" aria-expanded="false">
-            {{selectedRuleSetOption || 'Rule Set'}}
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="labrador-scrape-dropdown-rule"
+                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            {{selectedRuleSetOption && selectedRuleSetOption.display || 'Rule Set'}}
         </button>
 
-        <div class="dropdown-menu" aria-labelledby="rulesets-dropdown-rule">
+        <div class="dropdown-menu" aria-labelledby="scrape-dropdown-rule">
             <a v-for="option in ruleSetOptions" class="dropdown-item"
-               href="#!" v-on:click="selectedRuleSetOption = option;">{{option}}</a>
+               href="#!" v-on:click="selectedRuleSetOption = option;">{{option.display}}</a>
         </div>
     </div>
 
-    <br/><br/><br/><br/>
+    <br/><br/>
+    <ul id="scrape-list">
+        <li v-for="result in scrapeResults">{{result}}</li>
+    </ul>
 
     <footer>
-        <button class="btn btn-secondary">Get Tokens</button>
-        <button class="btn btn-secondary">Find Text</button>
-        <button class="btn btn-secondary">Train</button>
+        <button class="btn btn-secondary margin-xs" v-on:click="scrape()" :disabled="!selectedRuleSetOption">Scrape
+        </button>
     </footer>
 </div>
-<script src="ruleSetController.js"></script>
+<script src="scrapeController.js"></script>
 </body>
 </html>

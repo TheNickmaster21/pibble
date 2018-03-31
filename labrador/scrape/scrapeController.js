@@ -1,28 +1,31 @@
 new Vue({
-    el: '#ruleset-page',
+    el: '#scrapeApp',
     methods: {
         scrape: function () {
             if (this.selectedRuleSetOption) {
                 this.scrapeResults.splice(0, this.scrapeResults.length);
-                let data = {action: 'scrape_web_page', data: this[this.selectedRuleSetOption + 'RuleSet']};
-                chrome.runtime.sendMessage(data, (response) => {
+                let scrapeData = {
+                    action: 'labrador_scrape_web_page',
+                    data: this[this.selectedRuleSetOption.value + 'RuleSet']
+                };
+                chrome.runtime.sendMessage(scrapeData, (response) => {
                     Array.prototype.push.apply(this.scrapeResults, response);
                     this.$forceUpdate();
+                    let newRowData = {
+                        action: 'labrador_add_row_to_data_set',
+                        id: this.selectedRuleSetOption && this.selectedRuleSetOption.id,
+                        row: response
+                    };
+                    chrome.runtime.sendMessage(newRowData);
                 });
             }
-        },
-        getTokens: function(){
-            let scrapeData = {action: 'scrape_web_page', data: this[this.selectedRuleSetOption.value + 'RuleSet']};
-            chrome.runtime.sendMessage(scrapeData, (response) => {
-
-            });
         }
     },
     data: {
         scrapeResults: [],
         ruleSetOptions: [
-            "Fortune",
-            "Edgar"
+            {display: "Fortune", value: "fortune", id: 0},
+            {display: "Edgar Beta", value: "betaEdgar", id: 1}
         ],
         selectedRuleSetOption: null,
         fortuneRuleSet: {
@@ -87,7 +90,7 @@ new Vue({
                 },
                 { // HQ Location
                     selector: "p[data-reactid*='company-info-card-HQ Location']",
-                    selectorIndex: 0
+                    selectorIndex: 1
                 },
                 { // Website
                     selector: "a[data-reactid*='company-info-card-Website']",
@@ -103,8 +106,45 @@ new Vue({
                 }
             ]
         },
-        edgarRuleSet: {
-            rules: []
+        betaEdgarRuleSet: { // Beta website
+            rules: [
+                { // Name
+                    selector: "h1",
+                    selectorIndex: 1
+                },
+                { // CIK
+                    selector: "span",
+                    selectorIndex: 4,
+                    regex: "([^\\s]+)",
+                    regexIndex: 1
+                },
+                { // Mailing Address
+                    selector: "div#mailing-address",
+                    selectorIndex: 0,
+                    substring: [16]
+                },
+                { // Business Address
+                    selector: "div#business-address",
+                    selectorIndex: 0,
+                    substring: [17]
+                },
+                { // SIC
+                    selector: "span",
+                    selectorIndex: 6,
+                    regex: "([^\\s]+)",
+                    regexIndex: 1
+                },
+                { // Industry
+                    selector: "span",
+                    selectorIndex: 6,
+                    substring: [12]
+                },
+                { // State Location
+                    selector: "span.indent",
+                    selectorIndex: 0,
+                    substring: [16]
+                }
+            ]
         }
     }
 });

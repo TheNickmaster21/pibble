@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:v-on="http://www.w3.org/1999/xhtml">
+<head>
+    <script src="/resources/jquery-3.3.1.js"></script>
+    <link rel="stylesheet" href="/resources/bootstrap-4.0.0-dist/css/bootstrap.min.css"/>
+    <script src="/resources/popper.min.js"></script>
+    <script src="/resources/vue.js"></script>
+    <link href="/resources/open-iconic/font/css/open-iconic-bootstrap.css" rel="stylesheet">
+    <script src="/resources/bootstrap-4.0.0-dist/js/bootstrap.min.js"></script>
+
+    <link href="/global.css" rel="stylesheet">
+</head>
+<body class="w-100">
+<div id="data-table-page">
+
+    <div class="dropdown">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="export-table-dropdown-data"
+                data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false">
+            {{selectedDataSetOption && selectedDataSetOption.display || 'Data Set'}}
+        </button>
+        <div class="dropdown-menu" aria-labelledby="export-table-dropdown-data">
+            <a v-for="option in dataSetOptions" class="dropdown-item"
+               href="#!" v-on:click="selectedDataSetOption = option; load();">{{option.display}}</a>
+        </div>
+    </div>
+
+    <table class="table table-sm table-striped">
+        <thead>
+        <tr>
+            <th v-for="column in savedData.columns">
+                {{column.name}}
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr v-for="dataRow in savedData.rows">
+            <td v-for="value in dataRow">
+                {{value}}
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<script src="dataTable.js"></script>
+</body>
+</html>
