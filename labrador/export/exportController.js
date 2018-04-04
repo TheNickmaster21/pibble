@@ -5,7 +5,7 @@ new Vue({
             this.selectedDataSetOption = option;
         },
         dataTab: function () {
-            chrome.tabs.create({'url': chrome.extension.getURL('export/dataView.html')});
+            chrome.tabs.create({'url': chrome.extension.getURL('labrador/export/dataView.html')});
         },
         exportCSV: function () {
             chrome.runtime.sendMessage({action: 'labrador_get_data_sets'}, (response) => {

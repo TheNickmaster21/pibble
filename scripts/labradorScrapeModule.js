@@ -61,7 +61,7 @@ function scrapeDataFromCurrentPage(ruleSet, callback) {
     }
 
     sendQueryMessageToActiveTabWithCallback(
-        'get_labrador_current_document_inner_HTML',
+        'get_current_document_inner_HTML',
         function (innerHTML) {
             let $htmlData = $(innerHTML);
             let results = useRuleSetToScrapeFromJQueryNodes(ruleSet, $htmlData);
