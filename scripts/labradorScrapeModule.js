@@ -1,20 +1,3 @@
-let lastActiveLabradorTab = null;
-
-setInterval(function () {
-    let activeTabFilter = {active: true, currentWindow: true};
-    chrome.tabs.query(activeTabFilter, function (tabs) {
-        if (tabs && tabs[0]) {
-            lastActiveLabradorTab = tabs[0];
-        }
-    });
-}, 500);
-
-function sendQueryMessageToActiveTabWithCallback(message, callback) {
-    if (lastActiveLabradorTab) {
-        chrome.tabs.sendMessage(lastActiveLabradorTab.id, message, callback);
-    }
-}
-
 function getTextFromSelector($htmlData, selector, index) {
     let elements = $htmlData.find(selector);
     if (!elements || !elements[index]) {
