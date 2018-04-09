@@ -2,30 +2,50 @@ function parseHtmlDataIntoTokenData($htmlData) {
     let tokens = [];
     tokens.push({type: 'start'});
 
-    function tokenizeText(text) {
-        tokens.push({type: 'text', value: text})
-    }
+    let elementStack = [];
+    
+    // function makeAttributeObject(attributeNodes) {
+    //     if (!attributeNodes || attributeNodes.length < 1) return null;
+    //
+    //     return _.map(attributeNodes,
+    //         node => {
+    //             return {name: node.name, value: node.value};
+    //         });
+    // }
 
-    function makeAttributeObject(attributeNodes) {
-        if (!attributeNodes || attributeNodes.length < 1) return null;
-
-        return _.map(attributeNodes,
-            node => {
-                return {name: node.name, value: node.value};
-            });
+    function tokenizeText(obj) {
+        if (!obj.innerText || obj.innerText.trim() === '') {
+            return;
+        }
+        if (obj.innerText === tokens[tokens.length - 1].innerText) {
+            tokens.pop();
+        }
+        let elements = elementStack.join(' ');
+        let i = tokens.length - 1;
+        while (i > 0) {
+            if (elements.includes(tokens[i].elements)) {
+                tokens[i].innerText = tokens[i].innerText.replace(obj.innerText, '').trim();
+                if (tokens[i].innerText.length === 0) {
+                    tokens.splice(i, 1);
+                }
+            }
+            i--;
+        }
+        tokens.push({
+            elements: elements,
+            //attributes: makeAttributeObject(obj.attributes),
+            innerText: obj.innerText
+        });
     }
 
     function recurseThroughChildren(obj) {
         if (!obj) return;
-        let lastToken = tokens[tokens.length - 1];
-        if (lastToken.type !== obj.localName) {
-            //tokens.push({type: obj.localName, attributes: makeAttributeObject(obj.attributes)});
+        elementStack.push(obj.localName);
+        tokenizeText(obj);
+        if (obj.children) {
+            _.each(obj.children, recurseThroughChildren);
         }
-        if (obj.innerText) {
-            tokenizeText(obj.innerText); //TODO turn inner text into tokens
-        }
-        if (!obj.children) return;
-        _.each(obj.children, recurseThroughChildren);
+        elementStack.pop();
     }
 
     $htmlData.children().each(function (i, obj) {
