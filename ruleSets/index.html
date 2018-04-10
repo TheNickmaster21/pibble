@@ -38,7 +38,7 @@
 
     <p v-for="token in matchedTokens">
         <strong>{{token.innerText}}</strong> - {{token.elements}}
-        <button v-on:click="pickElements(token.elements)">Select</button>
+        <button v-on:click="pickToken(token.id)">Select</button>
     </p>
 
     <br/><br/><br/><br/>
