@@ -3,7 +3,7 @@ function parseHtmlDataIntoTokenData($htmlData) {
     tokens.push({type: 'start'});
 
     let elementStack = [];
-    
+
     // function makeAttributeObject(attributeNodes) {
     //     if (!attributeNodes || attributeNodes.length < 1) return null;
     //
@@ -13,7 +13,17 @@ function parseHtmlDataIntoTokenData($htmlData) {
     //         });
     // }
 
-    function tokenizeText(obj) {
+    //TODO Better way to parse text
+    // function parseTextTokens(text) {
+    //     let tokens = [];
+    //     let current = '';
+    //     for (let i = 0; i < text.length; i++) {
+    //         current = current + text[i];
+    //     }
+    //     return tokens;
+    // }
+
+    function tokenize(obj) {
         if (!obj.innerText || obj.innerText.trim() === '') {
             return;
         }
@@ -32,16 +42,18 @@ function parseHtmlDataIntoTokenData($htmlData) {
             i--;
         }
         tokens.push({
+            id: tokens.length,
             elements: elements,
             //attributes: makeAttributeObject(obj.attributes),
-            innerText: obj.innerText
+            innerText: obj.innerText.trim(),
+            //textTokens: parseTextTokens(obj.innerText.trim())
         });
     }
 
     function recurseThroughChildren(obj) {
         if (!obj) return;
         elementStack.push(obj.localName);
-        tokenizeText(obj);
+        tokenize(obj);
         if (obj.children) {
             _.each(obj.children, recurseThroughChildren);
         }
@@ -55,7 +67,7 @@ function parseHtmlDataIntoTokenData($htmlData) {
 
     console.log(tokens);
 
-    return $htmlData;
+    return tokens;
 }
 
 function getTokensFromCurrentPage(callback) {

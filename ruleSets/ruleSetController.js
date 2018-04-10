@@ -8,9 +8,26 @@ new Vue({
                 console.log(response);
                 this.tokens = response;
             });
+        },
+        updateMatchedTokens: function () {
+            if (this.userText === '') {
+                this.matchedTokens = [];
+            } else {
+                this.matchedTokens = _.filter(this.tokens, token => {
+                    return token.innerText && token.innerText.includes(this.userText);
+                });
+            }
+        },
+        pickMatchedToken: function () {
+            this.userText = "";
+            this.updateMatchedTokens();
         }
     },
     data: {
-        tokens: ""
+        tokens: [],
+        userText: "",
+        matchedTokens: "",
+        selectedRuleSetOption: "",
+        ruleSetOptions: []
     }
 });

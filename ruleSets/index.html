@@ -4,6 +4,7 @@
     <link rel="stylesheet" href="/resources/bootstrap-4.0.0-dist/css/bootstrap.min.css"/>
     <script src="/resources/popper.min.js"></script>
     <script src="/resources/vue.js"></script>
+    <script src="/resources/underscore.js"></script>
     <link href="/resources/open-iconic/font/css/open-iconic-bootstrap.css" rel="stylesheet">
     <script src="/resources/bootstrap-4.0.0-dist/js/bootstrap.min.js"></script>
 
@@ -32,6 +33,13 @@
                href="#!" v-on:click="selectedRuleSetOption = option;">{{option}}</a>
         </div>
     </div>
+
+    <input v-model="userText" v-on:change="updateMatchedTokens">&nbsp;
+    <button v-on:click="pickMatchedToken()">select</button>
+
+    <p v-for="token in matchedTokens">
+        {{token.elements}} - {{token.innerText}}
+    </p>
 
     <br/><br/><br/><br/>
 
