@@ -18,7 +18,7 @@ new Vue({
                 });
             }
         },
-        pickMatchedToken: function () {
+        pickElements: function (elements) {
             this.userText = "";
             this.updateMatchedTokens();
         }

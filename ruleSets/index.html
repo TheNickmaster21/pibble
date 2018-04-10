@@ -34,11 +34,11 @@
         </div>
     </div>
 
-    <input v-model="userText" v-on:change="updateMatchedTokens">&nbsp;
-    <button v-on:click="pickMatchedToken()">select</button>
+    <input v-model="userText">&nbsp;<button v-on:click="updateMatchedTokens()">Find</button>
 
     <p v-for="token in matchedTokens">
-        {{token.elements}} - {{token.innerText}}
+        <strong>{{token.innerText}}</strong> - {{token.elements}}
+        <button v-on:click="pickElements(token.elements)">Select</button>
     </p>
 
     <br/><br/><br/><br/>
