@@ -37,14 +37,13 @@
     <input v-model="userText">&nbsp;<button v-on:click="updateMatchedTokens()">Find</button>
 
     <p v-for="token in matchedTokens">
-        <strong>{{token.innerText}}</strong> - {{token.elements}}
+        <strong>{{token.innerText}}</strong> <!-- - {{token.elements}}-->
         <button v-on:click="pickToken(token.id)">Select</button>
     </p>
 
     <br/><br/><br/><br/>
 
     <footer>
-        <button class="btn btn-secondary" v-on:click="getTokens()">Get Tokens</button>
         <button class="btn btn-secondary">Find Text</button>
         <button class="btn btn-secondary">Train</button>
     </footer>

@@ -67,6 +67,7 @@ function parseHtmlDataIntoTokenData($htmlData) {
 
     console.log(tokens);
 
+    tokens.splice(0, 1); // Remove start token
     return tokens;
 }
 

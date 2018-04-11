@@ -1,21 +1,17 @@
 new Vue({
     el: '#ruleset-page',
     methods: {
-        getTokens: function () {
-            console.log("get tokens");
-            let scrapeData = {action: 'get_tokens'};
-            chrome.runtime.sendMessage(scrapeData, (response) => {
-                console.log(response);
-                this.tokens = response;
-            });
-        },
         updateMatchedTokens: function () {
             if (this.userText === '') {
                 this.matchedTokens = [];
             } else {
-                this.matchedTokens = _.filter(this.tokens, token => {
-                    return token.innerText && token.innerText.includes(this.userText);
-                });
+                this.matchedTokens = _.sortBy(
+                    _.filter(this.tokens, token => {
+                        return token.innerText.toLowerCase()
+                            .includes(this.userText.toLowerCase());
+                    }), token => {
+                        return token.innerText.length;
+                    });
             }
         },
         pickToken: function (id) {
@@ -29,5 +25,13 @@ new Vue({
         matchedTokens: "",
         selectedRuleSetOption: "",
         ruleSetOptions: []
+    },
+    beforeCreate: function () {
+        console.log("get tokens");
+        let scrapeData = {action: 'get_tokens'};
+        chrome.runtime.sendMessage(scrapeData, (response) => {
+            console.log(response);
+            this.tokens = response;
+        });
     }
 });
