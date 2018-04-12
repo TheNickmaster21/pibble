@@ -62,10 +62,7 @@ function parseHtmlDataIntoTokenData($htmlData) {
 
     $htmlData.children().each(function (i, obj) {
         recurseThroughChildren(obj);
-        console.log(obj);
     });
-
-    console.log(tokens);
 
     tokens.splice(0, 1); // Remove start token
     return tokens;

@@ -25,28 +25,34 @@
         <button class="btn btn-secondary dropdown-toggle" type="button" id="rulesets-dropdown-rule"
                 data-toggle="dropdown"
                 aria-haspopup="true" aria-expanded="false">
-            {{selectedRuleSetOption || 'Rule Set'}}
+            Select Rule Set
         </button>
 
         <div class="dropdown-menu" aria-labelledby="rulesets-dropdown-rule">
             <a v-for="option in ruleSetOptions" class="dropdown-item"
-               href="#!" v-on:click="selectedRuleSetOption = option;">{{option}}</a>
+               href="#!" v-on:click="selectRuleSetOption(option)">{{option.name || "No Name"}}</a>
         </div>
     </div>
 
-    <input v-model="userText">&nbsp;<button v-on:click="updateMatchedTokens()">Find</button>
+    <button class="btn btn-primary" v-on:click="newRuleSet()">New</button>
 
-    <p v-for="token in matchedTokens">
-        <strong>{{token.innerText}}</strong> <!-- - {{token.elements}}-->
-        <button v-on:click="pickToken(token.id)">Select</button>
-    </p>
+    <div v-if="selectedRuleSetOption">
+        Name: <input v-model="selectedRuleSetOption.name">
+        <button class="btn btn-primary" v-on:click="newRule()">New Rule</button>
+        <div>
+            <button class="btn btn-primary" v-on:click="prevRule()">Prev</button>
+            Rule ({{ruleIndex + 1}}/{{selectedRuleSetOption.rules.length}})
+            <button class="btn btn-primary" v-on:click="nextRule()">Next</button>
+            <h4>{{selectedRuleSetOption.rules[ruleIndex].elements }} {{selectedRuleSetOption.rules[ruleIndex].id}}</h4>
+            <input v-model="userText">&nbsp;<button class="btn" v-on:click="updateMatchedTokens()">Find</button>
 
-    <br/><br/><br/><br/>
-
-    <footer>
-        <button class="btn btn-secondary">Find Text</button>
-        <button class="btn btn-secondary">Train</button>
-    </footer>
+            <p v-for="token in matchedTokens">
+                <strong>{{token.innerText}}</strong> <!-- - {{token.elements}}-->
+                <button v-on:click="pickToken(token.id)">Select</button>
+            </p>
+        </div>
+        <button class="btn btn-secondary" v-on:click="save()">Save</button>
+    </div>
 </div>
 <script src="ruleSetController.js"></script>
 </body>
