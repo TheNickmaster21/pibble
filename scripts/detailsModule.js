@@ -15,5 +15,12 @@ function returnRuleSets(message, callback) {
 }
 
 function saveRuleSets(message) {
-    saveData('ruleSets', message.data);
+    let ruleSets = message.data.ruleSets;
+    for(let i = 0; i < ruleSets.length; i++){
+        if(ruleSets[i].new){
+            ruleSets[i] = convertNewRuleSet(ruleSets[i], message.data.tokens);
+        }
+    }
+
+    saveData('ruleSets', ruleSets);
 }

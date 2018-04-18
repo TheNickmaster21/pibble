@@ -46,12 +46,13 @@ function parseHtmlDataIntoTokenData($htmlData) {
             elements: elements,
             //attributes: makeAttributeObject(obj.attributes),
             innerText: obj.innerText.trim(),
+            obj: obj
             //textTokens: parseTextTokens(obj.innerText.trim())
         });
     }
 
     function recurseThroughChildren(obj) {
-        if (!obj) return;
+        if (!obj || obj.hidden || obj.localName === 'script') return;
         elementStack.push(obj.localName);
         tokenize(obj);
         if (obj.children) {
@@ -75,6 +76,7 @@ function getTokensFromCurrentPage(callback) {
         function (innerHTML) {
             let $htmlData = $(innerHTML);
             let results = parseHtmlDataIntoTokenData($htmlData);
+            console.log(results);
             callback(results);
         }
     );
