@@ -61,7 +61,7 @@ new Vue({
         });
         let ruleSetRequest = {action: 'get_rule_sets'};
         chrome.runtime.sendMessage(ruleSetRequest, (response) => {
-            this.ruleSetOptions = [];//response;
+            this.ruleSetOptions = [];//response; //todo change me back
             this.ruleSet.id = this.ruleSetOptions.length;
             this.ruleSetOptions.push(this.ruleSet);
         });
