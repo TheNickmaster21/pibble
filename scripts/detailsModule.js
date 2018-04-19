@@ -16,11 +16,12 @@ function returnRuleSets(message, callback) {
 
 function saveRuleSets(message) {
     let ruleSets = message.data.ruleSets;
-    for(let i = 0; i < ruleSets.length; i++){
-        if(ruleSets[i].new){
+    for (let i = 0; i < ruleSets.length; i++) {
+        if (ruleSets[i].isNew) {
+            ruleSets[i].id = ruleSets.length;
             ruleSets[i] = convertNewRuleSet(ruleSets[i], message.data.tokens);
+            saveData('dataSet_' + ruleSets[i].id, ruleSets); //Super simple, 1 to 1 w/ rule sets
         }
     }
-
     saveData('ruleSets', ruleSets);
 }

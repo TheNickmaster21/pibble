@@ -22,10 +22,15 @@
     </header>
 
     Name: <input v-model="ruleSet.name">
+
+    <button class="btn btn-primary" v-on:click="newRule()">New Rule</button>
     <div>
-        <button class="btn btn-primary" v-on:click="prevRule()">Prev</button>
-        Rule ({{ruleIndex + 1}}/{{ruleSet.rules.length}})
-        <button class="btn btn-primary" v-on:click="nextRule()">Next</button>
+        <div>
+            <button class="btn btn-primary" v-on:click="prevRule()">Prev</button>&nbsp;
+            Rule ({{ruleIndex + 1}}/{{ruleSet.rules.length}})&nbsp;
+            <button class="btn btn-primary" v-on:click="nextRule()">Next</button>
+        </div>
+        Name:<input v-model="ruleSet.rules[ruleIndex].name">
         <h4>{{ ruleSet.rules[ruleIndex].innerText }}</h4>
         <input v-model="userText">&nbsp;<button class="btn" v-on:click="updateMatchedTokens()">Find</button>
 

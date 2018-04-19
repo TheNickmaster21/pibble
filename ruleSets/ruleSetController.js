@@ -26,7 +26,7 @@ new Vue({
         },
         newRule: function () {
             if (this.ruleSet)
-                this.ruleSet.rules.push({elements: '', index: 0});
+                this.ruleSet.rules.push({});
         },
         prevRule: function () {
             if (this.ruleIndex > 0)
@@ -49,7 +49,7 @@ new Vue({
         ruleSet: {
             name: "",
             rules: [{elements: '', index: 0}],
-            new: true
+            isNew: true
         },
         ruleSetOptions: [],
         ruleIndex: 0
@@ -58,15 +58,6 @@ new Vue({
         let scrapeData = {action: 'get_tokens'};
         chrome.runtime.sendMessage(scrapeData, (response) => {
             this.tokens = response;
-
-            // if (this.tokens.length > 2) {
-            //     this.tokens[0].after = this.tokens[2];
-            //     for (let i = 1; i < this.tokens.length - 1; i++) {
-            //         this.tokens[i].before = this.tokens[i - 1];
-            //         this.tokens[i].after = this.tokens[i + 1];
-            //     }
-            //     this.tokens[this.tokens.length - 1].before = this.tokens[this.tokens.length - 2];
-            // }
         });
         let ruleSetRequest = {action: 'get_rule_sets'};
         chrome.runtime.sendMessage(ruleSetRequest, (response) => {

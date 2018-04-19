@@ -42,7 +42,6 @@ function parseHtmlDataIntoTokenData($htmlData) {
             i--;
         }
         tokens.push({
-            id: tokens.length,
             elements: elements,
             //attributes: makeAttributeObject(obj.attributes),
             innerText: obj.innerText.trim(),
@@ -66,6 +65,9 @@ function parseHtmlDataIntoTokenData($htmlData) {
     });
 
     tokens.splice(0, 1); // Remove start token
+    for (let i = 0; i < tokens.length; i++) {
+        tokens[i].id = i;
+    }
     return tokens;
 }
 
@@ -76,7 +78,60 @@ function getTokensFromCurrentPage(callback) {
         function (innerHTML) {
             let $htmlData = $(innerHTML);
             let results = parseHtmlDataIntoTokenData($htmlData);
-            console.log(results);
+            callback(results);
+        }
+    );
+
+    return true;
+}
+
+function nextOffset(o) {
+    if (o > 0) {
+        return -1 * o;
+    } else {
+        return (-1 * o) + 1
+    }
+}
+
+function scrapeDataWithRule(rule, tokens) {
+    let o = 0;
+    while (o > -1 * tokens.length && o < tokens.length) {
+        let i = rule.expectedIndex + o;
+        if (i >= 0 && i < tokens.length) {
+            let prevToken = tokens[i - 1];
+            let token = tokens[i];
+            let nextToken = tokens[i + 1];
+            if (prevToken.elements === rule.elements.before
+                && token.elements === rule.elements.at
+                && nextToken.elements === rule.elements.after) {
+                return token.innerText;
+            }
+        }
+        o = nextOffset(o);
+    }
+    return '';
+}
+
+function scrapeDataFromTokens(ruleSet, tokens) {
+    let results = [];
+    for (let i = 0; i < ruleSet.rules.length; i++) {
+        let rule = ruleSet.rules[i];
+        results.push(scrapeDataWithRule(rule, tokens));
+    }
+    return results;
+}
+
+function scrapeFromCurrentWebPage(ruleSet, callback) {
+    if (!ruleSet || !ruleSet.rules) {
+        return false;
+    }
+
+    sendQueryMessageToActiveTabWithCallback(
+        'get_current_document_inner_HTML',
+        function (innerHTML) {
+            let $htmlData = $(innerHTML);
+            let tokens = parseHtmlDataIntoTokenData($htmlData);
+            let results = scrapeDataFromTokens(ruleSet, tokens);
             callback(results);
         }
     );
@@ -87,5 +142,7 @@ function getTokensFromCurrentPage(callback) {
 chrome.runtime.onMessage.addListener(function (message, src, callback) {
     if (message.action === 'get_tokens') {
         return getTokensFromCurrentPage(callback);
+    } else if (message.action === 'scrape_web_page') {
+        return scrapeFromCurrentWebPage(message.data, callback);
     }
 });
