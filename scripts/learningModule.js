@@ -13,16 +13,23 @@ function convertNewRuleSet(ruleSet, tokens) {
     setBeforeAndAfterOnTokens(tokens);
 
     _.each(ruleSet.rules, function (rule) {
-        let token = tokens[rule.id];
+        let token = tokens[rule.index];
         if (token && token.elements) {
-            rule.expectedIndex = rule.id;
-            rule.elements = {
-                before: token.before && token.before.elements,
-                at: token.elements,
-                after: token.after && token.after.elements
+            rule.id = token.id;
+            rule.classes = token.className.split(' ');
+            rule.before = token.before && {
+                elements: token.before.elements,
+                innerText: token.before.innerText
             };
+            rule.elements = token.elements;
+            rule.after = token.after && {
+                elements: token.after.elements,
+                innerText: token.after.innerText
+            };
+
+            delete rule.index;
+            delete rule.className;
             delete rule.innerText;
-            delete rule.id;
         }
     });
     delete ruleSet.isNew;

@@ -15,7 +15,7 @@ new Vue({
             }
         },
         pickToken: function (token) {
-            this.ruleSet.rules[this.ruleIndex].id = token.id;
+            this.ruleSet.rules[this.ruleIndex].index = token.index;
             this.ruleSet.rules[this.ruleIndex].innerText = token.innerText;
             this.ruleSet.rules[this.ruleIndex].className = token.className;
             this.userText = '';

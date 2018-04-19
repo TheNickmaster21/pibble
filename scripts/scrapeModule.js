@@ -67,7 +67,7 @@ function parseHtmlDataIntoTokenData($htmlData) {
 
     tokens.splice(0, 1); // Remove start token
     for (let i = 0; i < tokens.length; i++) {
-        tokens[i].id = i;
+        tokens[i].index = i;
     }
     return tokens;
 }
@@ -92,19 +92,26 @@ function scrapeDataWithRule(rule, tokens) {
 
         let prevToken = token.before;
         let nextToken = token.after;
-        let before = prevToken && prevToken.elements === rule.elements.before;
-        let at = token.elements === rule.elements.at;
-        let after = nextToken && nextToken.elements === rule.elements.after;
-        let classes = token.className === rule.className;
 
-        if (at)
-            token.confidence += 0.4;
-        if (classes)
-            token.confidence += 0.35;
-        if (before)
-            token.confidence += 0.125;
-        if (after)
-            token.confidence += 0.125;
+        let classConfidence = 0;
+        for (let i = 0; i < rule.classes.length; i++) {
+            classConfidence += _.contains(token.className.split(' '), rule.classes[i]) * (1 / rule.classes.length);
+        }
+
+        if (token.id === rule.id)
+            token.confidence += 0.25;
+        if (token.elements === rule.elements)
+            token.confidence += 0.25;
+        if (classConfidence)
+            token.confidence += classConfidence * .2;
+        if (prevToken && rule.before && prevToken.elements === rule.before.elements)
+            token.confidence += 0.1;
+        if (prevToken && rule.before && prevToken.innerText === rule.before.innerText)
+            token.confidence += 0.05;
+        if (nextToken && rule.after && nextToken.elements === rule.after.elements)
+            token.confidence += 0.1;
+        if (nextToken && rule.after && nextToken.innerText === rule.after.innerText)
+            token.confidence += 0.05;
     }
 
     for (let i = 0; i < tokens.length; i++) {
