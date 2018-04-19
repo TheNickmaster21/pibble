@@ -15,6 +15,7 @@ new Vue({
                         id: this.selectedRuleSetOption && this.selectedRuleSetOption.id,
                         row: response
                     };
+                    console.log(newRowData)
                     chrome.runtime.sendMessage(newRowData);
                 });
             }

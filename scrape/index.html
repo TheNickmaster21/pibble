@@ -19,7 +19,6 @@
             <span>Collect Data</span>
         </h3>
     </header>
-
     <div class="dropdown">
         <button class="btn btn-secondary dropdown-toggle" type="button" id="labrador-scrape-dropdown-rule"
                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -31,12 +30,10 @@
                href="#!" v-on:click="selectedRuleSetOption = option;">{{option.name}}</a>
         </div>
     </div>
-
-    <br/><br/>
+    <br/>
     <ul id="scrape-list">
         <li v-for="result in scrapeResults">{{result}}</li>
     </ul>
-
     <footer>
         <button class="btn btn-secondary margin-xs" v-on:click="scrape()" :disabled="!selectedRuleSetOption">Scrape
         </button>

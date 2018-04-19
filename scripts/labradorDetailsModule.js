@@ -1,18 +1,18 @@
 chrome.runtime.onMessage.addListener(function (message, src, callback) {
     if (message.action === 'labrador_get_data_sets') {
-        returnDataSets(message, callback);
+        returnLabradorDataSets(message, callback);
     } else if (message.action === 'labrador_add_row_to_data_set') {
-        addDataRow(message);
+        addLabradorDataRow(message);
     } else if (message.action.includes('labrador_pref_save_')) {
-        savePrefs(message);
+        saveLabradorPrefs(message);
     } else if (message.action.includes('labrador_pref_load_')) {
-        loadPrefs(message, callback);
+        loadLabradorPrefs(message, callback);
     } else if (message.action === 'labrador_clear_data_set') {
-        clearDataSetRows(message.name);
+        clearLabradorDataSetRows(message.name);
     }
 });
 
-function clearDataSetRows(name) {
+function clearLabradorDataSetRows(name) {
     if (name === 'Fortune Data') {
         saveData('0rows', [])
     } else {
@@ -20,35 +20,36 @@ function clearDataSetRows(name) {
     }
 }
 
-function returnDataSets(message, callback) {
+function returnLabradorDataSets(message, callback) {
     _.each(labradorDataSets, function (dataSet) {
         dataSet.rows = loadData(dataSet.id + 'rows') || [];
     });
     callback(labradorDataSets);
 }
 
-function addDataRow(message) {
+function addLabradorDataRow(message) {
     let id = message.id;
-    if (typeof id !== 'undefined') {
-        let newRow = message.row;
-        let rows = loadData(id + 'rows') || [];
-        let valid = true;
+    if (typeof id === 'undefined') {
+        return;
+    }
+    let newRow = message.row;
+    let rows = loadData(id + 'rows') || [];
+    let valid = true;
+    for (let i = 0; i < labradorDataSets[id].columns.length; i++) {
+        if (!newRow[i]) {
+            valid = false;
+        }
+    }
+    _.each(rows, function (exitingRow) {
         for (let i = 0; i < labradorDataSets[id].columns.length; i++) {
-            if (!newRow[i]) {
+            if (labradorDataSets[id].columns[i].unique && exitingRow[i] === newRow[i]) {
                 valid = false;
             }
         }
-        _.each(rows, function (exitingRow) {
-            for (let i = 0; i < labradorDataSets[id].columns.length; i++) {
-                if (labradorDataSets[id].columns[i].unique && exitingRow[i] === newRow[i]) {
-                    valid = false;
-                }
-            }
-        });
-        if (valid) {
-            rows.push(newRow);
-            saveData(id + 'rows', rows);
-        }
+    });
+    if (valid) {
+        rows.push(newRow);
+        saveData(id + 'rows', rows);
     }
 }
 
@@ -95,10 +96,10 @@ let labradorDataSets = [
 ];
 
 
-function savePrefs(message) {
+function saveLabradorPrefs(message) {
     saveData(message.action);
 }
 
-function loadPrefs(message, callback) {
+function loadLabradorPrefs(message, callback) {
     callback(loadData(message.action));
 }

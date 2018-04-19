@@ -3,6 +3,9 @@ chrome.runtime.onMessage.addListener(function (message, src, callback) {
         returnRuleSets(message, callback);
     } else if (message.action === 'save_rule_sets') {
         saveRuleSets(message);
+    } else if (message.action === 'add_row_to_data_set') {
+        console.log(message);
+        addDataRow(message);
     }
 });
 
@@ -20,8 +23,34 @@ function saveRuleSets(message) {
         if (ruleSets[i].isNew) {
             ruleSets[i].id = ruleSets.length;
             ruleSets[i] = convertNewRuleSet(ruleSets[i], message.data.tokens);
-            saveData('dataSet_' + ruleSets[i].id, ruleSets); //Super simple, 1 to 1 w/ rule sets
+            saveData('dataSet_' + ruleSets[i].id, []); //Super simple, 1 to 1 w/ rule sets
         }
     }
     saveData('ruleSets', ruleSets);
+}
+
+function addDataRow(message) {
+    let id = message.id;
+    if (typeof id === 'undefined')
+        return;
+
+    let ruleSets = loadData('ruleSets') || [];
+    let ruleSet = _.findWhere(ruleSets, {id: id});
+    if (!ruleSet)
+        return;
+
+    let newRow = message.row;
+    let rows = loadData('dataSet_' + id) || [];
+    let valid = true;
+    _.each(rows, function (exitingRow) {
+        for (let i = 0; i < ruleSet.rules.length; i++) {
+            if (ruleSet.rules[i].unique && exitingRow[i] === newRow[i]) {
+                valid = false;
+            }
+        }
+    });
+    if (valid) {
+        rows.push(newRow);
+        saveData('dataSet_' + id, rows);
+    }
 }

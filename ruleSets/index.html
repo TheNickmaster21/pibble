@@ -21,19 +21,27 @@
         </h3>
     </header>
 
-    Name: <input v-model="ruleSet.name">
-
-    <button class="btn btn-primary" v-on:click="newRule()">New Rule</button>
-    <div>
-        <div>
-            <button class="btn btn-primary" v-on:click="prevRule()">Prev</button>&nbsp;
-            Rule ({{ruleIndex + 1}}/{{ruleSet.rules.length}})&nbsp;
-            <button class="btn btn-primary" v-on:click="nextRule()">Next</button>
-        </div>
-        Name:<input v-model="ruleSet.rules[ruleIndex].name">
-        <h4>{{ ruleSet.rules[ruleIndex].innerText }}</h4>
+    <div class="margin-sm">
+        Name: <input v-model="ruleSet.name">
+    </div>
+    <button class="btn btn-primary margin-sm" v-on:click="newRule()">New Rule</button>
+    <div class="margin-sm">
+        <button class="btn btn-primary" v-on:click="prevRule()">Prev</button>&nbsp;
+        Rule ({{ruleIndex + 1}}/{{ruleSet.rules.length}})&nbsp;
+        <button class="btn btn-primary" v-on:click="nextRule()">Next</button>
+    </div>
+    <div class="margin-sm">
+        Name: <input v-model="ruleSet.rules[ruleIndex].name">
+    </div>
+    <div class="margin-sm">
+        <input type="checkbox" id="uniqueCheckbox" v-model="ruleSet.rules[ruleIndex].unique">&nbsp;
+        <label for="uniqueCheckbox">Unique Column Value</label>
+    </div>
+    <h4>{{ ruleSet.rules[ruleIndex].innerText }}</h4>
+    <div class="margin-sm">
         <input v-model="userText">&nbsp;<button class="btn" v-on:click="updateMatchedTokens()">Find</button>
-
+    </div>
+    <div class="margin-sm">
         <p v-for="token in matchedTokens">
             <!--<span ng-if="token.before">{{token.before.innerText}}</span>-->
             <strong>{{token.innerText}}</strong> - {{token.elements}}
@@ -41,7 +49,7 @@
             <button v-on:click="pickToken(token)">Select</button>
         </p>
     </div>
-    <button class="btn btn-secondary" v-on:click="save()">Save</button>
+    <button class="btn btn-secondary margin-sm" v-on:click="save()">Save</button>
 </div>
 <script src="ruleSetController.js"></script>
 </body>
