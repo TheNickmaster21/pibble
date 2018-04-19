@@ -26,11 +26,11 @@
         <button class="btn btn-secondary dropdown-toggle" type="button" id="export-table-dropdown-data"
                 data-toggle="dropdown"
                 aria-haspopup="true" aria-expanded="false">
-            {{selectedDataSetOption && selectedDataSetOption.display || 'Data Set'}}
+            {{selectedDataSetOption && selectedDataSetOption.name || 'Data Set'}}
         </button>
         <div class="dropdown-menu" aria-labelledby="export-table-dropdown-data">
             <a v-for="option in dataSetOptions" class="dropdown-item"
-               href="#!" v-on:click="dataDropdownSelect(option)">{{option.display}}</a>
+               href="#!" v-on:click="dataDropdownSelect(option)">{{option.name}}</a>
         </div>
     </div>
 

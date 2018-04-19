@@ -4,8 +4,9 @@ chrome.runtime.onMessage.addListener(function (message, src, callback) {
     } else if (message.action === 'save_rule_sets') {
         saveRuleSets(message);
     } else if (message.action === 'add_row_to_data_set') {
-        console.log(message);
         addDataRow(message);
+    } else if (message.action === 'get_data_rows') {
+        getDataRows(message, callback)
     }
 });
 
@@ -53,4 +54,8 @@ function addDataRow(message) {
         rows.push(newRow);
         saveData('dataSet_' + id, rows);
     }
+}
+
+function getDataRows(message, callback) {
+    callback(loadData('dataSet_' + message.id));
 }
