@@ -4,25 +4,6 @@ function parseHtmlDataIntoTokenData($htmlData) {
 
     let elementStack = [];
 
-    // function makeAttributeObject(attributeNodes) {
-    //     if (!attributeNodes || attributeNodes.length < 1) return null;
-    //
-    //     return _.map(attributeNodes,
-    //         node => {
-    //             return {name: node.name, value: node.value};
-    //         });
-    // }
-
-    //TODO Better way to parse text
-    // function parseTextTokens(text) {
-    //     let tokens = [];
-    //     let current = '';
-    //     for (let i = 0; i < text.length; i++) {
-    //         current = current + text[i];
-    //     }
-    //     return tokens;
-    // }
-
     function tokenize(obj) {
         if (!obj.innerText || obj.innerText.trim() === '') {
             return;
@@ -43,11 +24,9 @@ function parseHtmlDataIntoTokenData($htmlData) {
         }
         tokens.push({
             elements: elements,
-            //attributes: makeAttributeObject(obj.attributes),
             className: obj.className,
             innerText: obj.innerText.trim(),
             obj: obj
-            //textTokens: parseTextTokens(obj.innerText.trim())
         });
     }
 
