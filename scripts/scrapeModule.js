@@ -86,46 +86,48 @@ function getTokensFromCurrentPage(callback) {
     return true;
 }
 
-function nextOffset(o) {
-    if (o > 0) {
-        return -1 * o;
-    } else {
-        return (-1 * o) + 1
-    }
-}
+function scrapeDataWithRule(rule, tokens) {
+    function setConfidence(token) {
+        token.confidence = 0;
 
-function scrapeDataWithRule(rule, tokens, attempt) {
-    let o = 0;
-    while (o > -1 * tokens.length && o < tokens.length) {
-        let i = rule.expectedIndex + o;
-        if (i > 0 && i < tokens.length - 1) {
-            let prevToken = tokens[i - 1];
-            let token = tokens[i];
-            let nextToken = tokens[i + 1];
-            let before = prevToken.elements === rule.elements.before;
-            let at = token.elements === rule.elements.at;
-            let after = nextToken.elements === rule.elements.after;
-            let classes = token.className === rule.className;
-            if (attempt === 1 && (before && at && after && classes)
-                || attempt === 2 && ((before || after) && at && classes)
-                || attempt === 3 && (((before && after) || classes) && at)) {
-                return token.innerText;
-            }
-        }
-        o = nextOffset(o);
+        let prevToken = token.before;
+        let nextToken = token.after;
+        let before = prevToken && prevToken.elements === rule.elements.before;
+        let at = token.elements === rule.elements.at;
+        let after = nextToken && nextToken.elements === rule.elements.after;
+        let classes = token.className === rule.className;
+
+        if (at)
+            token.confidence += 0.4;
+        if (classes)
+            token.confidence += 0.35;
+        if (before)
+            token.confidence += 0.125;
+        if (after)
+            token.confidence += 0.125;
     }
-    return false;
+
+    for (let i = 0; i < tokens.length; i++) {
+        setConfidence(tokens[i]);
+    }
+
+    let result = false;
+    let sortedTokens = _.sortBy(tokens, token => -token.confidence);
+
+    if (sortedTokens[0].confidence > .75) {
+        result = sortedTokens[0].innerText;
+    }
+
+    _.each(tokens, token => delete token.confidence);
+    return result;
 }
 
 function scrapeDataFromTokens(ruleSet, tokens) {
     let results = [];
+    setBeforeAndAfterOnTokens(tokens);
     for (let i = 0; i < ruleSet.rules.length; i++) {
         let rule = ruleSet.rules[i];
-        let result = scrapeDataWithRule(rule, tokens, 1);
-        if (!result)
-            result = scrapeDataWithRule(rule, tokens, 2);
-        if (!result)
-            result = scrapeDataWithRule(rule, tokens, 3);
+        let result = scrapeDataWithRule(rule, tokens);
         results.push(result);
     }
     return results;
