@@ -14,9 +14,10 @@ new Vue({
                     });
             }
         },
-        pickToken: function (id, innerText) {
-            this.ruleSet.rules[this.ruleIndex].id = id;
-            this.ruleSet.rules[this.ruleIndex].innerText = innerText;
+        pickToken: function (token) {
+            this.ruleSet.rules[this.ruleIndex].id = token.id;
+            this.ruleSet.rules[this.ruleIndex].innerText = token.innerText;
+            this.ruleSet.rules[this.ruleIndex].className = token.className;
             this.userText = '';
             this.updateMatchedTokens();
         },
@@ -25,8 +26,10 @@ new Vue({
             this.ruleSet = option;
         },
         newRule: function () {
-            if (this.ruleSet)
+            if (this.ruleSet) {
                 this.ruleSet.rules.push({});
+                this.ruleIndex = this.ruleSet.rules.length - 1;
+            }
         },
         prevRule: function () {
             if (this.ruleIndex > 0)
@@ -35,6 +38,8 @@ new Vue({
         nextRule: function () {
             if (this.ruleSet && this.ruleSet.rules.length - 1 > this.ruleIndex)
                 this.ruleIndex++;
+            else
+                this.newRule();
         },
         save: function () {
             let saveData = {action: 'save_rule_sets', data: {ruleSets: this.ruleSetOptions, tokens: this.tokens}};

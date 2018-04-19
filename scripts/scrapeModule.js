@@ -44,6 +44,7 @@ function parseHtmlDataIntoTokenData($htmlData) {
         tokens.push({
             elements: elements,
             //attributes: makeAttributeObject(obj.attributes),
+            className: obj.className,
             innerText: obj.innerText.trim(),
             obj: obj
             //textTokens: parseTextTokens(obj.innerText.trim())
@@ -93,30 +94,39 @@ function nextOffset(o) {
     }
 }
 
-function scrapeDataWithRule(rule, tokens) {
+function scrapeDataWithRule(rule, tokens, attempt) {
     let o = 0;
     while (o > -1 * tokens.length && o < tokens.length) {
         let i = rule.expectedIndex + o;
-        if (i >= 0 && i < tokens.length) {
+        if (i > 0 && i < tokens.length - 1) {
             let prevToken = tokens[i - 1];
             let token = tokens[i];
             let nextToken = tokens[i + 1];
-            if (prevToken.elements === rule.elements.before
-                && token.elements === rule.elements.at
-                && nextToken.elements === rule.elements.after) {
+            let before = prevToken.elements === rule.elements.before;
+            let at = token.elements === rule.elements.at;
+            let after = nextToken.elements === rule.elements.after;
+            let classes = token.className === rule.className;
+            if (attempt === 1 && (before && at && after && classes)
+                || attempt === 2 && ((before || after) && at && classes)
+                || attempt === 3 && (((before && after) || classes) && at)) {
                 return token.innerText;
             }
         }
         o = nextOffset(o);
     }
-    return '';
+    return false;
 }
 
 function scrapeDataFromTokens(ruleSet, tokens) {
     let results = [];
     for (let i = 0; i < ruleSet.rules.length; i++) {
         let rule = ruleSet.rules[i];
-        results.push(scrapeDataWithRule(rule, tokens));
+        let result = scrapeDataWithRule(rule, tokens, 1);
+        if (!result)
+            result = scrapeDataWithRule(rule, tokens, 2);
+        if (!result)
+            result = scrapeDataWithRule(rule, tokens, 3);
+        results.push(result);
     }
     return results;
 }

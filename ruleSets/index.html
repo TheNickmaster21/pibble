@@ -38,7 +38,7 @@
             <!--<span ng-if="token.before">{{token.before.innerText}}</span>-->
             <strong>{{token.innerText}}</strong> - {{token.elements}}
             <!--<span ng-if="token.after">{{token.after.innerText}}</span>-->
-            <button v-on:click="pickToken(token.id, token.innerText)">Select</button>
+            <button v-on:click="pickToken(token)">Select</button>
         </p>
     </div>
     <button class="btn btn-secondary" v-on:click="save()">Save</button>
