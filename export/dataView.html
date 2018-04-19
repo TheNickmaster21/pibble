@@ -17,24 +17,24 @@
         <button class="btn btn-secondary dropdown-toggle" type="button" id="export-table-dropdown-data"
                 data-toggle="dropdown"
                 aria-haspopup="true" aria-expanded="false">
-            {{selectedDataSetOption && selectedDataSetOption.display || 'Data Set'}}
+            {{selectedDataSetOption && selectedDataSetOption.name || 'Data Set'}}
         </button>
         <div class="dropdown-menu" aria-labelledby="export-table-dropdown-data">
             <a v-for="option in dataSetOptions" class="dropdown-item"
-               href="#!" v-on:click="selectedDataSetOption = option; load();">{{option.display}}</a>
+               href="#!" v-on:click="selectedDataSetOption = option; load();">{{option.name}}</a>
         </div>
     </div>
 
-    <table class="table table-sm table-striped">
+    <table class="table table-sm table-striped" v-if="selectedDataSetOption">
         <thead>
         <tr>
-            <th v-for="column in savedData.columns">
+            <th v-for="column in selectedDataSetOption.rules">
                 {{column.name}}
             </th>
         </tr>
         </thead>
         <tbody>
-        <tr v-for="dataRow in savedData.rows">
+        <tr v-for="dataRow in savedData">
             <td v-for="value in dataRow">
                 {{value}}
             </td>

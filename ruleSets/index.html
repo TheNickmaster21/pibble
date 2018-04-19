@@ -43,9 +43,9 @@
     </div>
     <div class="margin-sm">
         <p v-for="token in matchedTokens">
-            <!--<span ng-if="token.before">{{token.before.innerText}}</span>-->
+            <!--<span v-if="token.before">{{token.before.innerText}}</span>-->
             <strong>{{token.innerText}}</strong> - {{token.elements}}
-            <!--<span ng-if="token.after">{{token.after.innerText}}</span>-->
+            <!--<span v-if="token.after">{{token.after.innerText}}</span>-->
             <button v-on:click="pickToken(token)">Select</button>
         </p>
     </div>
