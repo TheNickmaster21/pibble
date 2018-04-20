@@ -5,7 +5,7 @@ function parseHtmlDataIntoTokenData($htmlData) {
     let elementStack = [];
 
     function tokenize(obj) {
-        if (!obj.innerText || obj.innerText.trim() === '') {
+        if (!obj.innerText || obj.innerText.trim() === '' || obj.innerText.length > 100) {
             return;
         }
         if (obj.innerText === tokens[tokens.length - 1].innerText) {
@@ -13,16 +13,21 @@ function parseHtmlDataIntoTokenData($htmlData) {
         }
         let elements = elementStack.join(' ');
         let i = tokens.length - 1;
+        let lastLength = 516000;
         while (i > 0) {
             if (elements.includes(tokens[i].elements)) {
-                tokens[i].innerText = tokens[i].innerText.replace(obj.innerText, '').trim();
-                if (tokens[i].innerText.length === 0) {
-                    tokens.splice(i, 1);
+                if (tokens[i].elements.length < lastLength) {
+                    lastLength = tokens[i].elements.length;
+                    tokens[i].innerText = tokens[i].innerText.replace(obj.innerText, '').trim();
+                    if (tokens[i].innerText.length === 0 && tokens[i].elements.length) {
+                        tokens.splice(i, 1);
+                    }
                 }
             }
             i--;
         }
         tokens.push({
+            id: obj.id,
             elements: elements,
             className: obj.className,
             innerText: obj.innerText.trim(),
