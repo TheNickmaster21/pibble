@@ -1,5 +1,18 @@
 new Vue({
     el: '#ruleset-page',
+    data: {
+        tokens: [],
+        mode: "ruleSet",
+        userText: "",
+        matchedTokens: "",
+        ruleSet: {
+            name: "",
+            rules: [{elements: '', index: 0}],
+            isNew: true
+        },
+        ruleSetOptions: [],
+        ruleIndex: 0
+    },
     methods: {
         updateMatchedTokens: function () {
             if (this.userText === '') {
@@ -31,6 +44,12 @@ new Vue({
                 this.ruleIndex = this.ruleSet.rules.length - 1;
             }
         },
+        removeRule: function () {
+            if (this.ruleSet) {
+                this.ruleIndex = this.ruleSet.rules.length - 2;
+                this.ruleSet.rules.pop();
+            }
+        },
         prevRule: function () {
             if (this.ruleIndex > 0)
                 this.ruleIndex--;
@@ -45,19 +64,6 @@ new Vue({
             let saveData = {action: 'save_rule_sets', data: {ruleSets: this.ruleSetOptions, tokens: this.tokens}};
             chrome.runtime.sendMessage(saveData);
         }
-    },
-    data: {
-        tokens: [],
-        mode: "ruleSet",
-        userText: "",
-        matchedTokens: "",
-        ruleSet: {
-            name: "",
-            rules: [{elements: '', index: 0}],
-            isNew: true
-        },
-        ruleSetOptions: [],
-        ruleIndex: 0
     },
     created: function () {
         let scrapeData = {action: 'get_tokens'};

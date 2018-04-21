@@ -24,7 +24,6 @@
     <div class="margin-sm">
         Name: <input v-model="ruleSet.name">
     </div>
-    <button class="btn btn-primary margin-sm" v-on:click="newRule()">New Rule</button>
     <div class="margin-sm">
         <button class="btn btn-primary" v-on:click="prevRule()">Prev</button>&nbsp;
         Rule ({{ruleIndex + 1}}/{{ruleSet.rules.length}})&nbsp;
@@ -49,7 +48,9 @@
             <button v-on:click="pickToken(token)">Select</button>
         </p>
     </div>
-    <button class="btn btn-secondary margin-sm" v-on:click="save()">Save</button>
+    <footer>
+        <button class="btn btn-secondary margin-sm" v-on:click="save()">Save</button>
+    </footer>
 </div>
 <script src="ruleSetController.js"></script>
 </body>

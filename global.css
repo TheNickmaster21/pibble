@@ -41,6 +41,13 @@ th {
     align-content: left;
 }
 
+.btn {
+    border-radius: 0;
+}
+
+
+
+
 .logo {
     height: .8em;
     margin-bottom: .2em;
@@ -65,6 +72,8 @@ th {
     border-bottom: transparent;
 }
 
+
+
 #labrador-scrape-dropdown-rule {
     width: 96%;
     margin-left: 2%;
@@ -88,6 +97,10 @@ th {
     overflow-y: auto;
 }
 
+
+
+
+
 #export-dropdown-data {
     margin-left: 2%;
 }
@@ -95,6 +108,10 @@ th {
 .export-dropdown-container {
     text-align: center;
 }
+
+
+
+
 
 .margin-xs {
     margin: 2px;
