@@ -31,12 +31,17 @@ header a {
     position: relative;
 }
 
-footer .btn.btn-secondary {
+footer {
     width: 96%;
-    margin-top: 1%;
+    margin-top: 3px;
     margin-left: 2%;
     position: fixed;
     bottom: 0;
+}
+
+footer .btn {
+    width: 100%;
+    margin-bottom: 3px;
 }
 
 th {
@@ -51,7 +56,14 @@ th {
     color: white;
 }
 .btn:hover {
-    background-color: #626272;
+    background-color: #707080;
+}
+
+input {
+    border: 0;
+    outline: 0;
+    background: transparent;
+    border-bottom: 1px solid black;
 }
 
 
@@ -110,6 +122,14 @@ th {
 }
 
 
+
+
+
+#rule-set-name {
+    width: calc(100% - 8px);
+    font-size: large;
+}
+
 #rule-set-name-container,
 #rule-name-container {
     width: calc(100% - 8px);
@@ -117,7 +137,7 @@ th {
 }
 
 
-#rule-number-container {
+#rule-name-container {
     height: 35px;
     width: calc(100% - 8px);
     display: flex;
@@ -141,6 +161,33 @@ th {
     flex:1 1 100%;
 }
 
+#rule-checkbox-container,
+#rule-selected-value-container {
+    text-align: center;
+}
+
+#rule-find {
+    height: 40px;
+}
+
+#rule-find > input {
+    width: calc(100% - 40px);
+    height: calc(100% - 8px);
+    margin-top: 4px;
+    margin-bottom: 4px;
+}
+
+#rule-find > button {
+    width: 40px;
+    height: 100%;
+    float: right;
+    background: transparent;
+    border: none;
+    color: black;
+}
+#rule-find > button:hover {
+    background: rgba(0, 0, 0, .12);
+}
 
 
 
@@ -174,4 +221,18 @@ th {
 
 .margin-xl {
     margin: 16px;
+}
+
+
+
+#mouseover_overlay {
+    position: fixed;
+    z-index: 999999999999999;
+    left: 0;
+    top: 0;
+    width: 0;
+    height: 0;
+    background: rgba(0, 100, 255, 0.3);
+    pointer-events: none;
+    transition: 0.2s; /* Just for fun */
 }

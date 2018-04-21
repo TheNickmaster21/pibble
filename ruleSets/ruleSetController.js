@@ -55,14 +55,25 @@ new Vue({
                 this.ruleIndex--;
         },
         nextRule: function () {
-            if (this.ruleSet && this.ruleSet.rules.length - 1 > this.ruleIndex)
-                this.ruleIndex++;
+            if (this.userText.replace(/ /g) === '') {
+                $('#rule-name').placeholder = 'Rule must have name';
+            }
+            else if (this.ruleSet && this.ruleSet.rules.length - 1 > this.ruleIndex)
+                    this.ruleIndex++;
             else
                 this.newRule();
         },
         save: function () {
             let saveData = {action: 'save_rule_sets', data: {ruleSets: this.ruleSetOptions, tokens: this.tokens}};
             chrome.runtime.sendMessage(saveData);
+        },
+        highlight: function (token) {
+            let highlightData = {
+                action: 'highlight_HTML_element'
+            };
+            chrome.runtime.sendMessage(highlightData, (response => {
+
+            }));
         }
     },
     created: function () {
