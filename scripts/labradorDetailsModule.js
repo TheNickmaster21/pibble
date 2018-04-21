@@ -1,18 +1,20 @@
+// Listen for browser events
 chrome.runtime.onMessage.addListener(function (message, src, callback) {
     if (message.action === 'labrador_get_data_sets') {
-        returnDataSets(message, callback);
+        returnLabradorDataSets(message, callback);
     } else if (message.action === 'labrador_add_row_to_data_set') {
-        addDataRow(message);
+        addLabradorDataRow(message);
     } else if (message.action.includes('labrador_pref_save_')) {
-        savePrefs(message);
+        saveLabradorPrefs(message);
     } else if (message.action.includes('labrador_pref_load_')) {
-        loadPrefs(message, callback);
+        loadLabradorPrefs(message, callback);
     } else if (message.action === 'labrador_clear_data_set') {
-        clearDataSetRows(message.name);
+        clearLabradorDataSetRows(message.name);
     }
 });
 
-function clearDataSetRows(name) {
+// Clear the data for the given data set
+function clearLabradorDataSetRows(name) {
     if (name === 'Fortune Data') {
         saveData('0rows', [])
     } else {
@@ -20,38 +22,46 @@ function clearDataSetRows(name) {
     }
 }
 
-function returnDataSets(message, callback) {
+// Return data sets with their rows
+function returnLabradorDataSets(message, callback) {
     _.each(labradorDataSets, function (dataSet) {
         dataSet.rows = loadData(dataSet.id + 'rows') || [];
     });
     callback(labradorDataSets);
 }
 
-function addDataRow(message) {
+// Add a row to a data set
+function addLabradorDataRow(message) {
+    // Make sure id was sent
     let id = message.id;
-    if (typeof id !== 'undefined') {
-        let newRow = message.row;
-        let rows = loadData(id + 'rows') || [];
-        let valid = true;
+    if (typeof id === 'undefined') {
+        return;
+    }
+    let newRow = message.row;
+    let rows = loadData(id + 'rows') || [];
+    let valid = true;
+    // Make sure there is data in all of the fields
+    for (let i = 0; i < labradorDataSets[id].columns.length; i++) {
+        if (!newRow[i]) {
+            valid = false;
+        }
+    }
+    // Make sure this is not a duplicate row
+    _.each(rows, function (exitingRow) {
         for (let i = 0; i < labradorDataSets[id].columns.length; i++) {
-            if (!newRow[i]) {
+            if (labradorDataSets[id].columns[i].unique && exitingRow[i] === newRow[i]) {
                 valid = false;
             }
         }
-        _.each(rows, function (exitingRow) {
-            for (let i = 0; i < labradorDataSets[id].columns.length; i++) {
-                if (labradorDataSets[id].columns[i].unique && exitingRow[i] === newRow[i]) {
-                    valid = false;
-                }
-            }
-        });
-        if (valid) {
-            rows.push(newRow);
-            saveData(id + 'rows', rows);
-        }
+    });
+    // Save the row if valid
+    if (valid) {
+        rows.push(newRow);
+        saveData(id + 'rows', rows);
     }
 }
 
+// Labrador data set definitions
 let labradorDataSets = [
     {
         id: 0,
@@ -94,11 +104,12 @@ let labradorDataSets = [
     },
 ];
 
-
-function savePrefs(message) {
+// Save?
+function saveLabradorPrefs(message) {
     saveData(message.action);
 }
 
-function loadPrefs(message, callback) {
+// Load
+function loadLabradorPrefs(message, callback) {
     callback(loadData(message.action));
 }

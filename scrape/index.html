@@ -19,33 +19,21 @@
             <span>Collect Data</span>
         </h3>
     </header>
-
     <div class="dropdown">
-        <button class="btn btn-secondary dropdown-toggle" type="button" id="scrape-dropdown-rule" data-toggle="dropdown"
-                aria-haspopup="true" aria-expanded="false">
-            {{selectedRuleSetOption && selectedRuleSetOption.display || 'Rule Set'}}
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="labrador-scrape-dropdown-rule"
+                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            {{selectedRuleSetOption && selectedRuleSetOption.name || 'Rule Set'}}
         </button>
 
         <div class="dropdown-menu" aria-labelledby="scrape-dropdown-rule">
             <a v-for="option in ruleSetOptions" class="dropdown-item"
-               href="#!" v-on:click="selectedRuleSetOption = option;">{{option.display}}</a>
+               href="#!" v-on:click="selectedRuleSetOption = option;">{{option.name}}</a>
         </div>
     </div>
-
-    <div class="dropdown">
-        <button class="btn btn-secondary dropdown-toggle" type="button" id="scrape-dropdown-data" data-toggle="dropdown"
-                aria-haspopup="true" aria-expanded="false" disabled>
-            {{selectedRuleSetOption && selectedRuleSetOption.display || 'Data Set'}}
-        </button>
-        <div class="dropdown-menu" aria-labelledby="scrape-dropdown-data">
-        </div>
-    </div>
-
-    <br/><br/>
+    <br/>
     <ul id="scrape-list">
         <li v-for="result in scrapeResults">{{result}}</li>
     </ul>
-
     <footer>
         <button class="btn btn-secondary margin-xs" v-on:click="scrape()" :disabled="!selectedRuleSetOption">Scrape
         </button>

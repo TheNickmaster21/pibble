@@ -2,21 +2,25 @@ new Vue({
     el: '#data-table-page',
     methods: {
         load: function () {
-            chrome.runtime.sendMessage({action: 'get_data_sets'}, (response) => {
-                if (this.selectedDataSetOption.value === 'fortune')
-                    this.savedData = response[0];
-                else
-                    this.savedData = response[1];
+            let getDataRows = {action: 'get_data_rows', id: this.selectedDataSetOption.id};
+            chrome.runtime.sendMessage(getDataRows, (response) => {
+                console.log(response);
+                this.savedData = response;
                 this.$forceUpdate();
             });
         }
     },
     data: {
         savedData: [],
-        dataSetOptions: [
-            {display: "Fortune", value: "fortune"},
-            {display: "Edgar Beta", value: "betaEdgar"}
-        ],
+        dataSetOptions: [],
         selectedDataSetOption: null
+    },
+    beforeCreate: function () {
+        let getRuleSets = {
+            action: 'get_rule_sets'
+        };
+        chrome.runtime.sendMessage(getRuleSets, (response) => {
+            this.dataSetOptions = response;
+        });
     }
 });
