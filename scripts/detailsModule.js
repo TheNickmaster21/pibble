@@ -1,3 +1,4 @@
+// Listen for chrome events
 chrome.runtime.onMessage.addListener(function (message, src, callback) {
     if (message.action === 'get_rule_sets') {
         returnRuleSets(message, callback);
@@ -10,6 +11,7 @@ chrome.runtime.onMessage.addListener(function (message, src, callback) {
     }
 });
 
+// Return all of the rule sets
 function returnRuleSets(message, callback) {
     let data = loadData('ruleSets');
     if (data)
@@ -18,6 +20,7 @@ function returnRuleSets(message, callback) {
         callback([]);
 }
 
+//Save all of the new sets and convert new rule set(s) to the right format if need be
 function saveRuleSets(message) {
     let ruleSets = message.data.ruleSets;
     for (let i = 0; i < ruleSets.length; i++) {
@@ -30,18 +33,21 @@ function saveRuleSets(message) {
     saveData('ruleSets', ruleSets);
 }
 
+// Add a data row to the given data set
 function addDataRow(message) {
     let id = message.id;
+    // Make sure they sent an id
     if (typeof id === 'undefined')
         return;
-
+    // Make sure they id matches a rule set (and thus a data set)
     let ruleSets = loadData('ruleSets') || [];
     let ruleSet = _.findWhere(ruleSets, {id: id});
     if (!ruleSet)
         return;
-
-    let newRow = message.row;
+    // Get the row
+    let newRow = message.row || [];
     let rows = loadData('dataSet_' + id) || [];
+    // Check to make sure the row is unique using the unique flags on the rule set
     let valid = true;
     _.each(rows, function (exitingRow) {
         for (let i = 0; i < ruleSet.rules.length; i++) {
@@ -50,12 +56,14 @@ function addDataRow(message) {
             }
         }
     });
+    // If the new row is unique, append it and save teh data set
     if (valid) {
         rows.push(newRow);
         saveData('dataSet_' + id, rows);
     }
 }
 
+// Get the given data set
 function getDataRows(message, callback) {
     callback(loadData('dataSet_' + message.id));
 }

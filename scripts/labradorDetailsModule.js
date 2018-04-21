@@ -1,3 +1,4 @@
+// Listen for browser events
 chrome.runtime.onMessage.addListener(function (message, src, callback) {
     if (message.action === 'labrador_get_data_sets') {
         returnLabradorDataSets(message, callback);
@@ -12,6 +13,7 @@ chrome.runtime.onMessage.addListener(function (message, src, callback) {
     }
 });
 
+// Clear the data for the given data set
 function clearLabradorDataSetRows(name) {
     if (name === 'Fortune Data') {
         saveData('0rows', [])
@@ -20,6 +22,7 @@ function clearLabradorDataSetRows(name) {
     }
 }
 
+// Return data sets with their rows
 function returnLabradorDataSets(message, callback) {
     _.each(labradorDataSets, function (dataSet) {
         dataSet.rows = loadData(dataSet.id + 'rows') || [];
@@ -27,7 +30,9 @@ function returnLabradorDataSets(message, callback) {
     callback(labradorDataSets);
 }
 
+// Add a row to a data set
 function addLabradorDataRow(message) {
+    // Make sure id was sent
     let id = message.id;
     if (typeof id === 'undefined') {
         return;
@@ -35,11 +40,13 @@ function addLabradorDataRow(message) {
     let newRow = message.row;
     let rows = loadData(id + 'rows') || [];
     let valid = true;
+    // Make sure there is data in all of the fields
     for (let i = 0; i < labradorDataSets[id].columns.length; i++) {
         if (!newRow[i]) {
             valid = false;
         }
     }
+    // Make sure this is not a duplicate row
     _.each(rows, function (exitingRow) {
         for (let i = 0; i < labradorDataSets[id].columns.length; i++) {
             if (labradorDataSets[id].columns[i].unique && exitingRow[i] === newRow[i]) {
@@ -47,12 +54,14 @@ function addLabradorDataRow(message) {
             }
         }
     });
+    // Save the row if valid
     if (valid) {
         rows.push(newRow);
         saveData(id + 'rows', rows);
     }
 }
 
+// Labrador data set definitions
 let labradorDataSets = [
     {
         id: 0,
@@ -95,11 +104,12 @@ let labradorDataSets = [
     },
 ];
 
-
+// Save?
 function saveLabradorPrefs(message) {
     saveData(message.action);
 }
 
+// Load
 function loadLabradorPrefs(message, callback) {
     callback(loadData(message.action));
 }
