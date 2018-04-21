@@ -1,5 +1,6 @@
 body {
     width: 250px;
+    min-height: 300px;
     background: rgba(255, 255, 255, .8) url("images/cream-pixels.png") repeat;
     border-radius: 5px;
     margin: 0;
@@ -34,6 +35,8 @@ footer .btn.btn-secondary {
     width: 96%;
     margin-top: 1%;
     margin-left: 2%;
+    position: fixed;
+    bottom: 0;
 }
 
 th {
@@ -43,6 +46,12 @@ th {
 
 .btn {
     border-radius: 0;
+    background-color: #555566;
+    border-color: #4e555b;
+    color: white;
+}
+.btn:hover {
+    background-color: #626272;
 }
 
 
@@ -60,8 +69,11 @@ th {
 }
 
 .main-menu a {
+    background-color: transparent;
+    border-color: transparent;
     border-bottom: 1px solid black;
     border-radius: 0;
+    color: black;
 }
 
 .main-menu a:hover {
@@ -97,6 +109,37 @@ th {
     overflow-y: auto;
 }
 
+
+#rule-set-name-container,
+#rule-name-container {
+    width: calc(100% - 8px);
+    text-align: center;
+}
+
+
+#rule-number-container {
+    height: 35px;
+    width: calc(100% - 8px);
+    display: flex;
+    flex-flow:row nowrap;
+    align-items:center;
+}
+
+#rule-prev,
+#rule-next {
+    width: 44px;
+    padding: 4px;
+}
+
+#rule-name {
+    height: 100%;
+    width: calc(100% - 88px);
+    margin-left: 3px;
+    margin-right: 3px;
+    vertical-align: middle;
+    text-align: left;
+    flex:1 1 100%;
+}
 
 
 

@@ -21,25 +21,33 @@
         </h3>
     </header>
 
-    <div class="margin-sm">
-        Name: <input v-model="ruleSet.name">
+    <div id="rule-set-name-container" class="margin-sm">
+        <input v-model="ruleSet.name" placeholder="Rule Set Name">
+        <span>Rule ({{ruleIndex + 1}}/{{ruleSet.rules.length}})</span>
     </div>
-    <div class="margin-sm">
-        <button class="btn btn-primary" v-on:click="prevRule()">Prev</button>&nbsp;
-        Rule ({{ruleIndex + 1}}/{{ruleSet.rules.length}})&nbsp;
-        <button class="btn btn-primary" v-on:click="nextRule()">Next</button>
+
+    <div id="rule-number-container" class="margin-sm">
+        <button id="rule-prev" class="btn" v-on:click="prevRule()">Prev</button>
+
+        <input id="rule-name" v-model="ruleSet.rules[ruleIndex].name" placeholder="Rule Name">
+        <button id="rule-next" class="btn" v-on:click="nextRule()">Next</button>
     </div>
-    <div class="margin-sm">
-        Name: <input v-model="ruleSet.rules[ruleIndex].name">
+
+    <div id="rule-name-container" class="margin-sm">
+
     </div>
+
     <div class="margin-sm">
         <input type="checkbox" id="uniqueCheckbox" v-model="ruleSet.rules[ruleIndex].unique">&nbsp;
         <label for="uniqueCheckbox">Unique Column Value</label>
     </div>
-    <h4>{{ ruleSet.rules[ruleIndex].innerText }}</h4>
+
+    <!-- <h4>{{ ruleSet.rules[ruleIndex].innerText }}</h4> -->
+
     <div class="margin-sm">
         <input v-model="userText">&nbsp;<button class="btn" v-on:click="updateMatchedTokens()">Find</button>
     </div>
+
     <div class="margin-sm">
         <p v-for="token in matchedTokens">
             <!--<span v-if="token.before">{{token.before.innerText}}</span>-->
@@ -48,6 +56,7 @@
             <button v-on:click="pickToken(token)">Select</button>
         </p>
     </div>
+
     <footer>
         <button class="btn btn-secondary margin-sm" v-on:click="save()">Save</button>
     </footer>
