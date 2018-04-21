@@ -157,11 +157,24 @@ function scrapeFromCurrentWebPage(ruleSet, callback) {
     return true;
 }
 
+function highlightElement(token) {
+    sendQueryMessageToActiveTabWithCallback(
+        {
+            action: 'highlight_HTML_element',
+            token: token
+        }
+    );
+}
+
 // Listen for chrome events
 chrome.runtime.onMessage.addListener(function (message, src, callback) {
     if (message.action === 'get_tokens') {
         return getTokensFromCurrentPage(callback);
-    } else if (message.action === 'scrape_web_page') {
+    }
+    else if (message.action === 'scrape_web_page') {
         return scrapeFromCurrentWebPage(message.data, callback);
+    }
+    else if(message.action === 'highlight_element') {
+        highlightElement(message.token);
     }
 });

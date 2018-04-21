@@ -69,11 +69,10 @@ new Vue({
         },
         highlight: function (token) {
             let highlightData = {
-                action: 'highlight_HTML_element'
+                action: 'highlight_element',
+                token: token
             };
-            chrome.runtime.sendMessage(highlightData, (response => {
-
-            }));
+            chrome.runtime.sendMessage(highlightData);
         }
     },
     created: function () {

@@ -5,24 +5,26 @@ function getCurrentDocumentInnerHTML(responseFunction) {
 }
 
 function setElementHighlight(token) {
-    console.log(token);
+    document.querySelectorAll('*').forEach(function(node) {
+        if(node.innerHTML === token.innerText) {
+            let overlay = document.createElement('div');
+            overlay.style.cssText = 'position: fixed;z-index: 999999999999999;left: 0;top: 0;width: 0;height: 0;background: rgba(0, 100, 255, 0.3);pointer-events: none;transition: 0.2s;';
+            overlay.id = 'pibble-highlight-overlay';
 
-    //document.querySelectorAll('*').forEach(function(node) {
-    //});
+            if(document.body.lastChild.id !== 'pibble-highlight-overlay')
+                document.body.appendChild(overlay);
 
-    /*
-    let overlay = document.querySelector('#mouseover_overlay');
-    document.addEventListener('mouseover', e => {
-
-        let elem = e.target;
-        console.log(elem);
-        let rect = elem.getBoundingClientRect();
-        overlay.style.top = rect.top +'px';
-        overlay.style.left = rect.left +'px';
-        overlay.style.width = rect.width +'px';
-        overlay.style.height = rect.height +'px';
+            let rect = node.getBoundingClientRect();
+            overlay.style.top = rect.top + 'px';
+            overlay.style.left = rect.left + 'px';
+            overlay.style.width = rect.width + 'px';
+            overlay.style.height = rect.height + 'px';
+        }
     });
-    */
+
+
+
+
 }
 
 // Listen for browser events
@@ -30,8 +32,7 @@ chrome.runtime.onMessage.addListener(function (message, sender, responseFunction
     if (message === 'get_current_document_inner_HTML') {
         getCurrentDocumentInnerHTML(responseFunction);
     }
-    else if(message === 'highlight_HTML_element') {
-        console.log('kbhjdesfbhjkdfgs');
-        //setElementHighlight(message.token);
+    else if(message.action === 'highlight_HTML_element') {
+        setElementHighlight(message.token);
     }
 });
