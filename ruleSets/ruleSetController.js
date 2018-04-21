@@ -55,11 +55,8 @@ new Vue({
                 this.ruleIndex--;
         },
         nextRule: function () {
-            if (this.userText.replace(/ /g) === '') {
-                $('#rule-name').placeholder = 'Rule must have name';
-            }
-            else if (this.ruleSet && this.ruleSet.rules.length - 1 > this.ruleIndex)
-                    this.ruleIndex++;
+            if (this.ruleSet && this.ruleSet.rules.length - 1 > this.ruleIndex)
+                this.ruleIndex++;
             else
                 this.newRule();
         },

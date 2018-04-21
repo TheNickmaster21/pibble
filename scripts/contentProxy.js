@@ -8,12 +8,18 @@ function setElementHighlight(token) {
     document.querySelectorAll('*').forEach(function(node) {
         if(node.innerHTML === token.innerText) {
             let overlay = document.createElement('div');
-            overlay.style.cssText = 'position: fixed;z-index: 999999999999999;left: 0;top: 0;width: 0;height: 0;background: rgba(0, 100, 255, 0.3);pointer-events: none;transition: 0.2s;';
+            overlay.style.cssText = 'position: fixed;z-index: 999999999999999;background: rgba(0, 100, 255, 0.3);pointer-events: none;transition: 0.2s;';
             overlay.id = 'pibble-highlight-overlay';
+            overlay.style.left = '0';
+            overlay.style.top = '0';
+            overlay.style.width = '0';
+            overlay.style.height = '0';
 
             if(document.body.lastChild.id !== 'pibble-highlight-overlay')
                 document.body.appendChild(overlay);
 
+            console.log(node);
+            overlay = document.body.lastChild;
             let rect = node.getBoundingClientRect();
             overlay.style.top = rect.top + 'px';
             overlay.style.left = rect.left + 'px';

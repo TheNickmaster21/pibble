@@ -18,6 +18,7 @@ a:hover {
 }
 
 header {
+    width: 100%;
     background: rgba(225, 225, 225, .8) url("images/binding-light.png") repeat;
     text-align: center;
     padding-right: 5px;
@@ -187,6 +188,18 @@ input {
 }
 #rule-find > button:hover {
     background: rgba(0, 0, 0, .12);
+}
+
+#rule-element-list-container {
+    max-height: 350px;
+    overflow-y: scroll;
+    margin-bottom: 42px;
+}
+
+#rule-element-highlight,
+#rule-element-select {
+    width: calc(50% - 4px);
+    padding: 1px;
 }
 
 
