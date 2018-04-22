@@ -1,6 +1,6 @@
 body {
     width: 250px;
-    min-height: 300px;
+    min-height: 200px;
     background: rgba(255, 255, 255, .8) url("images/cream-pixels.png") repeat;
     border-radius: 5px;
     margin: 0;
@@ -128,7 +128,7 @@ input {
 
 #rule-set-name {
     width: calc(100% - 8px);
-    font-size: large;
+    font-size: larger;
 }
 
 #rule-set-name-container,
@@ -142,8 +142,8 @@ input {
     height: 35px;
     width: calc(100% - 8px);
     display: flex;
-    flex-flow:row nowrap;
-    align-items:center;
+    flex-flow: row nowrap;
+    align-items: center;
 }
 
 #rule-prev,
@@ -159,7 +159,7 @@ input {
     margin-right: 3px;
     vertical-align: middle;
     text-align: left;
-    flex:1 1 100%;
+    flex: 1 1 100%;
 }
 
 #rule-checkbox-container,
@@ -212,7 +212,18 @@ input {
     text-align: center;
 }
 
+#table-page {
+    padding-top: 2px;
+}
 
+#table-dropdown {
+    margin-left: 2px;
+}
+
+#table-delete {
+    margin-right: 2px;
+    float: right;
+}
 
 
 

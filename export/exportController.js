@@ -1,5 +1,14 @@
 new Vue({
     el: '#export-page',
+    data: {
+        filename: "export",
+        dataSetOptions: [],
+        selectedDataSetOption: null,
+        exportJSON: {
+            gridColumns: [],
+            gridData: []
+        }
+    },
     methods: {
         dataDropdownSelect: function (option) {
             this.selectedDataSetOption = option;
@@ -16,15 +25,6 @@ new Vue({
                 exportToCSV(this.filename + '.csv', this.exportJSON);
             });
             this.$forceUpdate();
-        }
-    },
-    data: {
-        filename: "export",
-        dataSetOptions: [],
-        selectedDataSetOption: null,
-        exportJSON: {
-            gridColumns: [],
-            gridData: []
         }
     },
     beforeCreate: function () {
