@@ -20,7 +20,7 @@
         </h3>
     </header>
     <div class="dropdown">
-        <button class="btn btn-secondary dropdown-toggle" type="button" id="labrador-scrape-dropdown-rule"
+        <button class="btn dropdown-toggle" type="button" id="labrador-scrape-dropdown-rule"
                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             {{selectedRuleSetOption && selectedRuleSetOption.name || 'Rule Set'}}
         </button>
@@ -35,7 +35,7 @@
         <li v-for="result in scrapeResults">{{result}}</li>
     </ul>
     <footer>
-        <button class="btn btn-secondary margin-xs" v-on:click="scrape()" :disabled="!selectedRuleSetOption">Scrape
+        <button class="btn margin-xs" v-on:click="scrape()" :disabled="!selectedRuleSetOption">Scrape
         </button>
     </footer>
 </div>
