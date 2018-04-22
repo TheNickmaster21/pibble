@@ -18,8 +18,11 @@ new Vue({
                 this.$forceUpdate();
             });
         },
+        save: function () {
+            //maybe edit feature
+        },
         deleteDataSet: function() {
-
+            //def want this though
         },
         exportCSV: function () {
             let getDataRows = {action: 'get_data_rows', id: this.selectedDataSetOption.id};
