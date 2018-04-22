@@ -28,7 +28,7 @@
 
     <button class="btn" v-on:click="exportCSV()" :disabled="!selectedDataSetOption">Export As .csv</button>
 
-    <button id="table-delete" v-if="selectedDataSetOption" class="btn" disabled>Delete Set</button>
+    <button id="table-delete" class="btn" v-if="selectedDataSetOption" v-on:click="deleteDataSet()" disabled>Delete Set</button>
 
     <table class="table table-sm table-striped" v-if="selectedDataSetOption">
         <thead>

@@ -18,6 +18,9 @@ new Vue({
                 this.$forceUpdate();
             });
         },
+        deleteDataSet: function() {
+
+        },
         exportCSV: function () {
             let getDataRows = {action: 'get_data_rows', id: this.selectedDataSetOption.id};
             chrome.runtime.sendMessage(getDataRows, (response) => {
