@@ -7,23 +7,28 @@
     <script src="/resources/vue.js"></script>
     <link href="/resources/open-iconic/font/css/open-iconic-bootstrap.css" rel="stylesheet">
     <script src="/resources/bootstrap-4.0.0-dist/js/bootstrap.min.js"></script>
+    <script src="/resources/underscore.js"></script>
 
     <link href="/global.css" rel="stylesheet">
 </head>
 <body class="w-100">
-<div id="data-table-page">
+<div id="table-page">
 
-    <div class="dropdown">
-        <button class="btn btn-secondary dropdown-toggle" type="button" id="export-table-dropdown-data"
+    <span id="table-dropdown" class="dropdown">
+        <button class="btn dropdown-toggle" type="button" id="export-table-dropdown-data"
                 data-toggle="dropdown"
                 aria-haspopup="true" aria-expanded="false">
             {{selectedDataSetOption && selectedDataSetOption.name || 'Data Set'}}
         </button>
-        <div class="dropdown-menu" aria-labelledby="export-table-dropdown-data">
+        <span class="dropdown-menu" aria-labelledby="export-table-dropdown-data">
             <a v-for="option in dataSetOptions" class="dropdown-item"
                href="#!" v-on:click="selectedDataSetOption = option; load();">{{option.name}}</a>
-        </div>
-    </div>
+        </span>
+    </span>
+
+    <button class="btn" v-on:click="exportCSV()" :disabled="!selectedDataSetOption">Export As .csv</button>
+
+    <button id="table-delete" class="btn" v-if="selectedDataSetOption" v-on:click="deleteDataSet()" disabled>Delete Set</button>
 
     <table class="table table-sm table-striped" v-if="selectedDataSetOption">
         <thead>

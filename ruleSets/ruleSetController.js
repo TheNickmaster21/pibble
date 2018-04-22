@@ -45,6 +45,7 @@ new Vue({
             }
         },
         removeRule: function () {
+            //TODO do this
             if (this.ruleSet) {
                 this.ruleIndex = this.ruleSet.rules.length - 2;
                 this.ruleSet.rules.pop();
@@ -61,8 +62,18 @@ new Vue({
                 this.newRule();
         },
         save: function () {
-            let saveData = {action: 'save_rule_sets', data: {ruleSets: this.ruleSetOptions, tokens: this.tokens}};
-            chrome.runtime.sendMessage(saveData);
+            if(this.ruleSet.name !== '') {
+                let saveData = {action: 'save_rule_sets', data: {ruleSets: this.ruleSetOptions, tokens: this.tokens}};
+                chrome.runtime.sendMessage(saveData);
+                document.getElementById('return-home').click();
+            }
+        },
+        highlight: function (token) {
+            let highlightData = {
+                action: 'highlight_element',
+                token: token
+            };
+            chrome.runtime.sendMessage(highlightData);
         }
     },
     created: function () {
