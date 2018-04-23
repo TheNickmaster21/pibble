@@ -34,6 +34,8 @@
     <ul id="scrape-list">
         <li v-for="result in scrapeResults">{{result}}</li>
     </ul>
+    <br/>
+    <br/>
     <footer>
         <button class="btn margin-xs" v-on:click="scrape()" :disabled="!selectedRuleSetOption">Scrape
         </button>
