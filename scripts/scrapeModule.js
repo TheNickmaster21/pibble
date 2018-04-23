@@ -112,7 +112,7 @@ function scrapeDataWithRule(rule, tokens) {
         setConfidence(tokens[i]);
     }
 
-    let result = false;
+    let result = 'N/A';
     let sortedTokens = _.sortBy(tokens, token => -token.confidence);
     // Is the highest confidence safe enough to trust it is the correct token?
     if (sortedTokens[0].confidence > .75) {
@@ -174,7 +174,7 @@ chrome.runtime.onMessage.addListener(function (message, src, callback) {
     else if (message.action === 'scrape_web_page') {
         return scrapeFromCurrentWebPage(message.data, callback);
     }
-    else if(message.action === 'highlight_element') {
+    else if (message.action === 'highlight_element') {
         highlightElement(message.token);
     }
 });

@@ -21,8 +21,13 @@ new Vue({
         save: function () {
             //maybe edit feature
         },
-        deleteDataSet: function() {
-            //def want this though
+        deleteDataSet: function () {
+            let getDataRows = {action: 'delete_data_set', id: this.selectedDataSetOption.id};
+            chrome.runtime.sendMessage(getDataRows, (response) => {
+                this.dataSetOptions = response;
+                this.selectedDataSetOption = null;
+                this.$forceUpdate();
+            });
         },
         exportCSV: function () {
             let getDataRows = {action: 'get_data_rows', id: this.selectedDataSetOption.id};

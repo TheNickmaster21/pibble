@@ -8,6 +8,8 @@ chrome.runtime.onMessage.addListener(function (message, src, callback) {
         addDataRow(message);
     } else if (message.action === 'get_data_rows') {
         getDataRows(message, callback)
+    } else if (message.action === 'delete_data_set') {
+        deleteDataSet(message, callback);
     }
 });
 
@@ -66,4 +68,25 @@ function addDataRow(message) {
 // Get the given data set
 function getDataRows(message, callback) {
     callback(loadData('dataSet_' + message.id));
+}
+
+// Delete the given data set and rule set
+function deleteDataSet(message, callback) {
+    // Get the rule sets
+    let ruleSets = loadData('ruleSets');
+    if (ruleSets && ruleSets.length >= message.id) {
+        // Remove the no longer desired rule set
+        ruleSets.splice(message.id - 1, 1);
+        // Shift all of the rule set ids backwards and shift the data sets backwards
+        for (let index = message.id - 1; index < ruleSets.length; index++) {
+            let oldData = loadData('dataSet_' + ruleSets[index].id);
+            saveData('dataSet_' + (ruleSets[index].id - 1), oldData);
+            ruleSets[index].id = ruleSets[index].id - 1;
+        }
+        // Save changes
+        saveData('ruleSets', ruleSets);
+    }
+
+    // Return the new data sets
+    returnRuleSets(message, callback);
 }
