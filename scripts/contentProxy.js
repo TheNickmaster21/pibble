@@ -8,7 +8,7 @@ function setElementHighlight(token) {
     document.querySelectorAll('*').forEach(function(node) {
         if(node.innerHTML === token.innerText) {
             let overlay = document.createElement('div');
-            overlay.style.cssText = 'position: fixed;z-index: 999999999999999;background: rgba(0, 100, 255, 0.3);pointer-events: none;transition: 0.2s;';
+            overlay.style.cssText = 'position: fixed;z-index: 999999999999999;background: rgba(0, 100, 255, 0.3);pointer-events: none;';
             overlay.id = 'pibble-highlight-overlay';
             overlay.style.left = '0';
             overlay.style.top = '0';
@@ -25,6 +25,12 @@ function setElementHighlight(token) {
             overlay.style.left = rect.left + 'px';
             overlay.style.width = rect.width + 'px';
             overlay.style.height = rect.height + 'px';
+            setTimeout(() => {
+                overlay.style.top = '0px';
+                overlay.style.left = '0px';
+                overlay.style.width = '0px';
+                overlay.style.height = '0px';
+            }, 3000);
         }
     });
 
