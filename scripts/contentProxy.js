@@ -7,6 +7,7 @@ function getCurrentDocumentInnerHTML(responseFunction) {
 function setElementHighlight(token) {
     document.querySelectorAll('*').forEach(function(node) {
         if(node.innerHTML === token.innerText) {
+            //TODO get current path and work upward to parent till reach body
             let overlay = document.createElement('div');
             overlay.style.cssText = 'position: fixed;z-index: 999999999999999;background: rgba(0, 100, 255, 0.3);pointer-events: none;';
             overlay.id = 'pibble-highlight-overlay';
