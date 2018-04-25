@@ -5,10 +5,13 @@ function getCurrentDocumentInnerHTML(responseFunction) {
 }
 
 function setElementHighlight(token) {
-    document.querySelectorAll('*').forEach(function(node) {
-        if(node.innerHTML === token.innerText) {
+    document.querySelectorAll('*').forEach(function(node) { //TODO switch to proper for each loop
+        if(node.innerHTML === token.innerText && GetParents(node) === token.elements) {
             //TODO get current path and work upward to parent till reach body
+
+
             let overlay = document.createElement('div');
+            //TODO make highlight fade in
             overlay.style.cssText = 'position: fixed;z-index: 999999999999999;background: rgba(0, 100, 255, 0.3);pointer-events: none;';
             overlay.id = 'pibble-highlight-overlay';
             overlay.style.left = '0';
@@ -36,9 +39,20 @@ function setElementHighlight(token) {
     });
 
 
-
-
 }
+
+/**
+ * @return {string}
+ */
+function GetParents(elem) {
+    const parents = $(elem).parents("*");
+    let selector = "";
+    for (let i = parents.length-1; i >= 0; i--) {
+        selector += parents[i].tagName + " ";
+    }
+    return selector.toLowerCase();
+}
+
 
 // Listen for browser events
 chrome.runtime.onMessage.addListener(function (message, sender, responseFunction) {
