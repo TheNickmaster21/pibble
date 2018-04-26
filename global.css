@@ -1,5 +1,6 @@
 body {
     width: 250px;
+    min-height: 200px;
     background: rgba(255, 255, 255, .8) url("images/cream-pixels.png") repeat;
     border-radius: 5px;
     margin: 0;
@@ -17,6 +18,7 @@ a:hover {
 }
 
 header {
+    width: 100%;
     background: rgba(225, 225, 225, .8) url("images/binding-light.png") repeat;
     text-align: center;
     padding-right: 5px;
@@ -30,16 +32,43 @@ header a {
     position: relative;
 }
 
-footer .btn.btn-secondary {
+footer {
     width: 96%;
-    margin-top: 1%;
+    margin-top: 3px;
     margin-left: 2%;
+    position: fixed;
+    bottom: 0;
+}
+
+footer .btn {
+    width: 100%;
+    margin-bottom: 3px;
 }
 
 th {
     background-color: rgba(169, 169, 169, .8);
     align-content: left;
 }
+
+.btn {
+    border-radius: 0;
+    background-color: #555566;
+    border-color: #4e555b;
+    color: white;
+}
+.btn:hover {
+    background-color: #707080;
+}
+
+input {
+    border: 0;
+    outline: 0;
+    background: transparent;
+    border-bottom: 1px solid black;
+}
+
+
+
 
 .logo {
     height: .8em;
@@ -53,8 +82,11 @@ th {
 }
 
 .main-menu a {
+    background-color: transparent;
+    border-color: transparent;
     border-bottom: 1px solid black;
     border-radius: 0;
+    color: black;
 }
 
 .main-menu a:hover {
@@ -65,8 +97,14 @@ th {
     border-bottom: transparent;
 }
 
-#scrape-dropdown-rule {
 
+
+#labrador-scrape-dropdown-rule {
+    width: 96%;
+    margin-left: 2%;
+}
+
+#scrape-dropdown-rule {
     width: 47%;
     margin-left: 2%;
     float: left;
@@ -84,6 +122,88 @@ th {
     overflow-y: auto;
 }
 
+
+
+
+
+#rule-set-name {
+    width: calc(100% - 8px);
+    font-size: larger;
+}
+
+#rule-set-name-container,
+#rule-name-container {
+    width: calc(100% - 8px);
+    text-align: center;
+}
+
+
+#rule-name-container {
+    height: 35px;
+    width: calc(100% - 8px);
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+}
+
+#rule-prev,
+#rule-next {
+    width: 44px;
+    padding: 4px;
+}
+
+#rule-name {
+    height: 100%;
+    width: calc(100% - 88px);
+    margin-left: 3px;
+    margin-right: 3px;
+    vertical-align: middle;
+    text-align: left;
+    flex: 1 1 100%;
+}
+
+#rule-checkbox-container,
+#rule-selected-value-container {
+    text-align: center;
+}
+
+#rule-find {
+    height: 40px;
+}
+
+#rule-find > input {
+    width: calc(100% - 40px);
+    height: calc(100% - 8px);
+    margin-top: 4px;
+    margin-bottom: 4px;
+}
+
+#rule-find > button {
+    width: 40px;
+    height: 100%;
+    float: right;
+    background: transparent;
+    border: none;
+    color: black;
+}
+#rule-find > button:hover {
+    background: rgba(0, 0, 0, .12);
+}
+
+#rule-element-list-container {
+    max-height: 350px;
+    overflow-y: scroll;
+    margin-bottom: 42px;
+}
+
+#rule-element-highlight,
+#rule-element-select {
+    width: calc(50% - 4px);
+    padding: 1px;
+}
+
+
+
 #export-dropdown-data {
     margin-left: 2%;
 }
@@ -91,6 +211,21 @@ th {
 .export-dropdown-container {
     text-align: center;
 }
+
+#table-page {
+    padding-top: 2px;
+}
+
+#table-dropdown {
+    margin-left: 2px;
+}
+
+#table-delete {
+    margin-right: 2px;
+    float: right;
+}
+
+
 
 .margin-xs {
     margin: 2px;

@@ -4,6 +4,7 @@
     <link rel="stylesheet" href="/resources/bootstrap-4.0.0-dist/css/bootstrap.min.css"/>
     <script src="/resources/popper.min.js"></script>
     <script src="/resources/vue.js"></script>
+    <script src="/resources/underscore.js"></script>
     <link href="/resources/open-iconic/font/css/open-iconic-bootstrap.css" rel="stylesheet">
     <script src="/resources/bootstrap-4.0.0-dist/js/bootstrap.min.js"></script>
 
@@ -12,7 +13,7 @@
 <body>
 <div class="popupBody" id="ruleset-page">
     <header>
-        <a href="/index.html">
+        <a id="return-home" href="/index.html">
             <span class="oi oi-home"></span>
         </a>
         <h3>
@@ -20,24 +21,55 @@
         </h3>
     </header>
 
-    <div class="dropdown">
-        <button class="btn btn-secondary dropdown-toggle" type="button" id="rulesets-dropdown-rule"
-                data-toggle="dropdown"
-                aria-haspopup="true" aria-expanded="false">
-            {{selectedRuleSetOption || 'Rule Set'}}
-        </button>
-
-        <div class="dropdown-menu" aria-labelledby="rulesets-dropdown-rule">
-            <a v-for="option in ruleSetOptions" class="dropdown-item"
-               href="#!" v-on:click="selectedRuleSetOption = option;">{{option}}</a>
-        </div>
+    <div id="rule-set-name-container" class="margin-sm">
+        <input id="rule-set-name" v-model="ruleSet.name" placeholder="Rule Set Name">
     </div>
 
-    <br/><br/><br/><br/>
+    <div id="rule-name-container" class="margin-sm">
+        <button id="rule-prev" class="btn" v-on:click="prevRule()" :disabled="ruleIndex === 0"><span class="oi oi-arrow-thick-left"></span></button>
+        <input id="rule-name" v-model="ruleSet.rules[ruleIndex].name" placeholder="Rule Name">
+        <button id="rule-next" class="btn" v-on:click="nextRule()">
+            <span v-if="this.ruleSet.rules.length - 1 > this.ruleIndex" class="oi oi-arrow-thick-right"></span>
+            <span v-else class="oi oi-plus"></span>
+        </button>
+
+    </div>
+
+    <div id="rule-checkbox-container"  class="margin-sm">
+        <input type="checkbox" id="uniqueCheckbox" v-model="ruleSet.rules[ruleIndex].unique">&nbsp;
+        <label for="uniqueCheckbox">Unique Column Value</label>
+        <span>({{ruleIndex + 1}}/{{ruleSet.rules.length}})</span>
+    </div>
+
+    <div id="rule-selected-value-container">
+        <div id="rule-selected-value"><strong>{{ruleSet.rules[ruleIndex].innerText}}</strong></div>
+    </div>
+
+    <!-- <h4>{{ ruleSet.rules[ruleIndex].innerText }}</h4> -->
+
+    <div id="rule-find" class="margin-sm">
+        <input class="align-baseline" v-model="userText" placeholder="Text to find">
+        <button class="btn" v-on:click="updateMatchedTokens()">
+            <span class="oi oi-magnifying-glass"></span>
+        </button>
+
+    </div>
+
+    <div id="rule-element-list-container" class="margin-sm">
+        <p v-for="token in matchedTokens">
+            <!--<span v-if="token.before">{{token.before.innerText}}</span>-->
+            <strong>{{token.innerText}}</strong> - {{token.elements}}
+            <!--<span v-if="token.after">{{token.after.innerText}}</span>-->
+            <br/>
+            <button id="rule-element-highlight" class="btn" v-on:click="highlight(token)">Show</button>
+            <button id="rule-element-select" class="btn" v-on:click="pickToken(token)">Select</button>
+        </p>
+    </div>
 
     <footer>
-        <button class="btn btn-secondary">Train</button>
+        <button class="btn" v-on:click="save()">Create Rule Set</button>
     </footer>
+
 </div>
 <script src="ruleSetController.js"></script>
 </body>

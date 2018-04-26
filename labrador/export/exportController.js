@@ -1,55 +1,43 @@
 new Vue({
-    el: '#table-page',
-    data: {
-        savedData: [],
-        dataSetOptions: [],
-        selectedDataSetOption: null,
-        filename: "export",
-        exportJSON: {
-            gridColumns: [],
-            gridData: []
-        }
-    },
+    el: '#export-page',
     methods: {
-        load: function () {
-            let getDataRows = {action: 'get_data_rows', id: this.selectedDataSetOption.id};
-            chrome.runtime.sendMessage(getDataRows, (response) => {
-                this.savedData = response;
-                this.$forceUpdate();
-            });
+        dataDropdownSelect: function (option) {
+            this.selectedDataSetOption = option;
         },
-        save: function () {
-            //maybe edit feature
-        },
-        deleteDataSet: function () {
-            let getDataRows = {action: 'delete_data_set', id: this.selectedDataSetOption.id};
-            chrome.runtime.sendMessage(getDataRows, (response) => {
-                this.dataSetOptions = response;
-                this.selectedDataSetOption = null;
-                this.$forceUpdate();
-            });
+        dataTab: function () {
+            chrome.tabs.create({'url': chrome.extension.getURL('labrador/export/dataView.html')});
         },
         exportCSV: function () {
-            let getDataRows = {action: 'get_data_rows', id: this.selectedDataSetOption.id};
-            chrome.runtime.sendMessage(getDataRows, (response) => {
-                this.filename = this.selectedDataSetOption.name;
-                this.exportJSON.gridData = response;
-                this.exportJSON.gridColumns = _.pluck(this.selectedDataSetOption.rules, 'name');
+            chrome.runtime.sendMessage({action: 'labrador_get_data_sets'}, (response) => {
+                if (this.selectedDataSetOption.value === 'fortune') {
+                    this.filename = response[0].name;
+                    this.exportJSON.gridData = response[0].rows;
+                    this.exportJSON.gridColumns = _.pluck(response[0].columns, 'name');
+                } else {
+                    this.filename = response[1].name;
+                    this.exportJSON.gridData = response[1].rows;
+                    this.exportJSON.gridColumns = _.pluck(response[1].columns, 'name');
+                }
+
                 exportToCSV(this.filename + '.csv', this.exportJSON);
+
             });
             this.$forceUpdate();
         }
     },
-    beforeCreate: function () {
-        let getRuleSets = {
-            action: 'get_rule_sets'
-        };
-        chrome.runtime.sendMessage(getRuleSets, (response) => {
-            this.dataSetOptions = response;
-        });
+    data: {
+        filename: "export",
+        dataSetOptions: [
+            {display: "Fortune", value: "fortune"},
+            {display: "Edgar Beta", value: "betaEdgar"}
+        ],
+        selectedDataSetOption: null,
+        exportJSON: {
+            gridColumns: [],
+            gridData: []
+        }
     }
 });
-
 
 function exportToCSV(filename, incomingData) {
     let rows = [];

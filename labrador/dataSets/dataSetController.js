@@ -1,15 +1,15 @@
 new Vue({
     el: '#dataSet-page',
     methods: {
-        getDataSets: function () {
-            let data = {action: 'get_data_sets'};
+        getLabradorDataSets: function () {
+            let data = {action: 'labrador_get_data_sets'};
             chrome.runtime.sendMessage(data, (dataSets) => {
                 this.dataSets = dataSets;
                 this.$forceUpdate();
             });
         },
         clearRows: function (dataSetName) {
-            let data = {action: 'clear_data_set', name: dataSetName};
+            let data = {action: 'labrador_clear_data_set', name: dataSetName};
             chrome.runtime.sendMessage(data);
         }
     },
@@ -17,6 +17,6 @@ new Vue({
         dataSets: []
     },
     beforeMount() {
-        this.getDataSets();
+        this.getLabradorDataSets();
     }
 });

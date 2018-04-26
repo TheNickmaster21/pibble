@@ -7,39 +7,34 @@
     <script src="/resources/vue.js"></script>
     <link href="/resources/open-iconic/font/css/open-iconic-bootstrap.css" rel="stylesheet">
     <script src="/resources/bootstrap-4.0.0-dist/js/bootstrap.min.js"></script>
-    <script src="/resources/underscore.js"></script>
 
     <link href="/global.css" rel="stylesheet">
 </head>
 <body class="w-100">
-<div id="table-page">
+<div id="data-table-page">
 
-    <span id="table-dropdown" class="dropdown">
-        <button class="btn dropdown-toggle" type="button" id="export-table-dropdown-data"
+    <div class="dropdown">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="export-table-dropdown-data"
                 data-toggle="dropdown"
                 aria-haspopup="true" aria-expanded="false">
-            {{selectedDataSetOption && selectedDataSetOption.name || 'Data Set'}}
+            {{selectedDataSetOption && selectedDataSetOption.display || 'Data Set'}}
         </button>
-        <span class="dropdown-menu" aria-labelledby="export-table-dropdown-data">
+        <div class="dropdown-menu" aria-labelledby="export-table-dropdown-data">
             <a v-for="option in dataSetOptions" class="dropdown-item"
-               href="#!" v-on:click="selectedDataSetOption = option; load();">{{option.name}}</a>
-        </span>
-    </span>
+               href="#!" v-on:click="selectedDataSetOption = option; load();">{{option.display}}</a>
+        </div>
+    </div>
 
-    <button class="btn" v-on:click="exportCSV()" :disabled="!selectedDataSetOption">Export As .csv</button>
-
-    <button id="table-delete" class="btn" v-if="selectedDataSetOption" v-on:click="deleteDataSet()">Delete Set</button>
-
-    <table class="table table-sm table-striped" v-if="selectedDataSetOption">
+    <table class="table table-sm table-striped">
         <thead>
         <tr>
-            <th v-for="column in selectedDataSetOption.rules">
+            <th v-for="column in savedData.columns">
                 {{column.name}}
             </th>
         </tr>
         </thead>
         <tbody>
-        <tr v-for="dataRow in savedData">
+        <tr v-for="dataRow in savedData.rows">
             <td v-for="value in dataRow">
                 {{value}}
             </td>

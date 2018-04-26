@@ -1,106 +1,92 @@
+// Listen for chrome events
 chrome.runtime.onMessage.addListener(function (message, src, callback) {
-    if (message.action === 'get_data_sets') {
-        returnDataSets(message, callback);
+    if (message.action === 'get_rule_sets') {
+        returnRuleSets(message, callback);
+    } else if (message.action === 'save_rule_sets') {
+        saveRuleSets(message);
     } else if (message.action === 'add_row_to_data_set') {
         addDataRow(message);
-    } else if (message.action === 'delete_rows') {
-
-    } else if (message.action.includes('pref_save_')) {
-        savePrefs(message);
-    } else if (message.action.includes('pref_load_')) {
-        loadPrefs(message, callback);
-    } else if (message.action === 'clear_data_set') {
-        clearDataSetRows(message.name);
+    } else if (message.action === 'get_data_rows') {
+        getDataRows(message, callback)
+    } else if (message.action === 'delete_data_set') {
+        deleteDataSet(message, callback);
     }
 });
 
-function clearDataSetRows(name) {
-    if (name === 'Fortune Data') {
-        saveData('0rows', [])
-    } else {
-        saveData('1rows', []);
+// Return all of the rule sets
+function returnRuleSets(message, callback) {
+    let data = loadData('ruleSets');
+    if (data)
+        callback(data);
+    else
+        callback([]);
+}
+
+//Save all of the new sets and convert new rule set(s) to the right format if need be
+function saveRuleSets(message) {
+    let ruleSets = message.data.ruleSets;
+    for (let i = 0; i < ruleSets.length; i++) {
+        if (ruleSets[i].isNew) {
+            ruleSets[i].id = ruleSets.length;
+            ruleSets[i] = convertNewRuleSet(ruleSets[i], message.data.tokens);
+            saveData('dataSet_' + ruleSets[i].id, []); //Super simple, 1 to 1 w/ rule sets
+        }
     }
+    saveData('ruleSets', ruleSets);
 }
 
-function returnDataSets(message, callback) {
-    _.each(dataSets, function (dataSet) {
-        dataSet.rows = loadData(dataSet.id + 'rows') || [];
-    });
-    callback(dataSets);
-}
-
+// Add a data row to the given data set
 function addDataRow(message) {
     let id = message.id;
-    if (typeof id !== 'undefined') {
-        let newRow = message.row;
-        let rows = loadData(id + 'rows') || [];
-        let valid = true;
-        for (let i = 0; i < dataSets[id].columns.length; i++) {
-            if (!newRow[i]) {
+    // Make sure they sent an id
+    if (typeof id === 'undefined')
+        return;
+    // Make sure they id matches a rule set (and thus a data set)
+    let ruleSets = loadData('ruleSets') || [];
+    let ruleSet = _.findWhere(ruleSets, {id: id});
+    if (!ruleSet)
+        return;
+    // Get the row
+    let newRow = message.row || [];
+    let rows = loadData('dataSet_' + id) || [];
+    // Check to make sure the row is unique using the unique flags on the rule set
+    let valid = true;
+    _.each(rows, function (exitingRow) {
+        for (let i = 0; i < ruleSet.rules.length; i++) {
+            if (ruleSet.rules[i].unique && exitingRow[i] === newRow[i]) {
                 valid = false;
             }
         }
-        _.each(rows, function (exitingRow) {
-            for (let i = 0; i < dataSets[id].columns.length; i++) {
-                if (dataSets[id].columns[i].unique && exitingRow[i] === newRow[i]) {
-                    valid = false;
-                }
-            }
-        });
-        if (valid) {
-            rows.push(newRow);
-            saveData(id + 'rows', rows);
-        }
+    });
+    // If the new row is unique, append it and save teh data set
+    if (valid) {
+        rows.push(newRow);
+        saveData('dataSet_' + id, rows);
     }
 }
 
-let dataSets = [
-    {
-        id: 0,
-        name: "Fortune Data",
-        columns: [
-            {name: "Ticker", unique: true},
-            {name: "Rank", unique: false},
-            {name: "Revenue", unique: false},
-            {name: "Revenue Change", unique: false},
-            {name: "Profits", unique: false},
-            {name: "Profits Change", unique: false},
-            {name: "Assets", unique: false},
-            {name: "Market Value", unique: false},
-            {name: "Employees", unique: false},
-            {name: "Previous Rank", unique: false},
-            {name: "CEO", unique: false},
-            {name: "CEO Title", unique: false},
-            {name: "Sector", unique: false},
-            {name: "Industry", unique: false},
-            {name: "HQ Location", unique: false},
-            {name: "Website", unique: false},
-            {name: "Years on Fortune", unique: false},
-            {name: "Market", unique: false}
-        ],
-        rows: []
-    },
-    {
-        id: 1,
-        name: "Edgar Data",
-        columns: [
-            {name: "Name", unique: false},
-            {name: "CIK", unique: true},
-            {name: "Mailing Address", unique: false},
-            {name: "Business Address", unique: false},
-            {name: "SIC", unique: false},
-            {name: "Industry", unique: false},
-            {name: "State Location", unique: false}
-        ],
-        rows: []
-    },
-];
-
-
-function savePrefs(message) {
-    saveData(message.action);
+// Get the given data set
+function getDataRows(message, callback) {
+    callback(loadData('dataSet_' + message.id));
 }
 
-function loadPrefs(message, callback) {
-    callback(loadData(message.action));
+// Delete the given data set and rule set
+function deleteDataSet(message, callback) {
+    // Get the rule sets
+    let ruleSets = loadData('ruleSets');
+    if (ruleSets && ruleSets.length >= message.id) {
+        // Remove the no longer desired rule set
+        ruleSets.splice(message.id - 1, 1);
+        // Shift all of the rule set ids backwards and shift the data sets backwards
+        for (let index = message.id - 1; index < ruleSets.length; index++) {
+            let oldData = loadData('dataSet_' + ruleSets[index].id);
+            saveData('dataSet_' + (ruleSets[index].id - 1), oldData);
+            ruleSets[index].id = ruleSets[index].id - 1;
+        }
+        // Save changes
+        saveData('ruleSets', ruleSets);
+    }
+
+    // Return the new data sets
+    returnRuleSets(message, callback);
 }
