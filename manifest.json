@@ -2,7 +2,7 @@
   "manifest_version": 2,
   "name": "Pibble",
   "description": "This extension allows the user to scrape data using machine learning.",
-  "version": "0.5",
+  "version": "1.0",
   "icons": {
     "360": "images/icon360.png"
   },
