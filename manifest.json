@@ -2,7 +2,7 @@
   "manifest_version": 2,
   "name": "Pibble",
   "description": "This extension allows the user to scrape data using machine learning.",
-  "version": "0.4",
+  "version": "1.0",
   "icons": {
     "360": "images/icon360.png"
   },
@@ -20,6 +20,7 @@
         "<all_urls>"
       ],
       "js": [
+        "resources/jquery-3.3.1.js",
         "scripts/contentProxy.js"
       ],
       "run_at": "document_end"
@@ -30,6 +31,9 @@
       "resources/underscore.js",
       "resources/jquery-3.3.1.js",
       "scripts/localDataManager.js",
+      "scripts/tabModule.js",
+      "scripts/labradorScrapeModule.js",
+      "scripts/labradorDetailsModule.js",
       "scripts/scrapeModule.js",
       "scripts/learningModule.js",
       "scripts/detailsModule.js"

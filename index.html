@@ -1,4 +1,4 @@
-<html>
+<html xmlns:v-on="http://www.w3.org/1999/xhtml">
 <head>
     <script src="/resources/jquery-3.3.1.js"></script>
     <link rel="stylesheet" href="/resources/bootstrap-4.0.0-dist/css/bootstrap.min.css"/>
@@ -8,22 +8,27 @@
     <script src="/resources/bootstrap-4.0.0-dist/js/bootstrap.min.js"></script>
 
     <link href="/global.css" rel="stylesheet">
-    <script src="/index.js"></script>
 </head>
 <body>
-<div class="popupBody">
+<div id="main-index" class="popupBody">
     <header>
-        <h1><img class="logo" src="images/icon360.png"/>pibble</h1>
+        <h1><img class="logo" src="images/icon360.png" v-on:click="toggleLabView()"/>pibble</h1>
     </header>
 
     <div class="btn-group-vertical main-menu">
-        <a href="/scrape/index.html" class="btn">Collect Data</a>
-        <a href="/dataSets/index.html" class="btn">Edit Data Sets</a>
-        <a href="/ruleSets/index.html" class="btn disabled">Edit Rule Sets</a>
-        <a href="/export/index.html" class="btn main-menu-last">View/Export Data</a>
+        <div v-if="toggleLab">
+            <a href="/scrape/index.html" class="btn">Collect Data</a>
+            <a href="/ruleSets/index.html" class="btn">Create Rule Set</a>
+            <a href="#" v-on:click="dataTab()" class="btn main-menu-last">View/Export Data</a>
+        </div>
+        <div v-else>
+            <a href="/labrador/scrape/index.html" class="btn">Scrape Labrador Data</a>
+            <a href="/labrador/dataSets/index.html" class="btn">Labrador Data Sets</a>
+            <a href="/labrador/export/index.html" class="btn main-menu-last">Export/View Labrador Data</a>
+        </div>
     </div>
-
-    <br/><br/>
+    <br/>
 </div>
+<script src="/index.js"></script>
 </body>
 </html>

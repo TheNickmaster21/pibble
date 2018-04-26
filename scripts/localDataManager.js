@@ -1,4 +1,4 @@
-//load data: Load the JSON data associated with the given key
+// Load the JSON data associated with the given key
 function loadData(key) {
     if (localStorage.getItem(key) != null) {
         return JSON.parse(localStorage.getItem(key));
@@ -6,7 +6,7 @@ function loadData(key) {
     return null;
 }
 
-//save data: Save the given JSON data to with the given key
+// Save the given JSON data to with the given key
 function saveData(key, data) {
     localStorage.setItem(key, JSON.stringify(data));
 }
