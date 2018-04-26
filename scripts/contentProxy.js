@@ -23,7 +23,6 @@ function setElementHighlight(token) {
             if (document.body.lastChild.id !== 'pibble-highlight-overlay')
                 document.body.appendChild(overlay);
 
-            console.log(node);
             overlay = document.body.lastChild;
             let rect = node.getBoundingClientRect();
             overlay.style.top = rect.top + 'px';
