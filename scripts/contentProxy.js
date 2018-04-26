@@ -5,8 +5,9 @@ function getCurrentDocumentInnerHTML(responseFunction) {
 }
 
 function setElementHighlight(token) {
-    document.querySelectorAll('*').forEach(function(node) { //TODO switch to proper for each loop
-        if(node.innerHTML === token.innerText && GetParents(node) === token.elements) {
+    console.log(token);
+    document.querySelectorAll('*').forEach(function (node) { //TODO switch to proper for each loop
+        if (node.innerHTML.trim() === token.innerText && getParents(node) === token.elements) {
             //TODO get current path and work upward to parent till reach body
 
 
@@ -19,7 +20,7 @@ function setElementHighlight(token) {
             overlay.style.width = '0';
             overlay.style.height = '0';
 
-            if(document.body.lastChild.id !== 'pibble-highlight-overlay')
+            if (document.body.lastChild.id !== 'pibble-highlight-overlay')
                 document.body.appendChild(overlay);
 
             console.log(node);
@@ -37,19 +38,18 @@ function setElementHighlight(token) {
             }, 3000);
         }
     });
-
-
 }
 
 /**
  * @return {string}
  */
-function GetParents(elem) {
+function getParents(elem) {
     const parents = $(elem).parents("*");
     let selector = "";
-    for (let i = parents.length-1; i >= 0; i--) {
-        selector += parents[i].tagName + " ";
+    for (let i = parents.length - 4; i >= 0; i--) {
+        selector += parents[i].localName + " ";
     }
+    selector += elem.localName;
     return selector.toLowerCase();
 }
 
@@ -59,7 +59,7 @@ chrome.runtime.onMessage.addListener(function (message, sender, responseFunction
     if (message === 'get_current_document_inner_HTML') {
         getCurrentDocumentInnerHTML(responseFunction);
     }
-    else if(message.action === 'highlight_HTML_element') {
+    else if (message.action === 'highlight_HTML_element') {
         setElementHighlight(message.token);
     }
 });
