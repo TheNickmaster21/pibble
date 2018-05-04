@@ -22,7 +22,7 @@
         </button>
         <span class="dropdown-menu" aria-labelledby="export-table-dropdown-data">
             <a v-for="option in dataSetOptions" class="dropdown-item"
-               href="#!" v-on:click="selectedDataSetOption = option; load();">{{option.name}}</a>
+               href="#!" v-on:click="selectDataSetOption(option); load();">{{option.name}}</a>
         </span>
     </span>
 

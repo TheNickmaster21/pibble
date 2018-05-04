@@ -21,6 +21,14 @@ new Vue({
         save: function () {
             //maybe edit feature
         },
+        selectDataSetOption: function (option) {
+            this.selectedDataSetOption = option;
+            let saveRuleSetState = {
+                action: 'save_rule_set_state',
+                id: option && option.id
+            };
+            chrome.runtime.sendMessage(saveRuleSetState);
+        },
         deleteDataSet: function () {
             let getDataRows = {action: 'delete_data_set', id: this.selectedDataSetOption.id};
             chrome.runtime.sendMessage(getDataRows, (response) => {
@@ -46,6 +54,12 @@ new Vue({
         };
         chrome.runtime.sendMessage(getRuleSets, (response) => {
             this.dataSetOptions = response;
+            let loadRuleSetState = {
+                action: 'load_rule_set_state'
+            };
+            chrome.runtime.sendMessage(loadRuleSetState, (id) => {
+                this.selectedDataSetOption = _.findWhere(this.dataSetOptions, {id: id});
+            });
         });
     }
 });
