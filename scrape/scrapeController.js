@@ -18,6 +18,13 @@ new Vue({
                     chrome.runtime.sendMessage(newRowData);
                 });
             }
+        },
+        updatePageState: function(page) {
+            const savePageState = {
+                action: 'save_page_state',
+                id: page
+            };
+            chrome.runtime.sendMessage(savePageState);
         }
     },
     data: {

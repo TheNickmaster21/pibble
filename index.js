@@ -25,7 +25,7 @@ new Vue({
         chrome.runtime.sendMessage(loadPageState, response => {
             console.log(response);
             if(response && response !== '/index.html')
-                window.open('/scrape/index.html', '_self');
+                window.open(response, '_self');
         });
     }
 });
