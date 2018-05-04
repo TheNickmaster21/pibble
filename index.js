@@ -22,6 +22,10 @@ new Vue({
         const loadPageState = {
             action: 'load_page_state'
         };
-        chrome.runtime.sendMessage(loadPageState);
+        chrome.runtime.sendMessage(loadPageState, response => {
+            console.log(response);
+            if(response && response !== '/index.html')
+                window.open('/scrape/index.html', '_self');
+        });
     }
 });

@@ -1,7 +1,7 @@
 // Listen for chrome events
 chrome.runtime.onMessage.addListener(function (message, src, callback) {
     if (message.action === 'load_page_state') {
-        loadPageState();
+        loadPageState(callback);
     } else if (message.action === 'save_page_state') {
         savePageState(message);
     } else if (message.action === 'get_rule_sets') {
@@ -18,25 +18,8 @@ chrome.runtime.onMessage.addListener(function (message, src, callback) {
 });
 
 // Loads the last navigated page
-function loadPageState() {
-    const pageState = loadData('page_state');
-    console.log(pageState);
-    if(pageState === 'main') {
-
-    } else if(pageState === 'scrape') {
-        console.log('it made it here');
-        window.open('/scrape/index.html', '_self');
-    } else if(pageState === 'ruleset') {
-
-    } else if(pageState === 'lab_scrape') {
-
-    } else if(pageState === 'lab_ruleset') {
-
-    } else if(pageState === 'lab_dataset') {
-
-    } else if(pageState === 'lab_export') {
-
-    }
+function loadPageState(callback) {
+    callback( loadData('page_state') );
 }
 
 // Saves when a page navigation is done

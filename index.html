@@ -17,7 +17,7 @@
 
     <div class="btn-group-vertical main-menu">
         <div v-if="toggleLab">
-            <a href="/scrape/index.html" v-on:click="updatePageState('scrape')" class="btn">Collect Data</a>
+            <a href="/scrape/index.html" v-on:click="updatePageState('/scrape/index.html')" class="btn">Collect Data</a>
             <a href="/ruleSets/index.html" class="btn">Create Rule Set</a>
             <a href="#" v-on:click="dataTab()" class="btn main-menu-last">View/Export Data</a>
         </div>
