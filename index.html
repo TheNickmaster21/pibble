@@ -19,12 +19,12 @@
         <div v-if="toggleLab">
             <a href="/scrape/index.html" v-on:click="updatePageState('/scrape/index.html')" class="btn">Collect Data</a>
             <a href="/ruleSets/index.html" v-on:click="updatePageState('/ruleSets/index.html')" class="btn">Create Rule Set</a>
-            <a href="#" v-on:click="dataTab()" class="btn main-menu-last">View/Export Data</a>
+            <a href="#" v-on:click="dataTab(false)" class="btn main-menu-last">View/Export Data</a>
         </div>
         <div v-else>
             <a href="/labrador/scrape/index.html" v-on:click="updatePageState('/labrador/scrape/index.html')" class="btn">Lab Scrape Data</a>
             <a href="/labrador/dataSets/index.html" v-on:click="updatePageState('/labrador/dataSets/index.html')" class="btn">Lab Data Sets</a>
-            <a href="/labrador/export/index.html" v-on:click="updatePageState('/labrador/export/index.html')" class="btn main-menu-last">Lab Export/View Data</a>
+            <a href="/labrador/export/dataView.html" v-on:click="dataTab(true)" class="btn main-menu-last">Lab Export/View Data</a>
         </div>
     </div>
     <br/>

@@ -23,7 +23,9 @@
             <a v-for="option in dataSetOptions" class="dropdown-item"
                href="#!" v-on:click="selectedDataSetOption = option; load();">{{option.display}}</a>
         </div>
+        <button class="btn btn-secondary" v-on:click="exportCSV()" :disabled="!selectedDataSetOption">Export As .csv</button>
     </div>
+
 
     <table class="table table-sm table-striped">
         <thead>

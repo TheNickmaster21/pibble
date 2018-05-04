@@ -8,6 +8,10 @@ chrome.runtime.onMessage.addListener(function (message, src, callback) {
         loadState('rule_set_state', callback);
     } else if (message.action === 'save_rule_set_state') {
         saveState('rule_set_state', message);
+    } else if (message.action === 'load_lab_toggle') {
+        loadState('lab_toggle_state', callback);
+    } else if (message.action === 'save_lab_toggle') {
+        saveState('lab_toggle_state', message);
     } else if (message.action === 'get_rule_sets') {
         returnRuleSets(message, callback);
     } else if (message.action === 'save_rule_sets') {
