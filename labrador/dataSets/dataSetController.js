@@ -11,6 +11,13 @@ new Vue({
         clearRows: function (dataSetName) {
             let data = {action: 'labrador_clear_data_set', name: dataSetName};
             chrome.runtime.sendMessage(data);
+        },
+        updatePageState: function(page) {
+            const savePageState = {
+                action: 'save_page_state',
+                id: page
+            };
+            chrome.runtime.sendMessage(savePageState);
         }
     },
     data: {

@@ -23,6 +23,13 @@ new Vue({
 
             });
             this.$forceUpdate();
+        },
+        updatePageState: function(page) {
+            const savePageState = {
+                action: 'save_page_state',
+                id: page
+            };
+            chrome.runtime.sendMessage(savePageState);
         }
     },
     data: {
