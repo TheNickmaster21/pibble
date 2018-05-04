@@ -1,6 +1,10 @@
 // Listen for chrome events
 chrome.runtime.onMessage.addListener(function (message, src, callback) {
-    if (message.action === 'get_rule_sets') {
+    if (message.action === 'load_page_state') {
+        loadPageState();
+    } else if (message.action === 'save_page_state') {
+        savePageState(message);
+    } else if (message.action === 'get_rule_sets') {
         returnRuleSets(message, callback);
     } else if (message.action === 'save_rule_sets') {
         saveRuleSets(message);
@@ -12,6 +16,33 @@ chrome.runtime.onMessage.addListener(function (message, src, callback) {
         deleteDataSet(message, callback);
     }
 });
+
+// Loads the last navigated page
+function loadPageState() {
+    const pageState = loadData('page_state');
+    console.log(pageState);
+    if(pageState === 'main') {
+
+    } else if(pageState === 'scrape') {
+        console.log('it made it here');
+        window.open('/scrape/index.html', '_self');
+    } else if(pageState === 'ruleset') {
+
+    } else if(pageState === 'lab_scrape') {
+
+    } else if(pageState === 'lab_ruleset') {
+
+    } else if(pageState === 'lab_dataset') {
+
+    } else if(pageState === 'lab_export') {
+
+    }
+}
+
+// Saves when a page navigation is done
+function savePageState(message) {
+    saveData('page_state', message.id);
+}
 
 // Return all of the rule sets
 function returnRuleSets(message, callback) {
