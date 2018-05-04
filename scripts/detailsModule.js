@@ -21,7 +21,7 @@ chrome.runtime.onMessage.addListener(function (message, src, callback) {
     }
 });
 
-// Loads the last saved state 
+// Loads the last saved state
 function loadState(state, callback) {
     callback( loadData(state) );
 }
