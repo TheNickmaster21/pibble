@@ -13,6 +13,16 @@ chrome.runtime.onMessage.addListener(function (message, src, callback) {
     }
 });
 
+// Loads the last saved state
+function loadState(state, callback) {
+    callback( loadData(state) );
+}
+
+// Saves when a page navigation is done
+function saveState(state, message) {
+    saveData(state, message.id);
+}
+
 // Clear the data for the given data set
 function clearLabradorDataSetRows(name) {
     if (name === 'Fortune Data') {
