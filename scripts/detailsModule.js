@@ -4,7 +4,7 @@ chrome.runtime.onMessage.addListener(function (message, src, callback) {
         loadState('page_state', callback);
     } else if (message.action === 'save_page_state') {
         saveState('page_state', message);
-    }else if (message.action === 'load_rule_set_state') {
+    } else if (message.action === 'load_rule_set_state') {
         loadState('rule_set_state', callback);
     } else if (message.action === 'save_rule_set_state') {
         saveState('rule_set_state', message);
@@ -23,7 +23,7 @@ chrome.runtime.onMessage.addListener(function (message, src, callback) {
 
 // Loads the last saved state
 function loadState(state, callback) {
-    callback( loadData(state) );
+    callback(loadData(state));
 }
 
 // Saves when a page navigation is done

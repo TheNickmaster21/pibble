@@ -4,23 +4,23 @@ chrome.runtime.onMessage.addListener(function (message, src, callback) {
         returnLabradorDataSets(message, callback);
     } else if (message.action === 'labrador_add_row_to_data_set') {
         addLabradorDataRow(message);
-    } else if (message.action.includes('labrador_pref_save_')) {
-        saveLabradorPrefs(message);
-    } else if (message.action.includes('labrador_pref_load_')) {
-        loadLabradorPrefs(message, callback);
+    } else if (message.action === 'labrador_load_rule_set_state') {
+        loadLabradorState('rule_set_state', callback);
+    } else if (message.action === 'labrador_save_rule_set_state') {
+        saveLabradorState('rule_set_state', message);
     } else if (message.action === 'labrador_clear_data_set') {
         clearLabradorDataSetRows(message.name);
     }
 });
 
 // Loads the last saved state
-function loadState(state, callback) {
-    callback( loadData(state) );
+function loadLabradorState(state, callback) {
+    callback(loadData('labrador' + state));
 }
 
 // Saves when a page navigation is done
-function saveState(state, message) {
-    saveData(state, message.id);
+function saveLabradorState(state, message) {
+    saveData('labrador' + state, message.id);
 }
 
 // Clear the data for the given data set
@@ -113,13 +113,3 @@ let labradorDataSets = [
         rows: []
     },
 ];
-
-// Save?
-function saveLabradorPrefs(message) {
-    saveData(message.action);
-}
-
-// Load
-function loadLabradorPrefs(message, callback) {
-    callback(loadData(message.action));
-}

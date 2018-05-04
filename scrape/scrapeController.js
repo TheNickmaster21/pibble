@@ -19,7 +19,15 @@ new Vue({
                 });
             }
         },
-        updatePageState: function(page) {
+        selectRuleSetOption: function (option) {
+            this.selectedRuleSetOption = option;
+            let saveRuleSetState = {
+                action: 'save_rule_set_state',
+                id: option && option.id
+            };
+            chrome.runtime.sendMessage(saveRuleSetState);
+        },
+        updatePageState: function (page) {
             const savePageState = {
                 action: 'save_page_state',
                 id: page
@@ -38,6 +46,12 @@ new Vue({
         };
         chrome.runtime.sendMessage(getRuleSets, (response) => {
             this.ruleSetOptions = response;
+            let loadRuleSetState = {
+                action: 'load_rule_set_state'
+            };
+            chrome.runtime.sendMessage(loadRuleSetState, (id) => {
+                this.selectedRuleSetOption = _.findWhere(this.ruleSetOptions, {id: id});
+            });
         });
     }
 });
