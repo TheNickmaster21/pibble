@@ -59,6 +59,9 @@ new Vue({
             };
             chrome.runtime.sendMessage(loadRuleSetState, (id) => {
                 this.selectedDataSetOption = _.findWhere(this.dataSetOptions, {id: id});
+                if (this.selectedDataSetOption) {
+                    this.load();
+                }
             });
         });
     }
