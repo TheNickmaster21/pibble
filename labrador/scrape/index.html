@@ -6,6 +6,7 @@
     <script src="/resources/vue.js"></script>
     <link href="/resources/open-iconic/font/css/open-iconic-bootstrap.css" rel="stylesheet">
     <script src="/resources/bootstrap-4.0.0-dist/js/bootstrap.min.js"></script>
+    <script src="/resources/underscore.js"></script>
 
     <link href="/global.css" rel="stylesheet">
 </head>
@@ -28,7 +29,7 @@
 
         <div class="dropdown-menu" aria-labelledby="scrape-dropdown-rule">
             <a v-for="option in ruleSetOptions" class="dropdown-item"
-               href="#!" v-on:click="selectedRuleSetOption = option;">{{option.display}}</a>
+               href="#!" v-on:click="selectRuleSetOption(option)">{{option.display}}</a>
         </div>
     </div>
 
