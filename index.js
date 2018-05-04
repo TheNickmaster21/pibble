@@ -19,6 +19,7 @@ new Vue({
         }
     },
     mounted: function() {
+        //this.updatePageState('/index.html');
         const loadPageState = {
             action: 'load_page_state'
         };
