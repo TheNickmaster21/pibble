@@ -10,6 +10,14 @@ let tableVue = new Vue({
                 this.$forceUpdate();
             });
         },
+        selectDataSetOption: function (option) {
+            this.selectedDataSetOption = option;
+            let saveRuleSetState = {
+                action: 'labrador_save_rule_set_state',
+                id: option && option.display
+            };
+            chrome.runtime.sendMessage(saveRuleSetState);
+        },
         exportCSV: function () {
             chrome.runtime.sendMessage({action: 'labrador_get_data_sets'}, (response) => {
                 if (this.selectedDataSetOption.value === 'fortune') {
@@ -45,6 +53,17 @@ let tableVue = new Vue({
             gridColumns: [],
             gridData: []
         }
+    },
+    beforeCreate: function () {
+        let loadRuleSetState = {
+            action: 'labrador_load_rule_set_state'
+        };
+        chrome.runtime.sendMessage(loadRuleSetState, (id) => {
+            this.selectedDataSetOption = _.findWhere(this.dataSetOptions, {display: id});
+            if (this.selectedDataSetOption) {
+                this.load();
+            }
+        });
     }
 });
 
