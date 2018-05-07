@@ -1,4 +1,4 @@
-new Vue({
+let tableVue = new Vue({
     el: '#data-table-page',
     methods: {
         load: function () {
@@ -26,6 +26,11 @@ new Vue({
 
             });
             this.$forceUpdate();
+        },
+        clearRows: function () {
+            let data = {action: 'labrador_clear_data_set', name: this.savedData.name};
+            chrome.runtime.sendMessage(data);
+            location.reload();
         }
     },
     data: {

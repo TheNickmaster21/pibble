@@ -24,6 +24,7 @@
                href="#!" v-on:click="selectedDataSetOption = option; load();">{{option.display}}</a>
         </div>
         <button class="btn btn-secondary" v-on:click="exportCSV()" :disabled="!selectedDataSetOption">Export As .csv</button>
+        <button class="btn btn-secondary" v-on:click="clearRows()" :disabled="!selectedDataSetOption">Delete Data Set Content</button>
     </div>
 
 
