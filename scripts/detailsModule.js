@@ -1,6 +1,18 @@
 // Listen for chrome events
 chrome.runtime.onMessage.addListener(function (message, src, callback) {
-    if (message.action === 'get_rule_sets') {
+    if (message.action === 'load_page_state') {
+        loadState('page_state', callback);
+    } else if (message.action === 'save_page_state') {
+        saveState('page_state', message);
+    } else if (message.action === 'load_rule_set_state') {
+        loadState('rule_set_state', callback);
+    } else if (message.action === 'save_rule_set_state') {
+        saveState('rule_set_state', message);
+    } else if (message.action === 'load_lab_toggle') {
+        loadState('lab_toggle_state', callback);
+    } else if (message.action === 'save_lab_toggle') {
+        saveState('lab_toggle_state', message);
+    } else if (message.action === 'get_rule_sets') {
         returnRuleSets(message, callback);
     } else if (message.action === 'save_rule_sets') {
         saveRuleSets(message);
@@ -12,6 +24,16 @@ chrome.runtime.onMessage.addListener(function (message, src, callback) {
         deleteDataSet(message, callback);
     }
 });
+
+// Loads the last saved state
+function loadState(state, callback) {
+    callback(loadData(state));
+}
+
+// Saves when a page navigation is done
+function saveState(state, message) {
+    saveData(state, message.id);
+}
 
 // Return all of the rule sets
 function returnRuleSets(message, callback) {

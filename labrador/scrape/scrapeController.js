@@ -19,6 +19,21 @@ new Vue({
                     chrome.runtime.sendMessage(newRowData);
                 });
             }
+        },
+        selectRuleSetOption: function (option) {
+            this.selectedRuleSetOption = option;
+            let saveRuleSetState = {
+                action: 'labrador_save_rule_set_state',
+                id: option && option.display
+            };
+            chrome.runtime.sendMessage(saveRuleSetState);
+        },
+        updatePageState: function (page) {
+            const savePageState = {
+                action: 'save_page_state',
+                id: page
+            };
+            chrome.runtime.sendMessage(savePageState);
         }
     },
     data: {
@@ -146,5 +161,13 @@ new Vue({
                 }
             ]
         }
+    },
+    beforeCreate: function () {
+        let loadRuleSetState = {
+            action: 'labrador_load_rule_set_state'
+        };
+        chrome.runtime.sendMessage(loadRuleSetState, (id) => {
+            this.selectedRuleSetOption = _.findWhere(this.ruleSetOptions, {display: id});
+        });
     }
 });

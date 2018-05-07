@@ -7,6 +7,7 @@
     <script src="/resources/vue.js"></script>
     <link href="/resources/open-iconic/font/css/open-iconic-bootstrap.css" rel="stylesheet">
     <script src="/resources/bootstrap-4.0.0-dist/js/bootstrap.min.js"></script>
+    <script src="/resources/underscore.js"></script>
 
     <link href="/global.css" rel="stylesheet">
 </head>
@@ -21,8 +22,10 @@
         </button>
         <div class="dropdown-menu" aria-labelledby="export-table-dropdown-data">
             <a v-for="option in dataSetOptions" class="dropdown-item"
-               href="#!" v-on:click="selectedDataSetOption = option; load();">{{option.display}}</a>
+               href="#!" v-on:click="selectDataSetOption(option); load();">{{option.display}}</a>
         </div>
+        <button class="btn btn-secondary" v-on:click="exportCSV()" :disabled="!selectedDataSetOption">Export As .csv</button>
+        <button class="btn btn-secondary" v-on:click="clearRows()" :disabled="!selectedDataSetOption">Delete Data Set Content</button>
     </div>
 
     <table class="table table-sm table-striped">
