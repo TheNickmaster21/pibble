@@ -120,6 +120,7 @@ input {
     min-height: 35px;
     max-height: 350px;
     overflow-y: auto;
+    list-style-type: none;
 }
 
 

@@ -8,7 +8,9 @@ new Vue({
                     data: this.selectedRuleSetOption
                 };
                 chrome.runtime.sendMessage(scrapeData, (response) => {
-                    this.scrapeResults = response;
+                    _.each(response, (value, index) => {
+                        this.scrapeResults.push({key: this.selectedRuleSetOption.rules[index].name, value: value});
+                    });
                     this.$forceUpdate();
                     let newRowData = {
                         action: 'add_row_to_data_set',
