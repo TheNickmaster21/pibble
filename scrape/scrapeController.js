@@ -7,6 +7,7 @@ new Vue({
                     action: 'scrape_web_page',
                     data: this.selectedRuleSetOption
                 };
+                this.scrapeResults.splice(0, this.scrapeResults.length);
                 chrome.runtime.sendMessage(scrapeData, (response) => {
                     _.each(response, (value, index) => {
                         this.scrapeResults.push({key: this.selectedRuleSetOption.rules[index].name, value: value});
@@ -17,7 +18,9 @@ new Vue({
                         id: this.selectedRuleSetOption && this.selectedRuleSetOption.id,
                         row: response
                     };
-                    chrome.runtime.sendMessage(newRowData);
+                    chrome.runtime.sendMessage(newRowData, (response) => {
+                        this.constraintViolation = !response;
+                    });
                 });
             }
         },
@@ -40,7 +43,8 @@ new Vue({
     data: {
         scrapeResults: [],
         ruleSetOptions: [],
-        selectedRuleSetOption: null
+        selectedRuleSetOption: null,
+        constraintViolation: false
     },
     beforeCreate: function () {
         let getRuleSets = {
