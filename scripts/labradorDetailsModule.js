@@ -3,7 +3,7 @@ chrome.runtime.onMessage.addListener(function (message, src, callback) {
     if (message.action === 'labrador_get_data_sets') {
         returnLabradorDataSets(message, callback);
     } else if (message.action === 'labrador_add_row_to_data_set') {
-        addLabradorDataRow(message);
+        addLabradorDataRow(message, callback);
     } else if (message.action === 'labrador_load_rule_set_state') {
         loadLabradorState('rule_set_state', callback);
     } else if (message.action === 'labrador_save_rule_set_state') {
@@ -41,7 +41,7 @@ function returnLabradorDataSets(message, callback) {
 }
 
 // Add a row to a data set
-function addLabradorDataRow(message) {
+function addLabradorDataRow(message, callback) {
     // Make sure id was sent
     let id = message.id;
     if (typeof id === 'undefined') {
@@ -49,26 +49,32 @@ function addLabradorDataRow(message) {
     }
     let newRow = message.row;
     let rows = loadData(id + 'rows') || [];
-    let valid = true;
     // Make sure there is data in all of the fields
     for (let i = 0; i < labradorDataSets[id].columns.length; i++) {
         if (!newRow[i]) {
-            valid = false;
+            return; //Given data is bad; don't save it
         }
     }
+    let unique = true;
     // Make sure this is not a duplicate row
-    _.each(rows, function (exitingRow) {
+    _.each(rows, function (exitingRow, index) {
+        let replaceThisRow = false;
         for (let i = 0; i < labradorDataSets[id].columns.length; i++) {
             if (labradorDataSets[id].columns[i].unique && exitingRow[i] === newRow[i]) {
-                valid = false;
+                unique = false;
+                replaceThisRow = true;
             }
+        }
+        if (replaceThisRow) {
+            rows[index] = newRow;
         }
     });
     // Save the row if valid
-    if (valid) {
+    if (unique) {
         rows.push(newRow);
-        saveData(id + 'rows', rows);
     }
+    saveData(id + 'rows', rows);
+    callback(unique);
 }
 
 // Labrador data set definitions

@@ -19,7 +19,9 @@ new Vue({
                         id: this.selectedRuleSetOption && this.selectedRuleSetOption.id,
                         row: response
                     };
-                    chrome.runtime.sendMessage(newRowData);
+                    chrome.runtime.sendMessage(newRowData, (response) => {
+                        this.constraintViolation = !response;
+                    });
                 });
             }
         },
@@ -41,6 +43,7 @@ new Vue({
     },
     data: {
         scrapeResults: [],
+        constraintViolation: false,
         ruleSetOptions: [
             {display: "Fortune", value: "fortune", id: 0},
             {display: "Edgar Beta", value: "betaEdgar", id: 1}
