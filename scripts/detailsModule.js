@@ -17,7 +17,7 @@ chrome.runtime.onMessage.addListener(function (message, src, callback) {
     } else if (message.action === 'save_rule_sets') {
         saveRuleSets(message);
     } else if (message.action === 'add_row_to_data_set') {
-        addDataRow(message);
+        addDataRow(message, callback);
     } else if (message.action === 'get_data_rows') {
         getDataRows(message, callback)
     } else if (message.action === 'delete_data_set') {
@@ -58,7 +58,7 @@ function saveRuleSets(message) {
 }
 
 // Add a data row to the given data set
-function addDataRow(message) {
+function addDataRow(message, callback) {
     let id = message.id;
     // Make sure they sent an id
     if (typeof id === 'undefined')
@@ -85,6 +85,7 @@ function addDataRow(message) {
         rows.push(newRow);
         saveData('dataSet_' + id, rows);
     }
+    callback(valid);
 }
 
 // Get the given data set

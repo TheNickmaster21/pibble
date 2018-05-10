@@ -32,10 +32,11 @@
                href="#!" v-on:click="selectRuleSetOption(option)">{{option.display}}</a>
         </div>
     </div>
-
-    <br/><br/>
+    <div v-if="constraintViolation" class="margin-med alert alert-warning" role="warning">
+        The scraped data has replaced the existing data for this company.
+    </div>
     <ul id="scrape-list">
-        <li v-for="result in scrapeResults">{{result}}</li>
+        <li v-for="result in scrapeResults"><b>{{result.key}}</b> - {{result.value}}</li>
     </ul>
 
     <footer>

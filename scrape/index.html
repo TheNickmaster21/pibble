@@ -31,9 +31,11 @@
                href="#!" v-on:click="selectRuleSetOption(option);">{{option.name}}</a>
         </div>
     </div>
-    <br/>
+    <div v-if="constraintViolation" class="margin-med alert alert-danger" role="alert">
+        The scraped data violates a unique constraint and has not been saved!
+    </div>
     <ul id="scrape-list">
-        <li v-for="result in scrapeResults">{{result}}</li>
+        <li v-for="result in scrapeResults"><b>{{result.key}}</b> - {{result.value}}</li>
     </ul>
     <br/>
     <br/>
